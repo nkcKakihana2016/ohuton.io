@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Gg_Slider : MonoBehaviour
 {
+
     Slider _Slider;
 	void Start ()
     {
@@ -30,7 +31,6 @@ public class Gg_Slider : MonoBehaviour
                 _Gg = 0;
             }
         }
-
 
         _Slider.value = _Gg;
 	}
