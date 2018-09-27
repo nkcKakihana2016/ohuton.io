@@ -13,7 +13,7 @@ public class delete : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-		
+        speedup = true;//スタートしたら使える
 	}
 	
 	// Update is called once per frame
@@ -25,7 +25,7 @@ public class delete : MonoBehaviour
             speedup = true;//5以上になったらtrue
             Debug.Log("5以上になったんご");
         }
-		
+        futonpurge();
 	}
 
     public void OnTriggerEnter(Collider other)
@@ -44,5 +44,18 @@ public class delete : MonoBehaviour
     public void SetCount()
     {
         count.text = string.Format("count:{0}", countup);//反映させる
+    }
+
+    public void futonpurge()
+    {
+        if (speedup)
+        {
+            Debug.Log("立ったフラグが立った‼");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                speedup = false;
+                Debug.Log("帰ったフラグが帰った!!");
+            }
+        }
     }
 }
