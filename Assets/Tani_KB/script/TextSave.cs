@@ -15,6 +15,4 @@ public class TextSave : MonoBehaviour
         text.text = str;
         inputField.text = "";
     }
-
-	
 }
