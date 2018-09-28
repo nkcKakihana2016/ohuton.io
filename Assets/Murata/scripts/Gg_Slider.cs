@@ -9,10 +9,14 @@ public class Gg_Slider : MonoBehaviour
     Slider _Slider;
     //ゲージ値
     public int _Gg = 0;
+    //ゲージMax指定
+    public int MAX_Gg=5;
+    //ゲージMIN指定
+    public int MIN_Gg = 0;
     //カメラ
     public GameObject Camera;
     //距離の制限5段階
-    public float One, two, three, fore, five; 
+    public float One, Two, Three, Fore, Five,Six; 
 
     void Start ()
     {
@@ -31,7 +35,7 @@ public class Gg_Slider : MonoBehaviour
             if (_Gg>_Slider.maxValue)
             {
                 //5以上にしない
-                _Gg = 5;
+                _Gg = MAX_Gg;
             }
         }
         //キー入力P
@@ -43,7 +47,7 @@ public class Gg_Slider : MonoBehaviour
             if (_Gg<_Slider.minValue)
             {
                 //0以下にしない
-                _Gg = 0;
+                _Gg = MIN_Gg;
             }
         }
 
@@ -54,16 +58,19 @@ public class Gg_Slider : MonoBehaviour
                 Camera.transform.position = new Vector3(0f, One, 0f);
                 break;
             case 1:
-                Camera.transform.position = new Vector3(0f, two, 0f);
+                Camera.transform.position = new Vector3(0f, Two, 0f);
                 break;
             case 2:
-                Camera.transform.position = new Vector3(0f,three, 0f);
+                Camera.transform.position = new Vector3(0f,Three, 0f);
                 break;
             case 3:
-                Camera.transform.position = new Vector3(0f, fore, 0f);
+                Camera.transform.position = new Vector3(0f, Fore, 0f);
                 break;
             case 4:
-                Camera.transform.position = new Vector3(0f, five, 0f);
+                Camera.transform.position = new Vector3(0f, Five, 0f);
+                break;
+            case 5:
+                Camera.transform.position = new Vector3(0f, Six, 0f);
                 break;
         }
         //sliderのvalueをゲージと同じにする

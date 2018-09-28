@@ -1972,12 +1972,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Gg: 0
+  MAX_Gg: 5
+  MIN_Gg: 0
   Camera: {fileID: 1552192928}
   One: 10
-  two: 20
-  three: 30
-  fore: 40
-  five: 50
+  Two: 20
+  Three: 30
+  Fore: 40
+  Five: 50
+  Six: 60
 --- !u!114 &1532429799
 MonoBehaviour:
   m_ObjectHideFlags: 0
