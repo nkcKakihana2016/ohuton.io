@@ -34,6 +34,23 @@ public class PlayerControl : MonoBehaviour
         {
             transform.position -= transform.right * speed * Time.deltaTime;
         }
+        //加速
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position += transform.forward * speed * Time.deltaTime * 2;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position -= transform.forward * speed * Time.deltaTime * 2;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position += transform.right * speed * Time.deltaTime * 2;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position -= transform.right * speed * Time.deltaTime * 2;
+        }
     }
 
     //public void OnTriggerEnter(Collider other)
