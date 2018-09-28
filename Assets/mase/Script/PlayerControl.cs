@@ -6,11 +6,15 @@ public class PlayerControl : MonoBehaviour
 {
     public float speed;//速さ
     public float Big;//大きさ
+    public GameObject gameobj;
 
 
     // Use this for initialization
     void Start ()
     {
+
+        gameobj.GetComponent<delete>();
+
 	}
 	
 	// Update is called once per frame
@@ -34,22 +38,26 @@ public class PlayerControl : MonoBehaviour
         {
             transform.position -= transform.right * speed * Time.deltaTime;
         }
-        //加速
-        if (Input.GetKey(KeyCode.W))
+
+        if (speedup)
         {
-            transform.position += transform.forward * speed * Time.deltaTime * 2;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position -= transform.forward * speed * Time.deltaTime * 2;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += transform.right * speed * Time.deltaTime * 2;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position -= transform.right * speed * Time.deltaTime * 2;
+            //加速
+            if (Input.GetKey(KeyCode.W))
+            {
+                transform.position += transform.forward * speed * Time.deltaTime * 2;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.position -= transform.forward * speed * Time.deltaTime * 2;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.position += transform.right * speed * Time.deltaTime * 2;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.position -= transform.right * speed * Time.deltaTime * 2;
+            }
         }
     }
 
