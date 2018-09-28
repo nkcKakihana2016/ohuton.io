@@ -13,6 +13,7 @@ public class HusumaOC : MonoBehaviour
     {
         Husuma.SetBool("open", false);
         Husuma.SetBool("close", false);
+        Husuma.SetBool("normal", false);
     }
 	
 	// Update is called once per frame
@@ -27,6 +28,13 @@ public class HusumaOC : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             Husuma.SetBool("open", false);
-            Husuma.SetBool("close", true);        }
+            Husuma.SetBool("close", true);
+            Husuma.SetBool("normal", false);
+        }
+        if(Input.GetKey(KeyCode.S))
+        {
+            Husuma.SetBool("close", false);
+            Husuma.SetBool("normal", true);
+        }
     }
 }
