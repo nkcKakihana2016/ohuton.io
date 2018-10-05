@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ゲージ移動
+/// </summary>
 public class Gg_Slider : MonoBehaviour
 {
     //ゲージslider
@@ -26,13 +29,22 @@ public class Gg_Slider : MonoBehaviour
    
 	void Update ()
     {
+        //ゲージ移動
+        GAGE();
+	}
+
+    /// <summary>
+    /// ゲージ移動
+    /// </summary>
+    private void GAGE()
+    {
         //キー入力O
-		if(Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             //値を追加
             _Gg += 1;
             //ゲージの値がMax以上なら
-            if (_Gg>_Slider.maxValue)
+            if (_Gg > _Slider.maxValue)
             {
                 //5以上にしない
                 _Gg = MAX_Gg;
@@ -44,7 +56,7 @@ public class Gg_Slider : MonoBehaviour
             //値を減少
             _Gg -= 1;
             //ゲージの値がMIN以下なら
-            if (_Gg<_Slider.minValue)
+            if (_Gg < _Slider.minValue)
             {
                 //0以下にしない
                 _Gg = MIN_Gg;
@@ -61,7 +73,7 @@ public class Gg_Slider : MonoBehaviour
                 Camera.transform.position = new Vector3(0f, Two, 0f);
                 break;
             case 2:
-                Camera.transform.position = new Vector3(0f,Three, 0f);
+                Camera.transform.position = new Vector3(0f, Three, 0f);
                 break;
             case 3:
                 Camera.transform.position = new Vector3(0f, Fore, 0f);
@@ -75,5 +87,5 @@ public class Gg_Slider : MonoBehaviour
         }
         //sliderのvalueをゲージと同じにする
         _Slider.value = _Gg;
-	}
+    }
 }
