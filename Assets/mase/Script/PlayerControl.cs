@@ -41,6 +41,11 @@ public class PlayerControl : MonoBehaviour
             transform.position -= transform.right * speed * Time.deltaTime;
         }
 
+        //if ()
+        //{
+
+        //}
+
     }
 
     //public void OnTriggerEnter(Collider other)
