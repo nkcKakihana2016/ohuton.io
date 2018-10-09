@@ -22,10 +22,12 @@ public class SceneFader : MonoBehaviour
     {
         //シーン名と同じなら
         Next_Scene = NextSceneName;
+        //シーンをロード
+        SceneManager.LoadScene(Next_Scene);
     }
 
 	void Update ()
     {
-		
+        
 	}
 }
