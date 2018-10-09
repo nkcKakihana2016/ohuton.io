@@ -6,16 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneFader : MonoBehaviour
 {
-    public static string Next_Scene;
+    GameObject husumaMas;
+
+    public string Next_Scene;
 
 	void Start ()
     {
-		
+        husumaMas = GameObject.Find("Husuma_test");
 	}
 
     public void StageSelect(string NextSceneName)
     {
         Next_Scene = NextSceneName;
+        
     }
 
 	void Update ()
