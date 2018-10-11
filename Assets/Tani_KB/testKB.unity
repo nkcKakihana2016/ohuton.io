@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 290533943}
   - component: {fileID: 290533942}
   - component: {fileID: 290533941}
+  - component: {fileID: 290533940}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -236,6 +237,18 @@ RectTransform:
   m_AnchoredPosition: {x: 423, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &290533940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290533938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3437b303d554e7489a7bf4915af700b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextSceneName: TextGyro
 --- !u!114 &290533941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,9 +288,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1624271427}
-        m_MethodName: StageSelect
-        m_Mode: 5
+      - m_Target: {fileID: 601738519}
+        m_MethodName: NormalOpen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1408,8 +1421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3437b303d554e7489a7bf4915af700b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  husumaMas: {fileID: 601738518}
-  Next_Scene: TestGyro
+  NextSceneName: TestGyro
 --- !u!1 &1781491408
 GameObject:
   m_ObjectHideFlags: 0

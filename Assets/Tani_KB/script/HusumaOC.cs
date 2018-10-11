@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HusumaOC : MonoBehaviour
 {
     public Animator Husuma;
+    public float SceneTimer = 3.0f;
 
 	// Use this for initialization
 	void Start ()
