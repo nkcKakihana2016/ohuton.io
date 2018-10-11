@@ -6,9 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneFader : MonoBehaviour
 {
-
-    // 現在のシーン名
-    private string SceneName;
     //次のシーン
     public string NextSceneName;
 
