@@ -64,12 +64,30 @@ public class SampleController : MonoBehaviour
     {
         if (speedup)
         {
-            Debug.Log("立ったフラグが立った‼");
-            if (Input.GetKeyDown(KeyCode.Space))
+            //加速
+            if (Input.GetKey(KeyCode.W))
             {
-                speedup = false;
-                Debug.Log("帰ったフラグが帰った!!");
+                transform.position += transform.forward * speed * 2 * Time.deltaTime;
             }
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.position -= transform.forward * speed * 2 * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.position += transform.right * speed * 2 * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.position -= transform.right * speed * 2 * Time.deltaTime;
+            }
+
+            Debug.Log("立ったフラグが立った‼");
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    speedup = false;
+            //    Debug.Log("帰ったフラグが帰った!!");
+            //}
         }
     }
 

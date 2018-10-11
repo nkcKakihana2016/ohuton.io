@@ -1970,7 +1970,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'count:'
+  m_Text: count:0
 --- !u!222 &1828219363
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2035,8 +2035,8 @@ GameObject:
   - component: {fileID: 1967180027}
   - component: {fileID: 1967180026}
   - component: {fileID: 1967180025}
-  - component: {fileID: 1967180029}
   - component: {fileID: 1967180030}
+  - component: {fileID: 1967180029}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Player
@@ -2104,7 +2104,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1967180024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.7, y: 0.5, z: 0}
+  m_LocalPosition: {x: 6.7, y: 0.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2118,12 +2118,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1967180024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 124a3c5ebb5ad29468114a48559d615d, type: 3}
+  m_Script: {fileID: 11500000, guid: c71a1ddfb23e02f48901beeb547290a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  Big: 0.1
-  obj: {fileID: 0}
+  speed: 2.5
+  Big: 0.15
+  count: {fileID: 1828219362}
+  countup: 0
 --- !u!54 &1967180030
 Rigidbody:
   m_ObjectHideFlags: 0
