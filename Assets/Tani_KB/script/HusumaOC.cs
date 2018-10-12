@@ -8,11 +8,16 @@ using UnityEngine.SceneManagement;
 
 public class HusumaOC : MonoBehaviour
 {
+    //ふすまのアニメーション
     public Animator Husuma;
-    public float SceneTimer = 3.0f;
 
-    //次のシーン
+    //次のシーンを指定
     public string NextSceneName;
+
+    //ふすまのアニメーションをint型で選ぶ
+    public int SceneEfe = 0;
+
+    bool MoveScene;
 
     // Use this for initialization
     void Start ()
@@ -21,6 +26,8 @@ public class HusumaOC : MonoBehaviour
         Husuma.SetBool("open", false);
         Husuma.SetBool("close", false);
         Husuma.SetBool("normal", false);
+
+        MoveScene = false;
     }
 	
 	// Update is called once per frame
@@ -29,31 +36,63 @@ public class HusumaOC : MonoBehaviour
        
     }
 
-    //ゲームシーンの最初に使う
-    public void NormalOpen()
+    //他スクリプトからケースごとにアニメーションを選んでもらう
+    public void ChangeScene()
     {
-        Husuma.SetBool("close", false);
-        Husuma.SetBool("normal", true);
-    }
+       switch(SceneEfe)
+        {
+            //次のシーンへ飛ぶときに使う
+            case 0:
+                Husuma.SetBool("open", false);
+                Husuma.SetBool("close", true);
+                Husuma.SetBool("normal", false);
+                Invoke("StageSelect", 2.0f);
+                break;
 
-    //リザルトの最初に使う
-    public void ResultOpen()
-    {
-        Husuma.SetBool("open", true);
-        Husuma.SetBool("close", false);
-    }
+            //ゲームシーンの最初に使う
+            case 1:
+                Husuma.SetBool("normal", true);
+                Husuma.SetBool("close", false);
+                break;
 
-    //次のシーンへ飛ぶときに使う
-    public void CloseHusuma()
-    {
-        Husuma.SetBool("open", false);
-        Husuma.SetBool("close", true);
-        Husuma.SetBool("normal", false);
+            //リザルトの最初に使う
+            case 2:
+                Husuma.SetBool("open", true);
+                Husuma.SetBool("close", false);
+                break;
+        }
     }
 
     public void StageSelect()
     {
         SceneManager.LoadScene(NextSceneName);
-
     }
+
+    ////ゲームシーンの最初に使う
+    //public void NormalOpen()
+    //{
+    //    Husuma.SetBool("close", false);
+    //    Husuma.SetBool("normal", true);
+    //}
+
+    ////リザルトの最初に使う
+    //public void ResultOpen()
+    //{
+    //    Husuma.SetBool("open", true);
+    //    Husuma.SetBool("close", false);
+    //}
+
+    ////次のシーンへ飛ぶときに使う
+    //public void CloseHusuma()
+    //{
+    //    Husuma.SetBool("open", false);
+    //    Husuma.SetBool("close", true);
+    //    Husuma.SetBool("normal", false);
+    //}
+
+    //public void StageSelect()
+    //{
+    //    SceneManager.LoadScene(NextSceneName);
+
+    //}
 }

@@ -2,26 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
+
+//このスクリプトはゲームマネージャーをつくったら消す
 public class SceneFader : MonoBehaviour
 {
-    //次のシーン
-    public string NextSceneName;
+    GameObject HusumaTest;
+
+    HusumaOC husumaSc;
 
 	void Start ()
     {
-        
+        HusumaTest = GameObject.Find("Husuma_test");
+        husumaSc = HusumaTest.GetComponent<HusumaOC>();
+       
 	}
-
-    public void StageSelect()
-    {
-        SceneManager.LoadScene(NextSceneName);
-
-    }
 
 	void Update ()
     {
-		
+		if(Input.GetKey(KeyCode.A))
+        {
+            husumaSc.SceneEfe = 0;
+            husumaSc.ChangeScene();
+        }
+        if(Input.GetKey(KeyCode.S))
+        {
+            husumaSc.SceneEfe = 1;
+            husumaSc.ChangeScene();
+        }
 	}
 }
