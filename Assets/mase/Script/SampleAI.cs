@@ -19,4 +19,12 @@ public class SampleAI : MonoBehaviour
     {
         agent.SetDestination(target.position);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "HitBox")
+        {
+            Debug.Log("当たったんご");
+        }
+    }
 }
