@@ -30,5 +30,10 @@ public class SceneFader : MonoBehaviour
             husumaSc.SceneEfe = 1;
             husumaSc.ChangeScene();
         }
+        if(Input.GetKey(KeyCode.D))
+        {
+            husumaSc.SceneEfe = 2;
+            husumaSc.ChangeScene();
+        }
 	}
 }

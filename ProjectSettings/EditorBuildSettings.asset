@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tani_KB/TestGyro.unity
     guid: de95506d1a27457469746b1726d15032
+  - enabled: 1
+    path: Assets/test2.unity
+    guid: dc373632b9c49fb43911b1dc0b7be81d

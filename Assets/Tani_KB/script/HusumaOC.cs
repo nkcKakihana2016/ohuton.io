@@ -59,6 +59,7 @@ public class HusumaOC : MonoBehaviour
             case 2:
                 Husuma.SetBool("open", true);
                 Husuma.SetBool("close", false);
+                Invoke("StageSelect", 3.0f);
                 break;
         }
     }
@@ -67,32 +68,4 @@ public class HusumaOC : MonoBehaviour
     {
         SceneManager.LoadScene(NextSceneName);
     }
-
-    ////ゲームシーンの最初に使う
-    //public void NormalOpen()
-    //{
-    //    Husuma.SetBool("close", false);
-    //    Husuma.SetBool("normal", true);
-    //}
-
-    ////リザルトの最初に使う
-    //public void ResultOpen()
-    //{
-    //    Husuma.SetBool("open", true);
-    //    Husuma.SetBool("close", false);
-    //}
-
-    ////次のシーンへ飛ぶときに使う
-    //public void CloseHusuma()
-    //{
-    //    Husuma.SetBool("open", false);
-    //    Husuma.SetBool("close", true);
-    //    Husuma.SetBool("normal", false);
-    //}
-
-    //public void StageSelect()
-    //{
-    //    SceneManager.LoadScene(NextSceneName);
-
-    //}
 }
