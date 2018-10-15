@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chara : MonoBehaviour {
+public class Chara : Photon.MonoBehaviour {
 
     // キャラクタースクリプト Photon動作確認用
 
@@ -21,7 +21,8 @@ public class Chara : MonoBehaviour {
     プレイヤー２ ViewID:2001
     プレイヤーＣ ViewID:3001
     */
-    int myViewId;
+    [SerializeField] int myViewId;
+    [SerializeField] int viewid;
 
     // 使用するキャラクターコントローラー
     public CharacterController myCC;
@@ -46,6 +47,7 @@ public class Chara : MonoBehaviour {
             // PhotonviewよりviewIDを取得
             myViewId = myPhotonView.viewID;
             playerSettings = GameObject.FindObjectOfType<MultiPlayerSettings>().GetComponent<MultiPlayerSettings>();
+            viewid = playerSettings.MultyPlayerEntry(PhotonNetwork.player, PhotonNetwork.playerName, myPhotonView.viewID);
 
            // ViewIDの千の位によりプレイヤーの色を変える
             switch (myViewId /= 1000)
