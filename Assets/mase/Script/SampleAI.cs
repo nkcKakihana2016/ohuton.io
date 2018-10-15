@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class SampleAI : MonoBehaviour
 {
-    public Transform target;
+    public GameObject[] targetObj;
     NavMeshAgent agent;
 
     // Use this for initialization
@@ -17,7 +17,7 @@ public class SampleAI : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        agent.SetDestination(target.position);
+     //   agent.SetDestination(target.position);
     }
 
     public void OnTriggerEnter(Collider other)
