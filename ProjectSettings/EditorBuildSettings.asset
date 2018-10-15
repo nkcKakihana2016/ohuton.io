@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Murata/scenes/Tes1.unity
+    guid: 07c5b3c76b7d087459fb2010ab59ae01
+  - enabled: 1
+    path: Assets/Murata/scenes/Tes2.unity
+    guid: d045ee7cd14ad3f4b8ad63b63e370b37
+  - enabled: 1
+    path: Assets/Murata/scenes/Tes3.unity
+    guid: 5df836d791512344a9536ba0524bdcce
