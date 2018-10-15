@@ -10,6 +10,19 @@ public class Chara : MonoBehaviour {
     public PhotonView myPhotonView;
     public PhotonTransformView myPhotonTransformView;
 
+    public MultiPlayerSettings playerSettings;
+
+    // 自分のPhotonViewID
+    /* ViewIDについての補足 */
+    /*
+    ViewIDはプレイヤーごとに千の倍数で振り分けられる
+    例：
+    プレイヤー１ ViewID:1001
+    プレイヤー２ ViewID:2001
+    プレイヤーＣ ViewID:3001
+    */
+    int myViewId;
+
     // 使用するキャラクターコントローラー
     public CharacterController myCC;
 
@@ -30,6 +43,32 @@ public class Chara : MonoBehaviour {
             mainCam = Camera.main;
             // カメラスクリプト内にあるターゲット座標変数に自キャラの座標を格納
             mainCam.GetComponent<CameraManager>().target = this.gameObject.transform;
+            // PhotonviewよりviewIDを取得
+            myViewId = myPhotonView.viewID;
+            playerSettings = GameObject.FindObjectOfType<MultiPlayerSettings>().GetComponent<MultiPlayerSettings>();
+
+           // ViewIDの千の位によりプレイヤーの色を変える
+            switch (myViewId /= 1000)
+            {
+                case 1:
+                    this.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
+                    break;
+                case 2:
+                    this.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
+                    break;
+                case 3:
+                    this.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
+                    break;
+                case 4:
+                    this.GetComponent<Renderer>().material.color = new Color(100, 255, 255);
+                    break;
+                case 5:
+                    this.GetComponent<Renderer>().material.color = new Color(255, 0, 255);
+                    break;
+                case 6:
+                    this.GetComponent<Renderer>().material.color = new Color(255, 255, 100);
+                    break;
+            }
         }
 	}
 	
