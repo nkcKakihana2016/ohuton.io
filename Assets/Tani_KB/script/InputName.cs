@@ -26,7 +26,7 @@ public class InputName : MonoBehaviour
         this.nameText = gameObject.transform.Find("NameText");
 
         // キーボードを表示する
-        this.keyboard = TouchScreenKeyboard.Open(this.inputtedName, TouchScreenKeyboardType.Default);
+        this.keyboard = TouchScreenKeyboard.Open(this.inputtedName, TouchScreenKeyboardType.Default, false, false, true, true);
     }
 
     void Update()

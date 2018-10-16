@@ -12,9 +12,14 @@ public class KeyBoardAndroid : MonoBehaviour
 	
 	public void OpenKeyBoard ()
     {
-        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, true, true);
 	}
 	
+    public void PushOkName()
+    {
+
+    }
+
 	// Update is called once per frame
 	void Update ()
     {
