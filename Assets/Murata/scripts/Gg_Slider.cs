@@ -36,7 +36,7 @@ public class Gg_Slider : MonoBehaviour
     /// <summary>
     /// ゲージ移動
     /// </summary>
-    private void GAGE()
+    public void GAGE()
     {
         //キー入力O
         if (Input.GetKeyDown(KeyCode.O))

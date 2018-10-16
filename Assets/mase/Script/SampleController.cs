@@ -10,11 +10,16 @@ public class SampleController : MonoBehaviour
     public Text count;//テキスト
     public int countup = 0;//カウント
     public static bool speedup = false;//スピードを上げるフラグ
+    GameObject Acceleratorline;
+    Gg_Slider Mscript;
 
     // Use this for initialization
     void Start ()
     {
+        Acceleratorline = GameObject.Find("Gg_Slider");
+        Mscript = Acceleratorline.GetComponent<Gg_Slider>();
         speedup = true;//スタートしたら使える
+
     }
 	
 	// Update is called once per frame
@@ -45,6 +50,8 @@ public class SampleController : MonoBehaviour
         {
             transform.position -= transform.right * speed * Time.deltaTime;
         }
+
+        Mscript.GAGE();
     }
 
     public void OnTriggerEnter(Collider other)
