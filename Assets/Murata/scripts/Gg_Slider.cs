@@ -13,7 +13,7 @@ public class Gg_Slider : MonoBehaviour
     //ゲージ値
     public int _Gg = 0;
     //ゲージMax指定
-    public int MAX_Gg=5;
+    public int MAX_Gg=100;
     //ゲージMIN指定
     public int MIN_Gg = 0;
     //カメラ
@@ -25,6 +25,7 @@ public class Gg_Slider : MonoBehaviour
     {
         //Gg_sliderを取得
         _Slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
+        _Gg = 100;
     }
    
 	void Update ()
@@ -42,7 +43,7 @@ public class Gg_Slider : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             //値を追加
-            _Gg += 1;
+            _Gg += 10;
             //ゲージの値がMax以上なら
             if (_Gg > _Slider.maxValue)
             {
@@ -51,7 +52,7 @@ public class Gg_Slider : MonoBehaviour
             }
         }
         //キー入力P
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKey(KeyCode.P))
         {
             //値を減少
             _Gg -= 1;
