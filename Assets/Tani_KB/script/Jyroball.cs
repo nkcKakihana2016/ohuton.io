@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
-    private float speed = 50.0f;
+    private float rotSpeed = 10.0f;
 
     private Vector3 dir;
 
@@ -17,14 +17,14 @@ public class Jyroball : MonoBehaviour
     {
         dir = Vector3.zero;
 
-        dir.z -= Input.acceleration.x;
-        dir.x = Input.acceleration.y;
+        dir.y = Input.acceleration.z;
 
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
 
         dir *= Time.deltaTime;
 
-        transform.Rotate(dir * speed);
+        transform.Rotate(dir * rotSpeed);
+
     }
 }

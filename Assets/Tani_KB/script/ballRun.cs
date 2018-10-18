@@ -4,33 +4,18 @@ using UnityEngine;
 
 public class BallRun : MonoBehaviour
 {
-    private float speed = 10.0f;
+    public int rotSpeed = 150;
 
-    private Vector3 dir;
-
-   
 	// Use this for initialization
 	void Start ()
     {
-        
-	}
+       
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        dir = Vector3.zero;
-       
-
-        dir.x = Input.acceleration.x;
-        dir.z = Input.acceleration.y;
-
-       
-        if (dir.sqrMagnitude > 1)
-            dir.Normalize();
-
-
-        dir *= Time.deltaTime;
-        
-        transform.Translate(dir * speed);
+        //rb.angularVelocity = new Vector3(rotSpeed, 0, 0);
+        transform.Rotate(new Vector3(rotSpeed, 0, 0) * Time.deltaTime);
     }
 }
