@@ -9,7 +9,7 @@ public class SampleController : MonoBehaviour
     public float Big;//大きさ
     public Text count;//テキスト
     public int countup = 0;//カウント
-    public static bool speedup = false;//スピードを上げるフラグ
+    public  bool speedup = false;//スピードを上げるフラグ
     GameObject Acceleratorline;
     Gg_Slider Mscript;
 
@@ -26,10 +26,11 @@ public class SampleController : MonoBehaviour
 	void Update ()
     {
         //カウントの判定
-        if (countup >= 5)
+        if (speedup)
         {
-            speedup = true;//5以上になったらtrue
-            Debug.Log("5以上になったんご");
+            Mscript.GAGE();
+            //speedup = true;//5以上になったらtrue
+            //Debug.Log("5以上になったんご");
         }
         futonpurge();
 
@@ -50,8 +51,6 @@ public class SampleController : MonoBehaviour
         {
             transform.position -= transform.right * speed * Time.deltaTime;
         }
-
-        Mscript.GAGE();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -59,8 +58,8 @@ public class SampleController : MonoBehaviour
         //当たり判定
         if (other.gameObject.tag == "point")
         {
-            countup += 1;//とったら1ずつ上がっていく
-            SetCount();
+            //countup += 1;//とったら1ずつ上がっていく
+            //SetCount();
             Destroy(other.gameObject);
             //サイズ変更
             this.transform.localScale += new Vector3(Big, Big, Big);
@@ -98,8 +97,8 @@ public class SampleController : MonoBehaviour
         }
     }
 
-    public void SetCount()
-    {
-        count.text = string.Format("count:{0}", countup);//反映させる
-    }
+    //public void SetCount()
+    //{
+    //    count.text = string.Format("count:{0}", countup);//反映させる
+    //}
 }
