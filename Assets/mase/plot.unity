@@ -2426,6 +2426,36 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114123931530936988, guid: 6a56ada9812ac4c44be294ea7b03b5cb,
+        type: 2}
+      propertyPath: One
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114123931530936988, guid: 6a56ada9812ac4c44be294ea7b03b5cb,
+        type: 2}
+      propertyPath: Two
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114123931530936988, guid: 6a56ada9812ac4c44be294ea7b03b5cb,
+        type: 2}
+      propertyPath: Three
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114123931530936988, guid: 6a56ada9812ac4c44be294ea7b03b5cb,
+        type: 2}
+      propertyPath: Fore
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114123931530936988, guid: 6a56ada9812ac4c44be294ea7b03b5cb,
+        type: 2}
+      propertyPath: Five
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114123931530936988, guid: 6a56ada9812ac4c44be294ea7b03b5cb,
+        type: 2}
+      propertyPath: Six
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6a56ada9812ac4c44be294ea7b03b5cb, type: 2}
   m_IsPrefabParent: 0
@@ -2531,6 +2561,7 @@ MonoBehaviour:
   Big: 0.15
   count: {fileID: 1828219362}
   countup: 0
+  speedup: 0
 --- !u!54 &1967180030
 Rigidbody:
   m_ObjectHideFlags: 0
