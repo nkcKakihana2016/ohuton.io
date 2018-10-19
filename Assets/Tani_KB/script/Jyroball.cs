@@ -43,6 +43,7 @@ public class Jyroball : MonoBehaviour
             //PlayerObjのZ軸方向に向かって進む
             transform.Translate(new Vector3(0, 0, 0));
         }
+
     }
 
 
@@ -63,7 +64,7 @@ public class Jyroball : MonoBehaviour
 
         if(inputVertical>0.5)
         {
-            transform.Rotate(0, inputHorizontal * 5, 0);
+            transform.Rotate(0, inputHorizontal * 4, 0);
         }
     }
 }

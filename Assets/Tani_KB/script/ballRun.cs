@@ -26,6 +26,12 @@ public class BallRun : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, 0));
             DamageFlg = false;
         }
+
+       //ダメージ受けたら（仮）
+       if(Input.GetKey(KeyCode.Space))
+        {
+            DamageFlg = true;
+        }
     }
 
     public void Move()

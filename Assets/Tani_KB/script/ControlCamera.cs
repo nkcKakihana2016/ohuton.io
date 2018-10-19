@@ -13,7 +13,7 @@ public class ControlCamera : MonoBehaviour
     {
         //PlayerObjの真上に来るようにする
         Vector3 plyPos = GameObject.Find("PlayerObj").transform.position;
-        transform.position = new Vector3(plyPos.x, 8.6f, plyPos.z);
+        transform.position = new Vector3(plyPos.x, 10.0f, plyPos.z);
 
         //プレイヤーとカメラ間の距離を取得してそのオフセット値を計算し、格納します。
         offset = transform.position - player.transform.position;
