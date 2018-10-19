@@ -11,13 +11,13 @@ public class SampleController : MonoBehaviour
     public int countup = 0;//カウント
     public  bool speedup = false;//スピードを上げるフラグ
     GameObject Acceleratorline;
-    Gg_Slider Mscript;
+    Gg_Slider MurataScript;
 
     // Use this for initialization
     void Start ()
     {
         Acceleratorline = GameObject.Find("Gg_Slider");
-        Mscript = Acceleratorline.GetComponent<Gg_Slider>();
+        MurataScript = Acceleratorline.GetComponent<Gg_Slider>();
         speedup = true;//スタートしたら使える
 
     }
@@ -28,11 +28,12 @@ public class SampleController : MonoBehaviour
         //カウントの判定
         if (speedup)
         {
-            Mscript.GAGE();
+            MurataScript.GAGE();
             //speedup = true;//5以上になったらtrue
-            //Debug.Log("5以上になったんご");
+            Debug.Log("参照したんご");
         }
         futonpurge();
+
 
         //移動
         if (Input.GetKey("up"))
@@ -61,6 +62,10 @@ public class SampleController : MonoBehaviour
             //countup += 1;//とったら1ずつ上がっていく
             //SetCount();
             Destroy(other.gameObject);
+            MurataScript.GetComponent<Gg_Slider>()._Gg += 10;
+            speedup = true;
+
+            Debug.Log("このはげー");
             //サイズ変更
             this.transform.localScale += new Vector3(Big, Big, Big);
         }
@@ -74,18 +79,22 @@ public class SampleController : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 transform.position += transform.forward * speed * 2 * Time.deltaTime;
+                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
             }
             if (Input.GetKey(KeyCode.S))
             {
                 transform.position -= transform.forward * speed * 2 * Time.deltaTime;
+                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
             }
             if (Input.GetKey(KeyCode.D))
             {
                 transform.position += transform.right * speed * 2 * Time.deltaTime;
+                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
             }
             if (Input.GetKey(KeyCode.A))
             {
                 transform.position -= transform.right * speed * 2 * Time.deltaTime;
+                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
             }
 
             Debug.Log("立ったフラグが立った‼");

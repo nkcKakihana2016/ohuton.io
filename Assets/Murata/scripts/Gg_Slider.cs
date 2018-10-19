@@ -53,7 +53,7 @@ public class Gg_Slider : MonoBehaviour
             {
                 //5以上にしない
                 _Gg = MAX_Gg;
-                
+
             }
         }
         //キー入力P
