@@ -4,27 +4,66 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
-    private float rotSpeed = 10.0f;
+    //private float rotSpeed = 10.0f;
 
-    private Vector3 dir;
+    //private Vector3 dir;
+
+    float inputHorizontal;
+    float inputVertical;
+
+
+    public float moveSpeed = 3f;//プレイヤーのスピード
+
+    GameObject child;
+    BallRun ballRun;
 
     void Start()
     {
-     
+        child = GameObject.Find("Child");
+        ballRun = child.GetComponent<BallRun>();
+
     }
 
     void Update()
     {
-        dir = Vector3.zero;
+        if(ballRun.DamageFlg==false)
+        {
+            //PlayerObjのZ軸方向に向かって進む
+            transform.Translate(new Vector3(0, 0, moveSpeed) * Time.deltaTime);
 
-        dir.y = Input.acceleration.z;
+            //左右キーで進行角度を変化させる
+            inputHorizontal = Input.GetAxisRaw("Horizontal");
+            inputVertical = Input.GetAxisRaw("Vertical");
 
-        if (dir.sqrMagnitude > 1)
-            dir.Normalize();
+            //ジャイロ操作のメソッド呼び出し
+            JyroMove();
+        }
+        if(ballRun.DamageFlg==true)
+        {
+            //PlayerObjのZ軸方向に向かって進む
+            transform.Translate(new Vector3(0, 0, 0));
+        }
+    }
 
-        dir *= Time.deltaTime;
 
-        transform.Rotate(dir * rotSpeed);
+    //ジャイロ操作統括
+    public void JyroMove()
+    {
+        //    dir = Vector3.zero;
 
+        //    dir.y = Input.acceleration.z;
+
+        //    if (dir.sqrMagnitude > 1)
+        //        dir.Normalize();
+
+        //    dir *= Time.deltaTime;
+
+        //    transform.Rotate(dir * rotSpeed);
+        transform.Rotate(0, inputHorizontal*2, 0);
+
+        if(inputVertical>0.5)
+        {
+            transform.Rotate(0, inputHorizontal * 5, 0);
+        }
     }
 }
