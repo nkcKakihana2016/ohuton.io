@@ -6,6 +6,8 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LobbyManager : Photon.MonoBehaviour {
 
+    [SerializeField] GameMaster gm;
+
     // 左からプレイヤー人数、プレイヤー最大人数、ルーム作成者オブジェクト
     object playerNumObj, playerMaxNumObj, roomCreatorObj;
 
@@ -20,9 +22,9 @@ public class LobbyManager : Photon.MonoBehaviour {
 
     public Text roomCreatorText;    // ルーム作成者を表示させるテキスト
 
-    public GameObject readyButton;
-    public GameObject roomCustomButton;
-    public GameObject roomCustomPanel;
+    public Button readyButton;      // 準備完了ボタン
+    public GameObject roomCustomButton; // ルーム設定表示用UI
+    public GameObject roomCustomPanel;  // ルーム設定画面UI
 
     void Awake()
     {
@@ -32,6 +34,17 @@ public class LobbyManager : Photon.MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Debug.Log("kenti"); // デバッグ用
+        gm = this.gameObject.GetComponent<GameMaster>();
+        Debug.Log(PhotonNetwork.masterClient);
+        roomCustomPanel.SetActive(false);
+        if (PhotonNetwork.playerName == PhotonNetwork.masterClient.NickName)
+        {
+            roomCustomButton.SetActive(true);
+        }
+        else
+        {
+            roomCustomButton.SetActive(false);
+        }
         // 現在のプレイヤー人数を取得、一時オブジェクトに格納
         playerNumObj = PhotonNetwork.room.CustomProperties["RoomPlayerNum"];
         // ルーム作成者を取得、一時オブジェクトに格納
@@ -71,33 +84,19 @@ public class LobbyManager : Photon.MonoBehaviour {
         roomCreatorText.text = "ルーム作成者：" + roomCreatorName;
     }
 
+    public void RoomCustomWindow()
+    {
+        roomCustomPanel.SetActive(true);
+    }
+
+    public void ReadyOnClick()
+    {
+        gm.MultiPlayerEntry(PhotonNetwork.player.NickName, photonView.viewID);
+        readyButton.interactable = false;
+    }
+
     public void GetRoomInfo()
     {
     }
 
-    public static void DestroyChildObject(Transform parentTrans)
-    {
-    }
-
-    public void OnReceivedRoomListUpdate()
-    {
-    }
-
-    public void OnPhotonCreateRoomFailed(object[] codeAndMsg)
-    {
-    }
-
-    public void OnPhotonJoinRoomFailed(object[] codeAndMsg)
-    {
-    }
-
-    public void OnJoinedRoom()
-    {
-        
-    }
-
-    public void OnCreatedRoom()
-    {
-        PhotonNetwork.LoadLevel("battle");
-    }
 }
