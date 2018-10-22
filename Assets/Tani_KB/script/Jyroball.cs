@@ -8,7 +8,7 @@ public class Jyroball : MonoBehaviour
 
     //private Vector3 dir;
 
-    float inputHorizontal;
+    float inputHorizontal = 2.0f;
     float inputVertical;
 
 
@@ -19,7 +19,7 @@ public class Jyroball : MonoBehaviour
 
     void Start()
     {
-        child = GameObject.Find("Child");
+        child = GameObject.Find("human");
         ballRun = child.GetComponent<BallRun>();
 
     }

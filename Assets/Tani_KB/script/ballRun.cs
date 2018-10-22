@@ -17,25 +17,31 @@ public class BallRun : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-       if(DamageFlg==false)
-        {
-            Move();
-        }
-       if(DamageFlg==true)
-        {
-            transform.Rotate(new Vector3(0, 0, 0));
-            DamageFlg = false;
-        }
-
-       //ダメージ受けたら（仮）
-       if(Input.GetKey(KeyCode.Space))
+        //ダメージ受けたら（仮）
+        if (Input.GetKey(KeyCode.Space))
         {
             DamageFlg = true;
         }
+
+        if (DamageFlg==false)
+        {
+            Move();
+        }
+
+        if (DamageFlg == true)
+        {
+            StartCoroutine("GetDamage");
+        }
+    }
+    IEnumerator GetDamage()
+    {
+        transform.Rotate(new Vector3(0, 0, 0));
+        yield return new WaitForSeconds(3.0f);
+        DamageFlg = false;
     }
 
     public void Move()
     {
-        transform.Rotate(new Vector3(rotSpeed, 0, 0) * Time.deltaTime);
+        transform.Rotate(new Vector3(0, rotSpeed, 0) * Time.deltaTime);
     }
 }
