@@ -13,6 +13,7 @@ public class SampleController : MonoBehaviour
     GameObject Acceleratorline;
     Gg_Slider MurataScript;
 
+
     // Use this for initialization
     void Start ()
     {
@@ -63,6 +64,10 @@ public class SampleController : MonoBehaviour
             //SetCount();
             Destroy(other.gameObject);
             MurataScript.GetComponent<Gg_Slider>()._Gg += 10;
+            if (MurataScript.GetComponent<Gg_Slider>()._Gg > )
+            {
+
+            }
             speedup = true;
 
             Debug.Log("このはげー");
