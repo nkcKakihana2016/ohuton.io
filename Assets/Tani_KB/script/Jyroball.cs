@@ -12,6 +12,8 @@ public class Jyroball : MonoBehaviour
 
     public float moveSpeed = 3f;//プレイヤーのスピード
 
+    //float inputGyro;
+
     GameObject child;
     BallRun ballRun;
 
@@ -51,11 +53,19 @@ public class Jyroball : MonoBehaviour
     //ジャイロ操作統括
     public void JyroMove()
     {
-        transform.Rotate(0, -gyro.y*10, 0);
-
-        if (gyro.x > 0.35 ||gyro.x < -0.35)
+        if(gyro.y > 0.02|| gyro.y < -0.05)
         {
-            transform.Rotate(0, gyro.y * 15, 0);
+            transform.Rotate(0, -gyro.y * 15, 0);
         }
+
+        //if (gyro.x < -0.5)
+        //{
+        //    transform.Rotate(0, -gyro.y * 15, 0);
+        //}
+        //else if (gyro.x < -0.5 || gyro.y < 0.1)
+        //{
+        //    transform.Rotate(0, gyro.y * 15, 0);
+        //}
+
     }
 }
