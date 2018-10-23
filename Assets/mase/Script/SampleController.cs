@@ -12,11 +12,14 @@ public class SampleController : MonoBehaviour
     public  bool speedup = false;//スピードを上げるフラグ
     GameObject Acceleratorline;
     Gg_Slider MurataScript;
+    Slider slider;//ゲージ 
 
 
     // Use this for initialization
     void Start ()
     {
+        slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
+        //MurataScript.GetComponent<Gg_Slider>()._Gg = 100;
         Acceleratorline = GameObject.Find("Gg_Slider");
         MurataScript = Acceleratorline.GetComponent<Gg_Slider>();
         speedup = true;//スタートしたら使える
@@ -64,9 +67,10 @@ public class SampleController : MonoBehaviour
             //SetCount();
             Destroy(other.gameObject);
             MurataScript.GetComponent<Gg_Slider>()._Gg += 10;
-            if (MurataScript.GetComponent<Gg_Slider>()._Gg > )
+            if (MurataScript.GetComponent<Gg_Slider>()._Gg > slider.maxValue)
             {
-
+                MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MAX_Gg;
+                Debug.Log("これ以上増えないんご");
             }
             speedup = true;
 
@@ -85,21 +89,46 @@ public class SampleController : MonoBehaviour
             {
                 transform.position += transform.forward * speed * 2 * Time.deltaTime;
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                if (MurataScript.GetComponent<Gg_Slider>()._Gg<slider.minValue)
+                {
+
+                    MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
+                    speedup = false;
+
+                }
             }
             if (Input.GetKey(KeyCode.S))
             {
                 transform.position -= transform.forward * speed * 2 * Time.deltaTime;
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
+                {
+
+                    MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
+                    speedup = false;
+                }
             }
             if (Input.GetKey(KeyCode.D))
             {
                 transform.position += transform.right * speed * 2 * Time.deltaTime;
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
+                {
+
+                    MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
+                    speedup = false;
+                }
             }
             if (Input.GetKey(KeyCode.A))
             {
                 transform.position -= transform.right * speed * 2 * Time.deltaTime;
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
+                {
+
+                    MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
+                    speedup = false;
+                }
             }
 
             Debug.Log("立ったフラグが立った‼");

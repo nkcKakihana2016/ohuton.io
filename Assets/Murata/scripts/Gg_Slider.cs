@@ -66,7 +66,7 @@ public class Gg_Slider : MonoBehaviour
             {
                 //0以下にしない
                 _Gg = MIN_Gg;
-                Masescript.GetComponent<SampleController>().speedup = false;
+                //Masescript.GetComponent<SampleController>().speedup = false;
                 Debug.Log("このフラグもう無理ぽ");
                 
             }
