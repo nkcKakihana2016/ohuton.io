@@ -10,7 +10,7 @@ public class Chara : Photon.MonoBehaviour {
     public PhotonView myPhotonView;
     public PhotonTransformView myPhotonTransformView;
 
-    public MultiPlayerSettings playerSettings;
+    public GameMaster gm;
 
     // 自分のPhotonViewID
     /* ViewIDについての補足 */
@@ -45,9 +45,10 @@ public class Chara : Photon.MonoBehaviour {
             // カメラスクリプト内にあるターゲット座標変数に自キャラの座標を格納
             mainCam.GetComponent<CameraManager>().target = this.gameObject.transform;
             // PhotonviewよりviewIDを取得
-            myViewId = myPhotonView.viewID;
-            playerSettings = GameObject.FindObjectOfType<MultiPlayerSettings>().GetComponent<MultiPlayerSettings>();
-            viewid = playerSettings.MultyPlayerEntry(PhotonNetwork.player, PhotonNetwork.playerName, myPhotonView.viewID);
+            myViewId = photonView.viewID;
+            gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+            //myPhotonView.RPC("MultyPlayerEntry", PhotonTargets.All);
+            //gm.MultyPlayerEntry(this, PhotonNetwork.player.NickName, myPhotonView.viewID);
 
            // ViewIDの千の位によりプレイヤーの色を変える
             switch (myViewId /= 1000)
@@ -97,4 +98,13 @@ public class Chara : Photon.MonoBehaviour {
         pos.x = Input.GetAxis("Horizontal");
         pos.z = Input.GetAxis("Vertical");
     }
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting) { /* 書き込み処理 */ }
+        else { /* 読み込み処理 */ }
+    }
+
+    
+    
 }

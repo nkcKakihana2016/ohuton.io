@@ -12,9 +12,11 @@ public class GameMaster : Photon.MonoBehaviour {
 
     public MultiPlayerSettings multiSetting; // マルチプレイヤーのデータ情報
     public LobbyManager lobbyManager; // ロビー管理クラス
+    public PhotonPlayer masterPlayer;
 
     public int maxPlayers; // 最大人数
     public int joinPlayers; // 参加人数
+    public int playerCount = 0; // OnPhotonPlayerConnectedの呼び出し毎にカウントを足す
 
     public GameObject[] playerObj; // プレイヤーのオブジェクト
     public Chara[] playerList; // プレイヤーのコンポーネント
@@ -36,6 +38,7 @@ public class GameMaster : Photon.MonoBehaviour {
         {
             // キャラクターを生成
             GameObject instancePlayer = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity, 0);
+            masterPlayer = PhotonNetwork.masterClient;
         }
         switch (SceneManager.GetActiveScene().name)
         {
@@ -50,15 +53,13 @@ public class GameMaster : Photon.MonoBehaviour {
                 viewIDList = new int[PhotonNetwork.room.MaxPlayers];
                 roomMaster = new bool[PhotonNetwork.room.MaxPlayers];
                 #endregion
+                if (masterPlayer == PhotonNetwork.masterClient)
+                {
+                    playerNameList[playerCount] = masterPlayer.NickName;
+                    playerCount++;
+                }
                 //// キャラクターを生成
                 //GameObject instancePlayer = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity, 0);
-                //for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
-                //{
-                //    playerObj[i] = GameObject.FindGameObjectWithTag("Player");
-                //    playerList[i] = GameObject.FindObjectOfType<Chara>().GetComponent<Chara>();
-                //    viewIDList[i] = playerList[i].myPhotonView.viewID;
-                //    playerNameList[i] = playerList[i].myPhotonView.owner.NickName;
-                //}
                 break;
             case "battle":
                 break;
@@ -77,25 +78,27 @@ public class GameMaster : Photon.MonoBehaviour {
         Debug.Log(player.NickName + " is joined.");
         // デバッグ用、マスタークライアントを表示
         Debug.Log(PhotonNetwork.masterClient.NickName);
-        // ルームリスト更新
+        // 後から接続してきたプレイヤー名を取得、リストに格納
+        playerNameList[playerCount] = player.NickName;
+        // カウントを足す
+        playerCount++;
+        // ルーム情報更新 // RoomInfoUpdate()はLobbyManagerの[PunRPC]下にある
+        photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
         UpdateMemberList();
     }
 
     // プレイヤーが退室したとき呼び出される
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)
     {
-
+        // 〇〇さんがログアウトしました
+        Debug.Log(player.NickName + " is disconnected");
+        // ルーム情報更新
+        photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
     }
 
     void UpdateMemberList()
     {
-        //for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
-        //{
-        //    playerObj[i] = GameObject.FindGameObjectWithTag("Player");
-        //    playerList[i] = playerObj[i].gameObject.GetComponent<Chara>();
-        //    viewIDList[i] = playerList[i].myPhotonView.viewID;
-        //    playerNameList[i] = playerList[i].myPhotonView.owner.NickName;
-        //}
+
     }
 
     public void Ready(int viewID)
