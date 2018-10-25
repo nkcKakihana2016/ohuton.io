@@ -11,18 +11,18 @@ public class GameMaster : Photon.MonoBehaviour {
     public GameObject playerPrefab; // 使用するプレイヤープレファブ
 
     public MultiPlayerSettings multiSetting; // マルチプレイヤーのデータ情報
-    public LobbyManager lobbyManager; // ロビー管理クラス
-    public PhotonPlayer masterPlayer;
+    public LobbyManager lobbyManager;        // ロビー管理クラス
+    public PhotonView masterPhotonView;      // マスタークライアント用PhotonView
+    public PhotonPlayer masterPlayer;        // マスタークライアントのPhotonPlayer情報
 
-    public int maxPlayers; // 最大人数
-    public int joinPlayers; // 参加人数
-    public int playerCount = 0; // OnPhotonPlayerConnectedの呼び出し毎にカウントを足す
+    public int maxPlayers;          // 最大人数
+    public int joinPlayers;         // 参加人数
+    public int playerCount = 0;     // OnPhotonPlayerConnectedの呼び出し毎にカウントを足す
+    public int readyCount = 0;      // 準備完了ボタンを押した人数を保存
+    public int countDownTimer = 3;  // カウントダウンの秒数
 
-    public GameObject[] playerObj; // プレイヤーのオブジェクト
-    public Chara[] playerList; // プレイヤーのコンポーネント
     public string[] playerNameList; // プレイヤー名
-    public int[] viewIDList; // プレイヤーのPhotonViewID
-    public bool[] roomMaster; // マスタークライアントかどうか
+    public int[] viewIDList;        // プレイヤーのPhotonViewID
 
 	// Use this for initialization
 	void Start () {
@@ -38,37 +38,37 @@ public class GameMaster : Photon.MonoBehaviour {
         {
             // キャラクターを生成
             GameObject instancePlayer = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity, 0);
+            // マスタークライアントを取得する
             masterPlayer = PhotonNetwork.masterClient;
         }
+        // ゲームシーン名を取得し、シーンに応じた処理を行う
         switch (SceneManager.GetActiveScene().name)
         {
+            // ロビーシーンの場合の処理
             case "LobbyStage":
-                multiSetting = GetComponent<MultiPlayerSettings>();
-                maxPlayers = PhotonNetwork.room.MaxPlayers;
-                // 各種管理したいプレイヤー情報の最大人数を設定
-                #region
-                playerObj = new GameObject[PhotonNetwork.room.MaxPlayers];
-                playerList = new Chara[PhotonNetwork.room.MaxPlayers];
-                playerNameList = new string[PhotonNetwork.room.MaxPlayers];
-                viewIDList = new int[PhotonNetwork.room.MaxPlayers];
-                roomMaster = new bool[PhotonNetwork.room.MaxPlayers];
-                #endregion
+                // 取得したマスタークライアントが一致していたら
                 if (masterPlayer == PhotonNetwork.masterClient)
                 {
+                    playerNameList = new string[PhotonNetwork.room.MaxPlayers];
+                    viewIDList = new int[PhotonNetwork.room.MaxPlayers];
+                    // このスクリプトをマスタークライアントがメインで操作するようにする
+                    masterPhotonView.TransferOwnership(masterPlayer);
+                    // プレイヤーリストに名前を追加
                     playerNameList[playerCount] = masterPlayer.NickName;
+                    // 参加人数を足す
                     playerCount++;
                 }
-                //// キャラクターを生成
-                //GameObject instancePlayer = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity, 0);
+                multiSetting = GetComponent<MultiPlayerSettings>();
+                maxPlayers = PhotonNetwork.room.MaxPlayers;
                 break;
             case "battle":
                 break;
         }
-        // 正常に接続されていればキャラクターを生成させる
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 	}
 
     // プレイヤーがロビーシーンに参加したときに呼ばれる
@@ -84,7 +84,6 @@ public class GameMaster : Photon.MonoBehaviour {
         playerCount++;
         // ルーム情報更新 // RoomInfoUpdate()はLobbyManagerの[PunRPC]下にある
         photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
-        UpdateMemberList();
     }
 
     // プレイヤーが退室したとき呼び出される
@@ -96,57 +95,10 @@ public class GameMaster : Photon.MonoBehaviour {
         photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
     }
 
-    void UpdateMemberList()
+    // カウントダウンをスタートさせる
+    public void CountDownStart()
     {
-
-    }
-
-    public void Ready(int viewID)
-    {
-
-    }
-
-    void MasterLobbyMode()
-    {
-
-    }
-
-    // プレイヤーの情報をもとに管理リストに代入
-    public void MultiPlayerEntry(string playerName,int viewID)
-    {
-        switch (viewID /= 1000)
-        {
-            case 1:
-                playerNameList[0] = playerName;
-                viewIDList[0] = viewID;
-                roomMaster[0] = true;
-                break;
-            case 2:
-                playerNameList[1] = playerName;
-                viewIDList[1] = viewID;
-                roomMaster[1] = false;
-                break;
-            case 3:
-                playerNameList[2] = playerName;
-                viewIDList[2] = viewID;
-                roomMaster[2] = false;
-                break;
-            case 4:
-                playerNameList[3] = playerName;
-                viewIDList[3] = viewID;
-                roomMaster[3] = false;
-                break;
-            case 5:
-                playerNameList[4] = playerName;
-                viewIDList[4] = viewID;
-                roomMaster[4] = false;
-                break;
-            case 6:
-                playerNameList[5] = playerName;
-                viewIDList[5] = viewID;
-                roomMaster[5] = false;
-                break;
-        }
+        photonView.RPC("CountDown", PhotonTargets.All);
     }
 
     // データの同期は[PunRPC]以下のメソッドで行う
@@ -154,5 +106,12 @@ public class GameMaster : Photon.MonoBehaviour {
     void Sample()
     {
 
+    }
+
+    // 戦闘用シーンに移行するためのメソッド
+    [PunRPC]
+    public void MoveToBattleScene()
+    {
+        PhotonNetwork.LoadLevel("battle");
     }
 }

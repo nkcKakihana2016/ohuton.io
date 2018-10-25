@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LobbyManager : Photon.MonoBehaviour {
@@ -34,17 +35,21 @@ public class LobbyManager : Photon.MonoBehaviour {
         Debug.Log("kenti"); // デバッグ用
         gm = this.gameObject.GetComponent<GameMaster>(); // ゲームマスターコンポーネント取得
         Debug.Log(PhotonNetwork.masterClient); // マスタークライアント表示（デバッグ用）
-        roomCustomPanel.SetActive(false); // ルーム設定画面一時非表示
+        roomCustomPanel.SetActive(false);      // ルーム設定画面一時非表示
+        readyButton.enabled = false;           // ボタン表示一時非表示
         // 自分がマスタークライアントだったら
         if (PhotonNetwork.playerName == PhotonNetwork.masterClient.NickName)
         {
             // ルーム設定ボタンを表示
             roomCustomButton.SetActive(true);
+            // 準備完了ボタンを表示
+            readyButton.enabled = true;
         }
         else
         {
             // マスタークライアントでなければ表示しない
             roomCustomButton.SetActive(false);
+            readyButton.enabled = false;
         }
         // ルーム作成者を取得、一時オブジェクトに格納
         roomCreatorObj = PhotonNetwork.room.CustomProperties["RoomCreator"];
@@ -74,12 +79,25 @@ public class LobbyManager : Photon.MonoBehaviour {
     // 準備完了ボタンが押されたら
     public void ReadyOnClick()
     {
+        // カウントダウン準備
+        gm.CountDownStart();
         // ボタンが押せないようにする
         readyButton.interactable = false;
     }
 
-    public void GetRoomInfo()
+    // カウントダウンコルーチン
+    IEnumerator CountDownTimer()
     {
+        Debug.Log("3");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("2");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("1");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("GO!");
+        yield return new WaitForSeconds(1.0f);
+        // ここでロビーに居る全プレイヤーが戦闘用シーンに移動
+        photonView.RPC("MoveToBattleScene", PhotonTargets.All);
     }
 
     [PunRPC]
@@ -91,6 +109,12 @@ public class LobbyManager : Photon.MonoBehaviour {
         playerNum = PhotonNetwork.room.PlayerCount;
         // UIに現在のルーム人数／最大人数を設定
         playerNumText.text = "ルーム人数：" + playerNum + " / " + playerMaxNum;
+    }
+    // コルーチンが直接RPCに入れても動作しないためメソッドを経由してコルーチンを起動
+    [PunRPC]
+    public void CountDown()
+    {
+        StartCoroutine(CountDownTimer());
     }
 
 }

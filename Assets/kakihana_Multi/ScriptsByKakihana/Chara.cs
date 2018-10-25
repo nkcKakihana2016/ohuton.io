@@ -99,6 +99,7 @@ public class Chara : Photon.MonoBehaviour {
         pos.z = Input.GetAxis("Vertical");
     }
 
+    // PunRPC以外の同期方法としてOnPhotonSerializeView（）関数下でも出来る
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting) { /* 書き込み処理 */ }
