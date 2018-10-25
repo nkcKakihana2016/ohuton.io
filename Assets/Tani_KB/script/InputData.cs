@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputData : MonoBehaviour
 {
-    private Quaternion gyro;
+    private Vector3 acceleration;
     private GUIStyle labelStyle;
 
     // Use this for initialization
@@ -21,8 +21,7 @@ public class InputData : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-
-        this.gyro = Input.gyro.attitude;
+        this.acceleration = Input.acceleration;
     }
     void OnGUI()
     {
@@ -38,19 +37,16 @@ public class InputData : MonoBehaviour
 
                 switch (i)
                 {
-                    case 0://Y
-                        text = string.Format("gyro-x:{0}", this.gyro.x);
-                        break;
-                    case 1://Y
-                        text = string.Format("gyro-y:{0}", this.gyro.y);
-                        break;
-                    case 2://Y
-                        text = string.Format("gyro-z:{0}", this.gyro.z);
-                        break;
-                    case 3://Y
-                        text = string.Format("gyro-w:{0}", this.gyro.w);
-                        break;
-                    default:
+                case 0://X
+                    text = string.Format("accel-X:{0}", this.acceleration.x);
+                    break;
+                case 1://Y
+                    text = string.Format("accel-Y:{0}", this.acceleration.y);
+                    break;
+                case 2://Z
+                    text = string.Format("accel-Z:{0}", this.acceleration.z);
+                    break;
+                default:
                         throw new System.InvalidOperationException();
                 }
 

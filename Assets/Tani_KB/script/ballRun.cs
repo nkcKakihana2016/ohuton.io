@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallRun : MonoBehaviour
 {
-    public int rotSpeed = 150;
+    //public int rotSpeed = 150;
 
     public bool DamageFlg;
 
@@ -25,7 +25,7 @@ public class BallRun : MonoBehaviour
 
         if (DamageFlg==false)
         {
-            Move();
+            //Move();
         }
 
         if (DamageFlg == true)
@@ -35,13 +35,13 @@ public class BallRun : MonoBehaviour
     }
     IEnumerator GetDamage()
     {
-        transform.Rotate(new Vector3(0, 0, 0));
+        //transform.Rotate(new Vector3(0, 0, 0));
         yield return new WaitForSeconds(3.0f);
         DamageFlg = false;
     }
 
     public void Move()
     {
-        transform.Rotate(new Vector3(0, rotSpeed, 0) * Time.deltaTime);
+        //transform.Rotate(new Vector3(0, rotSpeed, 0) * Time.deltaTime);
     }
 }
