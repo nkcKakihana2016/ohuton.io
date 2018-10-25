@@ -11,7 +11,7 @@ public class Fton_Create : MonoBehaviour {
         {
             for(int Z = 0; Z <= 23; Z++)
             {
-                Instantiate(FtonPrefab,new Vector3(-11.5f+X, -1.8f,-17.2f+Z),transform.rotation);
+                Instantiate(FtonPrefab,new Vector3(-9.8f+X, 0.0f,-17.4f+Z),transform.rotation);
             }
         }
 
