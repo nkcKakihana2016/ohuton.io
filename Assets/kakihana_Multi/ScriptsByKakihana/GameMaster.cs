@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,11 +19,10 @@ public class GameMaster : Photon.MonoBehaviour {
     public int maxPlayers;          // 最大人数
     public int joinPlayers;         // 参加人数
     public int playerCount = 0;     // OnPhotonPlayerConnectedの呼び出し毎にカウントを足す
-    public int readyCount = 0;      // 準備完了ボタンを押した人数を保存
     public int countDownTimer = 3;  // カウントダウンの秒数
 
-    public string[] playerNameList; // プレイヤー名
-    public int[] viewIDList;        // プレイヤーのPhotonViewID
+    [SerializeField]
+    List<string> playerNameList;   // プレイヤー名リスト
 
 	// Use this for initialization
 	void Start () {
@@ -49,16 +49,13 @@ public class GameMaster : Photon.MonoBehaviour {
                 // 取得したマスタークライアントが一致していたら
                 if (masterPlayer == PhotonNetwork.masterClient)
                 {
-                    playerNameList = new string[PhotonNetwork.room.MaxPlayers];
-                    viewIDList = new int[PhotonNetwork.room.MaxPlayers];
-                    // このスクリプトをマスタークライアントがメインで操作するようにする
+                    // このスクリプトをマスタークライアントに処理させる
                     masterPhotonView.TransferOwnership(masterPlayer);
                     // プレイヤーリストに名前を追加
-                    playerNameList[playerCount] = masterPlayer.NickName;
+                    playerNameList.Add(masterPlayer.NickName);
                     // 参加人数を足す
                     playerCount++;
                 }
-                multiSetting = GetComponent<MultiPlayerSettings>();
                 maxPlayers = PhotonNetwork.room.MaxPlayers;
                 break;
             case "battle":
@@ -79,7 +76,7 @@ public class GameMaster : Photon.MonoBehaviour {
         // デバッグ用、マスタークライアントを表示
         Debug.Log(PhotonNetwork.masterClient.NickName);
         // 後から接続してきたプレイヤー名を取得、リストに格納
-        playerNameList[playerCount] = player.NickName;
+        playerNameList.Add(player.NickName);
         // カウントを足す
         playerCount++;
         // ルーム情報更新 // RoomInfoUpdate()はLobbyManagerの[PunRPC]下にある
@@ -91,6 +88,8 @@ public class GameMaster : Photon.MonoBehaviour {
     {
         // 〇〇さんがログアウトしました
         Debug.Log(player.NickName + " is disconnected");
+        // プレイヤーリストから除外
+        playerNameList.Remove(player.NickName);
         // ルーム情報更新
         photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
     }

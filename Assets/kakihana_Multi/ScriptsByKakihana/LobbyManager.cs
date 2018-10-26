@@ -23,6 +23,7 @@ public class LobbyManager : Photon.MonoBehaviour {
     public Button readyButton;      // 準備完了ボタン
     public GameObject roomCustomButton; // ルーム設定表示用UI
     public GameObject roomCustomPanel;  // ルーム設定画面UI
+    public GameObject roomLeavePanel;   // 部屋退出ダイアログUI
 
     void Awake()
     {
@@ -37,6 +38,7 @@ public class LobbyManager : Photon.MonoBehaviour {
         Debug.Log(PhotonNetwork.masterClient); // マスタークライアント表示（デバッグ用）
         roomCustomPanel.SetActive(false);      // ルーム設定画面一時非表示
         readyButton.enabled = false;           // ボタン表示一時非表示
+        roomLeavePanel.SetActive(false);
         // 自分がマスタークライアントだったら
         if (PhotonNetwork.playerName == PhotonNetwork.masterClient.NickName)
         {
@@ -85,6 +87,30 @@ public class LobbyManager : Photon.MonoBehaviour {
         readyButton.interactable = false;
     }
 
+    // 部屋退出ボタンが押されたら
+    public void LeaveRoomButtonClick()
+    {
+        // 退出確認ダイアログ表示
+        roomLeavePanel.SetActive(true);
+    }
+
+    // 退出確認ダイアログで「はい」が押された場合
+    public void LeaveRoom()
+    {
+        Debug.Log("Logout");
+        // 退出確認ダイアログ非表示
+        roomLeavePanel.SetActive(false);
+        // Photon切断
+        PhotonNetwork.Disconnect();
+        // タイトル画面に戻る
+        SceneManager.LoadScene("title");
+    }
+    // 退出確認ダイアログで「いいえ」が押されたとき
+    public void ReturnGame()
+    {
+        // ゲームに戻る
+        roomLeavePanel.SetActive(false);
+    }
     // カウントダウンコルーチン
     IEnumerator CountDownTimer()
     {
