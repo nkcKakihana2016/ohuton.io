@@ -17,8 +17,6 @@ public class HusumaOC : MonoBehaviour
     //ふすまのアニメーションをint型で選ぶ
     public int SceneEfe = 0;
 
-    bool MoveScene;
-
     // Use this for initialization
     void Start ()
     {
@@ -26,8 +24,6 @@ public class HusumaOC : MonoBehaviour
         Husuma.SetBool("open", false);
         Husuma.SetBool("close", false);
         Husuma.SetBool("normal", false);
-
-        MoveScene = false;
     }
 	
 	// Update is called once per frame
