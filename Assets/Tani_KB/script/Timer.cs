@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     public Image roadImg;　　　　　　　　　　 　//タイマー（廊下）をアタッチ
     public Animator teacherImg;　　　　　　　　 //タイマー（先生）をアタッチ
+    public GameObject AnimMas;
 
     public float cntTime;　　　　　　　　　　　 //実際の時間制限
     public int checkTime;　　　　　　　　　　　 //時間制限（float）をswitch文で使えるようにする変数
@@ -17,6 +18,8 @@ public class Timer : MonoBehaviour
         cntTime = 0.0f;　　　　　　　　　　　　 //時間に関する数値の変数を初期化
         checkTime = 0;
         teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
+
+        AnimMas=
     }
 
     // Update is called once per frame
