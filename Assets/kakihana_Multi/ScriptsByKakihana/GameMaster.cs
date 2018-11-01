@@ -23,6 +23,8 @@ public class GameMaster : Photon.MonoBehaviour {
 
     [SerializeField]
     List<string> playerNameList;   // プレイヤー名リスト
+    [SerializeField]
+    PhotonPlayer[] playerList;
 
 	// Use this for initialization
 	void Start () {
@@ -90,6 +92,8 @@ public class GameMaster : Photon.MonoBehaviour {
         Debug.Log(player.NickName + " is disconnected");
         // プレイヤーリストから除外
         playerNameList.Remove(player.NickName);
+        playerList = PhotonNetwork.playerList;
+       // MasterClientCheck(player.NickName);
         // ルーム情報更新
         photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
     }
