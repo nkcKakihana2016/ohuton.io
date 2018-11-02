@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
-    public float rotSpeed = 0.0f;//移動スピードの値
+    public float rotSpeed = 10.0f;//移動スピードの値
     public int gyroRot;　　　　　//プレイヤー角度を調整するswitch文ようの変数
 
     GameObject child;　　　　　　//プレイヤーオブジェクト
@@ -46,7 +46,7 @@ public class Jyroball : MonoBehaviour
         }
     }
 
-    //ジャイロ操作統括
+    ////ジャイロ操作統括
     //public void GyroMove()
     //{
     //    switch (gyroRot)

@@ -7,10 +7,14 @@ public class Timer : MonoBehaviour
 {
     public Image roadImg;　　　　　　　　　　 　//タイマー（廊下）をアタッチ
     public Animator teacherImg;　　　　　　　　 //タイマー（先生）をアタッチ
-    public GameObject AnimMas;
+    public GameObject Husuma;                   //ふすまの親オブジェクトをアタッチ
+    public GameObject AnimMas;                  //アニメーション統括オブジェクトをアタッチ
+    AnimScript animScript;　　　　　　　　　　　//アニメーションスクリプトを格納
 
     public float cntTime;　　　　　　　　　　　 //実際の時間制限
     public int checkTime;　　　　　　　　　　　 //時間制限（float）をswitch文で使えるようにする変数
+
+
 
     // Use this for initialization
     void Start ()
@@ -18,8 +22,7 @@ public class Timer : MonoBehaviour
         cntTime = 0.0f;　　　　　　　　　　　　 //時間に関する数値の変数を初期化
         checkTime = 0;
         teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
-
-        AnimMas=
+        animScript = AnimMas.GetComponent<AnimScript>();//アニメーションスクリプトを指定
     }
 
     // Update is called once per frame
@@ -29,6 +32,26 @@ public class Timer : MonoBehaviour
         if (cntTime<=120.0f)
         {
             TimeCounter();
+        }
+
+        //ふすまのアニメーションを指定
+        // 次のシーンへ飛ぶときに使う
+        if (Input.GetKey(KeyCode.A))
+        {
+            animScript.husumaEfe = 1;
+            animScript.ChangeScene();
+        }
+        //ゲームシーンの最初に使う
+        if (Input.GetKey(KeyCode.S))
+        {
+            animScript.husumaEfe = 2;
+            animScript.ChangeScene();
+        }
+        //リザルトの最初に使う
+        if (Input.GetKey(KeyCode.D))
+        {
+            animScript.husumaEfe = 3;
+            animScript.ChangeScene();
         }
     }
 
@@ -43,15 +66,23 @@ public class Timer : MonoBehaviour
         switch (checkTime)
         {
             case 61://制限時間が60秒になった時
+                animScript.timerEfe = 1;
+                animScript.TimerSerif();
                 Debug.Log("60秒経過");
                 break;
             case 91://制限時間が90秒になった時
+                animScript.timerEfe = 2;
+                animScript.TimerSerif();
                 Debug.Log("90秒経過");
                 break;
             case 106://制限時間が105秒になった時
+                animScript.timerEfe = 3;
+                animScript.TimerSerif();
                 Debug.Log("105秒経過");
                 break;
             case 121://制限時間が120秒（ゲーム終了）になった時
+                animScript.timerEfe = 4;
+                animScript.TimerSerif();
                 Debug.Log("ゲーム終了");
                 break;
         }

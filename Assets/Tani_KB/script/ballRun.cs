@@ -18,20 +18,20 @@ public class BallRun : MonoBehaviour
 	void Update ()
     {
         //ダメージ受けたら（仮）
-        if (Input.GetKey(KeyCode.Space))
-        {
-            DamageFlg = true;
-        }
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    DamageFlg = true;
+        //}
 
-        if (DamageFlg==false)
-        {
-            //Move();
-        }
+        //if (DamageFlg==false)
+        //{
+        //    //Move();
+        //}
 
-        if (DamageFlg == true)
-        {
-            StartCoroutine("GetDamage");
-        }
+        //if (DamageFlg == true)
+        //{
+        //    StartCoroutine("GetDamage");
+        //}
     }
     IEnumerator GetDamage()
     {

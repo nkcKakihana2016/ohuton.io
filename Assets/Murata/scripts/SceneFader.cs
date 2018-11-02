@@ -22,17 +22,17 @@ public class SceneFader : MonoBehaviour
     {
 		if(Input.GetKey(KeyCode.A))
         {
-            husumaSc.SceneEfe = 0;
+            husumaSc.SceneEfe = 1;
             husumaSc.ChangeScene();
         }
         if(Input.GetKey(KeyCode.S))
         {
-            husumaSc.SceneEfe = 1;
+            husumaSc.SceneEfe = 2;
             husumaSc.ChangeScene();
         }
         if(Input.GetKey(KeyCode.D))
         {
-            husumaSc.SceneEfe = 2;
+            husumaSc.SceneEfe = 3;
             husumaSc.ChangeScene();
         }
 	}

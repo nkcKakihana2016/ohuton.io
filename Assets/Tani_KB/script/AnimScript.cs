@@ -15,17 +15,25 @@ public class AnimScript : MonoBehaviour
     public string NextSceneName;
 
     //ふすまのアニメーションをint型で選ぶ
-    public int husumaEfe = 0;
+    public int husumaEfe;
     //タイマーのセリフアニメーションをint型で選ぶ
-    public int timerEfe = 0;
+    public int timerEfe;
 
     // Use this for initialization
     void Start ()
     {
+        husumaEfe = 0;
+        timerEfe = 0;
+
         //アニメーションのBoolをすべてFalseに
         husumaAnim.SetBool("open", false);
         husumaAnim.SetBool("close", false);
         husumaAnim.SetBool("normal", false);
+
+        timerAnim.SetBool("60over", false);
+        timerAnim.SetBool("90over", false);
+        timerAnim.SetBool("105over", false);
+        timerAnim.SetBool("120over", false);
     }
 
     //ふすまのアニメーションを他スクリプトからケースごとに選んでもらう
@@ -33,19 +41,19 @@ public class AnimScript : MonoBehaviour
     {
         switch (husumaEfe)
         {
-            case 0://次のシーンへ飛ぶときに使う
+            case 1://次のシーンへ飛ぶときに使う
                 husumaAnim.SetBool("open", false);
                 husumaAnim.SetBool("close", true);
                 husumaAnim.SetBool("normal", false);
                 Invoke("StageSelect", 2.0f);
                 break;
 
-            case 1://ゲームシーンの最初に使う
+            case 2://ゲームシーンの最初に使う
                 husumaAnim.SetBool("normal", true);
                 husumaAnim.SetBool("close", false);
                 break;
 
-            case 2: //リザルトの最初に使う
+            case 3: //リザルトの最初に使う
                 husumaAnim.SetBool("open", true);
                 husumaAnim.SetBool("close", false);
                 Invoke("StageSelect", 3.0f);
@@ -63,20 +71,20 @@ public class AnimScript : MonoBehaviour
     {
         switch(timerEfe)
         {
-            case 0://Timerスクリプトで60秒経過時に発動するアニメーション
-
+            case 1://Timerスクリプトで60秒経過時に発動するアニメーション
+                timerAnim.SetBool("60over", true);
                 break;
 
-            case 1://Timerスクリプトで90秒経過時に発動するアニメーション
-
+            case 2://Timerスクリプトで90秒経過時に発動するアニメーション
+                timerAnim.SetBool("90over", true);
                 break;
 
-            case 2://Timerスクリプトで105秒経過時に発動するアニメーション
-
+            case 3://Timerスクリプトで105秒経過時に発動するアニメーション
+                timerAnim.SetBool("105over", true);
                 break;
 
-            case 3://Timerスクリプトで120秒経過時に発動するアニメーション
-
+            case 4://Timerスクリプトで120秒経過時に発動するアニメーション
+                
                 break;
 
         }
