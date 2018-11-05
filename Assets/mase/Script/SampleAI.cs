@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class SampleAI : MonoBehaviour
 {
-    public GameObject[] targetObj;
+    public List<GameObject> obj = new List<GameObject>(); 
     NavMeshAgent agent;
 
     // Use this for initialization
@@ -17,14 +17,15 @@ public class SampleAI : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-     //   agent.SetDestination(target.position);
+        //agent.destination = targetObj.transform.position;
+        agent.destination = obj.
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "HitBox")
-        {
-            Debug.Log("当たったんご");
-        }
-    }
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "HitBox")
+    //    {
+    //        Debug.Log("当たったんご");
+    //    }
+    //}
 }
