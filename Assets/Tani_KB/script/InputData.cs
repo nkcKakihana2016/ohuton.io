@@ -46,8 +46,8 @@ public class InputData : MonoBehaviour
                 case 2://Z
                     text = string.Format("accel-Z:{0}", this.acceleration.z);
                     break;
-                default:
-                        throw new System.InvalidOperationException();
+                //default:
+                        //throw new System.InvalidOperationException();
                 }
 
                 GUI.Label(new Rect(x, y, w, h), text, this.labelStyle);
