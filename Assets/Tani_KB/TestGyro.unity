@@ -763,25 +763,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114835580864675128, guid: 2d075d49632b54b429b9283f427174e8,
-        type: 2}
-      propertyPath: NextSceneName
-      value: testKB
-      objectReference: {fileID: 0}
-    - target: {fileID: 114835580864675128, guid: 2d075d49632b54b429b9283f427174e8,
-        type: 2}
-      propertyPath: Husuma
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114835580864675128, guid: 2d075d49632b54b429b9283f427174e8,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1375543522402160, guid: 2d075d49632b54b429b9283f427174e8, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d075d49632b54b429b9283f427174e8, type: 2}
   m_IsPrefabParent: 0
@@ -1040,11 +1021,6 @@ Prefab:
       propertyPath: AnimMas
       value: 
       objectReference: {fileID: 267745251}
-    - target: {fileID: 114674774967600392, guid: 5775ac0dd465d7b4a9edbbd10e634896,
-        type: 2}
-      propertyPath: cntTime
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5775ac0dd465d7b4a9edbbd10e634896, type: 2}
   m_IsPrefabParent: 0
@@ -1749,11 +1725,6 @@ Prefab:
       propertyPath: timerAnim
       value: 
       objectReference: {fileID: 228311278}
-    - target: {fileID: 114555320324227230, guid: d53456e9de6a2b64aa41b901afbf6e13,
-        type: 2}
-      propertyPath: NextSceneName
-      value: testKB
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d53456e9de6a2b64aa41b901afbf6e13, type: 2}
   m_IsPrefabParent: 0

@@ -53,6 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   husumaAnim: {fileID: 0}
   timerAnim: {fileID: 0}
-  NextSceneName: 
+  NextSceneName: testKB
   husumaEfe: 0
   timerEfe: 0

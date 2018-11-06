@@ -6,6 +6,7 @@ public class Jyroball : MonoBehaviour
 {
     //const float Gravity = 2.81f;
     //public float gravityScale = 1.0f;
+    //public float angle;
 
     public float rotSpeed = 10.0f;//移動スピードの値
     public Vector3 dir;
@@ -43,45 +44,70 @@ public class Jyroball : MonoBehaviour
             // 端末の縦横の表示に合わせてdir変数に格納する
             dir.x = Input.acceleration.x;
             dir.z = Input.acceleration.y;
-
-            //Physics.gravity = Gravity * dir.normalized * gravityScale;
-
-            // clamp acceleration vector to the unit sphere
+           
             if (dir.sqrMagnitude > 1)
                 dir.Normalize();
 
-            // Make it move 10 meters per second instead of 10 meters per frame...
             dir *= Time.deltaTime;
 
             //実際に動かす
             transform.Translate(dir * rotSpeed);
         }
 
-        //    switch (gyroRot)
-        //    {
-        //        case 0://gyro.yがプラス方向になった時
-        //            transform.Rotate(0, -90, 0);
-        //            break;
-        //        case 1://gyro.yがマイナス方向になった時
-        //            transform.Rotate(0, 90, 0);
-        //            break;
-        //        case 2://gyro.xがプラス方向になった時
-        //            transform.Rotate(0, 0, 0);
-        //            break;
-        //        case 3://gyro.xがマイナス方向になった時
-        //            transform.Rotate(0, 180, 0);
-        //            break;
-        //    }
-        //    if (gyro.y < -0.09 || gyro.y > -0.17)
-        //    {
-        //        transform.Rotate(0, -gyro.y * 0, 0);
-        //    }
+        switch (gyroRot)
+        {
+            case 1://dir.xがプラス方向になった時、右を向く
+                child.transform.eulerAngles = new Vector3(0, 90, -90);
+                break;
+            case 2://dir.xがマイナス方向になった時、左を向く
+                child.transform.eulerAngles = new Vector3(0, -90, -90);
+                break;
+            case 3://dir.zがプラス方向になった時、上を向く
+                child.transform.eulerAngles = new Vector3(0, 0, -90);
+                break;
+            case 4://dir.zがマイナス方向になった時、下を向く
+                child.transform.eulerAngles = new Vector3(0, 180, -90);
+                break;
+        }
 
-        //    if (gyro.y < -0.1)
-        //    {
-        //        gyroRot = 1;
-        //        //transform.Rotate(0, -gyro.y * 15, 0);
-        //    }
+
+        if (dir.x > 0.04f)//右を向く
+        {
+            if (child.transform.rotation.y == 0 && child.transform.rotation.y == 180)
+            {
+                //child.transform.eulerAngles = new Vector3(0, 90, -90);
+                gyroRot = 1;
+            }
+        }
+
+        if (dir.x < -0.04f)//左を向く
+        {
+           if(child.transform.rotation.y == 0 && child.transform.rotation.y == 180)
+            {
+                //child.transform.eulerAngles = new Vector3(0, -90, -90);
+                gyroRot = 2;
+            }
+        }
+
+        if (dir.z > 0.05f)//上を向く
+        {
+            //child.transform.eulerAngles = new Vector3(0, 0, -90);
+            gyroRot = 3;
+        }
+
+        if (dir.z < -0.05f)//下を向く
+        {
+            //child.transform.eulerAngles = new Vector3(0, 180, -90);
+            gyroRot = 4;
+        }
+
+       
+
+        //if (gyro.y < -0.1)
+        //{
+        //    gyroRot = 1;
+        //    transform.Rotate(0, -gyro.y * 15, 0);
+        //}
 
         //    if (gyro.y > 0.1)
         //    {
