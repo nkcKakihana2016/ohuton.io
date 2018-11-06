@@ -24,7 +24,7 @@ public class Fton_Create : MonoBehaviour {
                 //生成
                 var obj = Instantiate(FtonPrefab, newPos, transform.rotation) as GameObject;
                 list.Add(obj);
-                if (number <= 30)
+                if (number <= 80)
                 {
                     obj.SetActive(false);
                 }
@@ -33,12 +33,13 @@ public class Fton_Create : MonoBehaviour {
 
 	}
 
+    //ボタンで生成切替
     public void a()
     {
         foreach(GameObject obj in list)
         {
             var number = Random.Range(1, 101);
-            if (number <= 30)
+            if (number <= 20)
             {
                 obj.SetActive(true);
             }
