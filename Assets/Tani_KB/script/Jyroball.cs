@@ -70,23 +70,46 @@ public class Jyroball : MonoBehaviour
                 break;
         }
 
+        //if (ballRun.charaRot.y)//右を向く
+        //{
+        //    gyroRot = 1; 
+        //}
+
+        //if (dir.x < -0.04f)//左を向く
+        //{
+        //    gyroRot = 2; 
+        //}
+
+        //if (dir.z > 0.05f)//上を向く
+        //{
+        //    gyroRot = 3;
+        //}
+
+        //if (dir.z < -0.05f)//下を向く
+        //{
+        //    gyroRot = 4;
+        //}
+
 
         if (dir.x > 0.04f)//右を向く
         {
-            if (child.transform.rotation.y == 0 && child.transform.rotation.y == 180)
-            {
-                //child.transform.eulerAngles = new Vector3(0, 90, -90);
-                gyroRot = 1;
-            }
+            gyroRot = 1;
+            //if (child.transform.rotation.y == 0 && child.transform.rotation.y == 180)
+            //{
+
+            //    child.transform.eulerAngles = new Vector3(0, 90, -90);
+            //    gyroRot = 1;
+            //}
         }
 
         if (dir.x < -0.04f)//左を向く
         {
-           if(child.transform.rotation.y == 0 && child.transform.rotation.y == 180)
-            {
-                //child.transform.eulerAngles = new Vector3(0, -90, -90);
-                gyroRot = 2;
-            }
+            gyroRot = 2;
+            //if (child.transform.rotation.y == 0 && child.transform.rotation.y == 180)
+            //{
+            //    child.transform.eulerAngles = new Vector3(0, -90, -90);
+            //    gyroRot = 2;
+            //}
         }
 
         if (dir.z > 0.05f)//上を向く
@@ -101,7 +124,7 @@ public class Jyroball : MonoBehaviour
             gyroRot = 4;
         }
 
-       
+
 
         //if (gyro.y < -0.1)
         //{
@@ -109,12 +132,12 @@ public class Jyroball : MonoBehaviour
         //    transform.Rotate(0, -gyro.y * 15, 0);
         //}
 
-        //    if (gyro.y > 0.1)
-        //    {
-        //        gyroRot = 0;
-        //        //transform.Rotate(0, -gyro.y * 15, 0);
-        //    }
+        //if (gyro.y > 0.1)
+        //{
+        //    gyroRot = 0;
+        //    //transform.Rotate(0, -gyro.y * 15, 0);
         //}
     }
 }
+
 

@@ -8,6 +8,8 @@ public class BallRun : MonoBehaviour
 
     public bool DamageFlg;
 
+    public Quaternion charaRot;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -17,6 +19,8 @@ public class BallRun : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        charaRot = transform.localRotation;
+
         //ダメージ受けたら（仮）
         //if (Input.GetKey(KeyCode.Space))
         //{
