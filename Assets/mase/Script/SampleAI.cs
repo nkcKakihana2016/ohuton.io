@@ -18,7 +18,7 @@ public class SampleAI : MonoBehaviour
 	void Update ()
     {
         //agent.destination = targetObj.transform.position;
-        agent.destination = obj.
+        //agent.destination = obj.
     }
 
     //public void OnTriggerEnter(Collider other)

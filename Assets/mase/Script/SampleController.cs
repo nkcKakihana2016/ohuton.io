@@ -66,9 +66,11 @@ public class SampleController : MonoBehaviour
             //countup += 1;//とったら1ずつ上がっていく
             //SetCount();
             Destroy(other.gameObject);
+            //布団に当たったらゲージを10回復する
             MurataScript.GetComponent<Gg_Slider>()._Gg += 10;
             if (MurataScript.GetComponent<Gg_Slider>()._Gg > slider.maxValue)
             {
+                //ゲージを最大値以上に回復させないようにする
                 MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MAX_Gg;
                 Debug.Log("これ以上増えないんご");
             }
@@ -88,10 +90,11 @@ public class SampleController : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 transform.position += transform.forward * speed * 2 * Time.deltaTime;
+                //押している間ゲージを1ずつ減らしていく
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg<slider.minValue)
                 {
-
+                    //ゲージが指定した最小値いかにならないよにする
                     MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
                     speedup = false;
 
@@ -100,10 +103,11 @@ public class SampleController : MonoBehaviour
             if (Input.GetKey(KeyCode.S))
             {
                 transform.position -= transform.forward * speed * 2 * Time.deltaTime;
+                //押している間ゲージを1ずつ減らしていく
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
                 {
-
+                    //ゲージが指定した最小値いかにならないよにする
                     MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
                     speedup = false;
                 }
@@ -111,10 +115,11 @@ public class SampleController : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
             {
                 transform.position += transform.right * speed * 2 * Time.deltaTime;
+                //押している間ゲージを1ずつ減らしていく
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
                 {
-
+                    //ゲージが指定した最小値いかにならないよにする
                     MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
                     speedup = false;
                 }
@@ -122,10 +127,11 @@ public class SampleController : MonoBehaviour
             if (Input.GetKey(KeyCode.A))
             {
                 transform.position -= transform.right * speed * 2 * Time.deltaTime;
+                //押している間ゲージを1ずつ減らしていく
                 MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
                 {
-
+                    //ゲージが指定した最小値いかにならないよにする
                     MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MIN_Gg;
                     speedup = false;
                 }
