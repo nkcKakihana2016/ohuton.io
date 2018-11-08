@@ -15,6 +15,9 @@ public class Jyroball : MonoBehaviour
     GameObject child;　　　　　　//プレイヤーオブジェクト
     BallRun ballRun;　　　　　　 //攻撃を受けたかどうかを制御するスクリプト
 
+    public　bool gyroFlg;                //ジャイロ操作の時にONにするフラグ
+    public bool debugFlg;　　　　　　   //デバック用のキー操作の時にONにするフラグ
+
     void Start()
     {
         child = GameObject.Find("human");//プレイヤーオブジェクトを探す
@@ -25,7 +28,16 @@ public class Jyroball : MonoBehaviour
 
     void Update()
     {
-        GyroMove();
+        if(gyroFlg==true)
+        {
+            GyroMove();
+        }
+
+        if(debugFlg==true)
+        {
+            DebugMove();
+        }
+        
     }
 
     //ジャイロ操作統括
@@ -137,6 +149,60 @@ public class Jyroball : MonoBehaviour
         //    gyroRot = 0;
         //    //transform.Rotate(0, -gyro.y * 15, 0);
         //}
+    }
+
+    //デバック用の移動メソッド
+    public void DebugMove()
+    {
+        rotSpeed = 0.5f;
+
+        if(ballRun.DamageFlg==false)
+        {
+            //攻撃を受けたら動作する
+            if (ballRun.DamageFlg == true)
+            {
+                rotSpeed = 0.0f;
+            }
+
+            dir.x = Input.GetAxis("Horizontal") * rotSpeed;
+            dir.z = Input.GetAxis("Vertical") * rotSpeed;
+
+            transform.Translate(dir.x, 0, dir.z);
+
+        }
+
+        switch (gyroRot)
+        {
+            case 1://dir.xがプラス方向になった時、右を向く
+                child.transform.eulerAngles = new Vector3(0, 90, -90);
+                break;
+            case 2://dir.xがマイナス方向になった時、左を向く
+                child.transform.eulerAngles = new Vector3(0, -90, -90);
+                break;
+            case 3://dir.zがプラス方向になった時、上を向く
+                child.transform.eulerAngles = new Vector3(0, 0, -90);
+                break;
+            case 4://dir.zがマイナス方向になった時、下を向く
+                child.transform.eulerAngles = new Vector3(0, 180, -90);
+                break;
+        }
+
+        if(dir.x > 0.3f)
+        {
+            gyroRot = 1;
+        }
+        if (dir.x < -0.3f)
+        {
+            gyroRot = 2;
+        }
+        if (dir.z > 0.3f)
+        {
+            gyroRot = 3;
+        }
+        if (dir.z < -0.3f)
+        {
+            gyroRot = 4;
+        }
     }
 }
 
