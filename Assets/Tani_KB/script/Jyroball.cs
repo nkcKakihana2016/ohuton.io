@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
+
     //const float Gravity = 2.81f;
     //public float gravityScale = 1.0f;
     //public float angle;
+    public Transform Target;
 
     public float rotSpeed = 10.0f;//移動スピードの値
     public Vector3 dir;
-    public int gyroRot;　　　　　//プレイヤー角度を調整するswitch文ようの変数
+    public int gyroRot;     //プレイヤー角度を調整するswitch文ようの変数
+
+    private Vector3 diff;
+    //private Vector3 axis;
+    //private Vector3 angle;
+    float angle = 1;
 
     GameObject child;　　　　　　//プレイヤーオブジェクト
     BallRun ballRun;　　　　　　 //攻撃を受けたかどうかを制御するスクリプト
@@ -22,8 +29,10 @@ public class Jyroball : MonoBehaviour
     {
         child = GameObject.Find("human");//プレイヤーオブジェクトを探す
         ballRun = child.GetComponent<BallRun>();//攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        Target = GameObject.Find("targetObj").GetComponent<Transform>();//オブジェクトを探す
 
-        gyroRot = 0;
+
+         gyroRot = 0;
     }
 
     void Update()
@@ -158,6 +167,7 @@ public class Jyroball : MonoBehaviour
 
         if(ballRun.DamageFlg==false)
         {
+            diff = Target.position - this.gameObject.transform.position;
             //攻撃を受けたら動作する
             if (ballRun.DamageFlg == true)
             {
@@ -168,41 +178,49 @@ public class Jyroball : MonoBehaviour
             dir.z = Input.GetAxis("Vertical") * rotSpeed;
 
             transform.Translate(dir.x, 0, dir.z);
-
         }
 
-        switch (gyroRot)
+        if(dir.x !=0 || dir.z !=0)
         {
-            case 1://dir.xがプラス方向になった時、右を向く
-                child.transform.eulerAngles = new Vector3(0, 90, -90);
-                break;
-            case 2://dir.xがマイナス方向になった時、左を向く
-                child.transform.eulerAngles = new Vector3(0, -90, -90);
-                break;
-            case 3://dir.zがプラス方向になった時、上を向く
-                child.transform.eulerAngles = new Vector3(0, 0, -90);
-                break;
-            case 4://dir.zがマイナス方向になった時、下を向く
-                child.transform.eulerAngles = new Vector3(0, 180, -90);
-                break;
+            
         }
 
-        if(dir.x > 0.3f)
-        {
-            gyroRot = 1;
-        }
-        if (dir.x < -0.3f)
-        {
-            gyroRot = 2;
-        }
-        if (dir.z > 0.3f)
-        {
-            gyroRot = 3;
-        }
-        if (dir.z < -0.3f)
-        {
-            gyroRot = 4;
-        }
+        //switch (gyroRot)
+        //{
+        //    case 1://dir.xがプラス方向になった時、右を向く
+        //        Target.transform.localPosition = new Vector3(1.5f, 0, 0);
+        //        //child.transform.eulerAngles = new Vector3(0, 90, -90);
+        //        break;
+        //    case 2://dir.xがマイナス方向になった時、左を向く
+        //        Target.transform.localPosition = new Vector3(-1.5f, 0, 0);
+        //        //child.transform.eulerAngles = new Vector3(0, -90, -90);
+        //        break;
+        //    case 3://dir.zがプラス方向になった時、上を向く
+        //        Target.transform.localPosition = new Vector3(0, 0, 1.5f);
+        //        //child.transform.eulerAngles = new Vector3(0, 0, -90);
+        //        break;
+        //    case 4://dir.zがマイナス方向になった時、下を向く
+        //        Target.transform.localPosition = new Vector3(0, 0, -1.5f);
+        //        //child.transform.eulerAngles = new Vector3(0, 180, -90);
+        //        break;
+        //}
+
+        //if(dir.x > 0.3f)
+        //{
+        //    gyroRot = 1;
+        //}
+        //if (dir.x < -0.3f)
+        //{
+        //    gyroRot = 2;
+        //}
+        //if (dir.z > 0.3f)
+        //{
+        //    gyroRot = 3;
+        //}
+        //if (dir.z < -0.3f)
+        //{
+        //    gyroRot = 4;
+        //}
     }
 }
 
