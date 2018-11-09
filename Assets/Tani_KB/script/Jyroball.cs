@@ -14,44 +14,49 @@ public class Jyroball : MonoBehaviour
     public Vector3 dir;
     public int gyroRot;     //プレイヤー角度を調整するswitch文ようの変数
 
+
     private Vector3 diff;
     //private Vector3 axis;
     //private Vector3 angle;
-    float angle = 1;
+    float angleRot = 1;
 
-    GameObject child;　　　　　　//プレイヤーオブジェクト
+    float minAngle;
+    float maxAngle;
+
+    Transform child;　　　　　　//プレイヤーオブジェクト
     BallRun ballRun;　　　　　　 //攻撃を受けたかどうかを制御するスクリプト
 
-    public　bool gyroFlg;                //ジャイロ操作の時にONにするフラグ
+    public bool gyroFlg;                //ジャイロ操作の時にONにするフラグ
     public bool debugFlg;　　　　　　   //デバック用のキー操作の時にONにするフラグ
 
     void Start()
     {
-        child = GameObject.Find("human");//プレイヤーオブジェクトを探す
+        child = GameObject.Find("human").GetComponent<Transform>();//プレイヤーオブジェクトを探す
         ballRun = child.GetComponent<BallRun>();//攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         Target = GameObject.Find("targetObj").GetComponent<Transform>();//オブジェクトを探す
 
 
-         gyroRot = 0;
+        gyroRot = 0;
     }
 
     void Update()
     {
-        if(gyroFlg==true)
+        if (gyroFlg == true)
         {
             GyroMove();
         }
 
-        if(debugFlg==true)
+        if (debugFlg == true)
         {
             DebugMove();
         }
-        
+
     }
 
     //ジャイロ操作統括
     public void GyroMove()
     {
+
         if (ballRun.DamageFlg == false)
         {
             //攻撃を受けたら動作する
@@ -65,7 +70,7 @@ public class Jyroball : MonoBehaviour
             // 端末の縦横の表示に合わせてdir変数に格納する
             dir.x = Input.acceleration.x;
             dir.z = Input.acceleration.y;
-           
+
             if (dir.sqrMagnitude > 1)
                 dir.Normalize();
 
@@ -165,9 +170,9 @@ public class Jyroball : MonoBehaviour
     {
         rotSpeed = 0.5f;
 
-        if(ballRun.DamageFlg==false)
+        if (ballRun.DamageFlg == false)
         {
-            diff = Target.position - this.gameObject.transform.position;
+            //diff = Target.position - this.gameObject.transform.position;
             //攻撃を受けたら動作する
             if (ballRun.DamageFlg == true)
             {
@@ -180,48 +185,53 @@ public class Jyroball : MonoBehaviour
             transform.Translate(dir.x, 0, dir.z);
         }
 
-        if(dir.x !=0 || dir.z !=0)
+        //if(dir.x !=0 || dir.z !=0)
+        //{
+
+        //}
+
+        switch (gyroRot)
         {
-            
+            case 1://dir.xがプラス方向になった時、右を向く
+                maxAngle = 90.0f;
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, angleRot);
+                child.transform.eulerAngles = new Vector3(0, maxAngle, -90);
+                /*Target.transform.localPosition = new Vector3(1.5f, 0, 0)*/
+                ;
+                //child.transform.eulerAngles = new Vector3(0, 90, -90);
+                break;
+            case 2://dir.xがマイナス方向になった時、左を向く
+                //Target.transform.localPosition = new Vector3(-1.5f, 0, 0);
+                //child.transform.eulerAngles = new Vector3(0, -90, -90);
+                break;
+            case 3://dir.zがプラス方向になった時、上を向く
+                //Target.transform.localPosition = new Vector3(0, 0, 1.5f);
+                //child.transform.eulerAngles = new Vector3(0, 0, -90);
+                break;
+            case 4://dir.zがマイナス方向になった時、下を向く
+                //Target.transform.localPosition = new Vector3(0, 0, -1.5f);
+                //child.transform.eulerAngles = new Vector3(0, 180, -90);
+                break;
         }
 
-        //switch (gyroRot)
-        //{
-        //    case 1://dir.xがプラス方向になった時、右を向く
-        //        Target.transform.localPosition = new Vector3(1.5f, 0, 0);
-        //        //child.transform.eulerAngles = new Vector3(0, 90, -90);
-        //        break;
-        //    case 2://dir.xがマイナス方向になった時、左を向く
-        //        Target.transform.localPosition = new Vector3(-1.5f, 0, 0);
-        //        //child.transform.eulerAngles = new Vector3(0, -90, -90);
-        //        break;
-        //    case 3://dir.zがプラス方向になった時、上を向く
-        //        Target.transform.localPosition = new Vector3(0, 0, 1.5f);
-        //        //child.transform.eulerAngles = new Vector3(0, 0, -90);
-        //        break;
-        //    case 4://dir.zがマイナス方向になった時、下を向く
-        //        Target.transform.localPosition = new Vector3(0, 0, -1.5f);
-        //        //child.transform.eulerAngles = new Vector3(0, 180, -90);
-        //        break;
-        //}
-
-        //if(dir.x > 0.3f)
-        //{
-        //    gyroRot = 1;
-        //}
-        //if (dir.x < -0.3f)
-        //{
-        //    gyroRot = 2;
-        //}
-        //if (dir.z > 0.3f)
-        //{
-        //    gyroRot = 3;
-        //}
-        //if (dir.z < -0.3f)
-        //{
-        //    gyroRot = 4;
-        //}
+        if (dir.x > 0.3f)
+        {
+            gyroRot = 1;
+        }
+        if (dir.x < -0.3f)
+        {
+            gyroRot = 2;
+        }
+        if (dir.z > 0.3f)
+        {
+            gyroRot = 3;
+        }
+        if (dir.z < -0.3f)
+        {
+            gyroRot = 4;
+        }
     }
 }
+
 
 
