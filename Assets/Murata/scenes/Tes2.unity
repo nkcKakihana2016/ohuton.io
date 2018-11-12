@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -352,8 +352,9 @@ GameObject:
   m_Component:
   - component: {fileID: 886986558}
   - component: {fileID: 886986559}
+  - component: {fileID: 886986560}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: Gg_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,7 +421,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 266669751}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 5
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
@@ -428,6 +429,31 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &886986560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 886986557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0a1461341383747987c88da5956e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Gg: 0
+  MAX_Gg: 5
+  MIN_Gg: 0
+  Camera: {fileID: 1552192928}
+  One: 0
+  Two: 0
+  Three: 0
+  Fore: 0
+  Five: 0
+  Six: 0
+  Gage_Slider: {fileID: 1180437791}
+  Red: 0
+  Blue: 255
+  Gree: 0
 --- !u!1001 &1100453431
 Prefab:
   m_ObjectHideFlags: 0
@@ -521,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
