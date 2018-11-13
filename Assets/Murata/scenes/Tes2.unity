@@ -451,9 +451,16 @@ MonoBehaviour:
   Five: 0
   Six: 0
   Gage_Slider: {fileID: 1180437791}
+  Gage_bottom: {fileID: 687858558}
   Red: 0
   Blue: 255
   Gree: 0
+  colorOne: {r: 0.14705896, g: 0, b: 1, a: 1}
+  colorTwo: {r: 0.37586206, g: 0.44928998, b: 1, a: 1}
+  colorThree: {r: 1, g: 0.25172412, b: 0.7799187, a: 1}
+  colorFore: {r: 1, g: 0.77586204, b: 0.77586204, a: 1}
+  colorFive: {r: 1, g: 0.57586205, b: 0.57586205, a: 1}
+  colorSix: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &1100453431
 Prefab:
   m_ObjectHideFlags: 0
