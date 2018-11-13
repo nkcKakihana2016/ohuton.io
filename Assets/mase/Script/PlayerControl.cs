@@ -6,11 +6,17 @@ public class PlayerControl : MonoBehaviour
 {
     public float speed;//速さ
     public float Big;//大きさ
+    public GameObject obj;//選択するObject
+    Extinguish extinguish;
 
 
     // Use this for initialization
     void Start ()
     {
+
+        obj = GameObject.Find("Player_capsule");
+        extinguish = obj.GetComponent<Extinguish>();
+
 	}
 	
 	// Update is called once per frame
@@ -34,6 +40,12 @@ public class PlayerControl : MonoBehaviour
         {
             transform.position -= transform.right * speed * Time.deltaTime;
         }
+
+        //if ()
+        //{
+
+        //}
+
     }
 
     //public void OnTriggerEnter(Collider other)
