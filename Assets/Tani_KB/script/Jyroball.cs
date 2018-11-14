@@ -6,7 +6,8 @@ public class Jyroball : MonoBehaviour
 {
     public float rotSpeed = 10.0f;//移動スピードの値
     public Vector3 dir;//ジャイロの加速度センサーやGetAxis等の数値を格納する変数
-    public Vector3 direction;//ジャイロに伴う回転の数値を格納する変数
+    public Vector3 directRot;//方向を計算用の変数
+    public Vector3 rot;//ジャイロに伴う回転の数値を格納する変数
 
     Transform child;　　　　　　//プレイヤーオブジェクト
     BallRun ballRun;　　　　　　 //攻撃を受けたかどうかを制御するスクリプト
@@ -52,6 +53,8 @@ public class Jyroball : MonoBehaviour
             dir.x = Input.acceleration.x;
             dir.z = Input.acceleration.y;
 
+
+
             if (dir.sqrMagnitude > 1)
                 dir.Normalize();
 
@@ -60,10 +63,18 @@ public class Jyroball : MonoBehaviour
             //実際に動かす
             transform.Translate(dir * rotSpeed);
 
-            if (dir.x != 0.2f || dir.z != 0.2f)
+            directRot = new Vector3(dir.x, 0, dir.z);
+            float dirRotX = dir.x;
+            float dirRotZ = dir.z;
+            dirRotX = Mathf.Floor(dirRotX * 200);
+            dirRotZ = Mathf.Floor(dirRotZ * 200);
+
+
+
+            if (dir.x != 0 || dir.z != 0)
             {
-                direction = new Vector3(dir.x, 0, dir.z);
-                child.transform.localRotation = Quaternion.LookRotation(direction);
+                rot = new Vector3(dirRotX, 0, dirRotZ);
+                child.transform.localRotation = Quaternion.LookRotation(rot);
             }
         }
     }
@@ -89,8 +100,8 @@ public class Jyroball : MonoBehaviour
 
             if (dir.x != 0 || dir.z != 0)
             {
-                direction = new Vector3(dir.x, 0, dir.z);
-                child.transform.localRotation = Quaternion.LookRotation(direction);
+                rot = new Vector3(dir.x, 0, dir.z);
+                child.transform.localRotation = Quaternion.LookRotation(rot);
             }
         }
     }
