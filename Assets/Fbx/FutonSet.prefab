@@ -38,9 +38,10 @@ GameObject:
   - component: {fileID: 4530221003516672}
   - component: {fileID: 33026201699851994}
   - component: {fileID: 23322840949570314}
+  - component: {fileID: 65121184635422588}
   m_Layer: 0
   m_Name: cakebuton (1)
-  m_TagString: Untagged
+  m_TagString: point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -371,3 +372,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1118395569334554}
   m_Mesh: {fileID: 4300000, guid: cc095786d21bfed4686b1c665424a134, type: 3}
+--- !u!65 &65121184635422588
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404969145900592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.61188835, y: 0.5666789, z: 0.09190815}
+  m_Center: {x: 0.0033881962, y: -0.0014192018, z: -0.009509701}

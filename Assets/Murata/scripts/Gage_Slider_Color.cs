@@ -27,6 +27,8 @@ public class Gage_Slider_Color : MonoBehaviour {
     public Color colorFore = Color.white;
     public Color colorFive = Color.white;
     public Color colorSix = Color.white;
+    public bool Change ;
+
 
     void Start()
     {
@@ -49,7 +51,7 @@ public class Gage_Slider_Color : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.O))
         {
             //値を追加
-            _Gg += 1;
+         //   _Gg += 1;
             //ゲージの値がMax以上なら
             if (_Gg > _Slider.maxValue)
             {
@@ -61,7 +63,7 @@ public class Gage_Slider_Color : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P))
         {
             //値を減少
-            _Gg -= 1;
+           // _Gg -= 1;
             //ゲージの値がMIN以下なら
             if (_Gg < _Slider.minValue)
             {
@@ -75,46 +77,64 @@ public class Gage_Slider_Color : MonoBehaviour {
         {
             case 0:
                 Camera.transform.position = new Vector3(0f, One, 0f);
-               //Gage_Slider.color = new Color(Red,Gree,Blue);
+                //Gage_Slider.color = new Color(Red,Gree,Blue);
                 //Gage_bottom.color = new Color(Red,Gree,Blue);
-                Gage_bottom.color = colorOne;
-                Gage_Slider.color = colorOne;
+                if (Change == true)
+                {
+                    Gage_bottom.color = colorOne;
+                    Gage_Slider.color = colorOne;
+                }
                 break;
             case 1:
                 Camera.transform.position = new Vector3(0f, Two, 0f);
                 // Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
-                Gage_bottom.color = colorTwo;
-                Gage_Slider.color = colorTwo;
-                break;
+                if (Change == true)
+                {
+                    Gage_bottom.color = colorTwo;
+                    Gage_Slider.color = colorTwo;
+                }
+                    break;
             case 2:
                 Camera.transform.position = new Vector3(0f, Three, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
-                Gage_bottom.color = colorThree;
-                Gage_Slider.color = colorThree;
+                if (Change == true)
+                {
+                    Gage_bottom.color = colorThree;
+                    Gage_Slider.color = colorThree;
+                }
                 break;
             case 3:
                 Camera.transform.position = new Vector3(0f, Fore, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
-                Gage_bottom.color = colorFore;
-                Gage_Slider.color = colorFore;
+                if (Change == true)
+                {
+                    Gage_bottom.color = colorFore;
+                    Gage_Slider.color = colorFore;
+                }
                 break;
             case 4:
                 Camera.transform.position = new Vector3(0f, Five, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
-                Gage_bottom.color = colorFive;
-                Gage_Slider.color = colorFive;
+                if (Change == true)
+                {
+                    Gage_bottom.color = colorFive;
+                    Gage_Slider.color = colorFive;
+                }
                 break;
             case 5:
                 Camera.transform.position = new Vector3(0f, Six, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
-                Gage_bottom.color = colorSix;
-                Gage_Slider.color = colorSix;
-                break;
+                if (Change == true)
+                {
+                    Gage_bottom.color = colorSix;
+                    Gage_Slider.color = colorSix;
+                }
+                    break;
         }
         //sliderのvalueをゲージと同じにする
         _Slider.value = _Gg;
