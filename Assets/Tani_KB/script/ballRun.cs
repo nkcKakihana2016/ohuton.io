@@ -105,9 +105,11 @@ public class BallRun : MonoBehaviour
            
             if (Input.GetKey(KeyCode.A))
             {
+                
                 transform.position -= transform.right * jyroball.GetComponent<Jyroball>().rotSpeed * 2 * Time.deltaTime;
                 //押している間ゲージを1ずつ減らしていく
                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                Debug.Log("加速押したよ");
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
                 {
                     //ゲージが指定した最小値いかにならないよにする
