@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
-    public float rotSpeed = 10.0f;//移動スピードの値
-    public Vector3 dir;//ジャイロの加速度センサーやGetAxis等の数値を格納する変数
-    public Vector3 directRot;//方向を計算用の変数
-    public Vector3 rot;//ジャイロに伴う回転の数値を格納する変数
+    public float rotSpeed = 10.0f;　 //移動スピードの値
+    public Vector3 dir;　　　　　    //ジャイロに伴う傾けた方向に進む数値を格納する変数
+    public Vector3 rot;              //ジャイロに伴う回転の数値を格納する変数
 
-    Transform child;　　　　　　//プレイヤーオブジェクト
-    BallRun ballRun;　　　　　　 //攻撃を受けたかどうかを制御するスクリプト
+    Transform child;　　　　　　 　  //プレイヤーオブジェクト
+    BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
 
-    public bool gyroFlg;                //ジャイロ操作の時にONにするフラグ
-    public bool debugFlg;　　　　　　   //デバック用のキー操作の時にONにするフラグ
+    public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
+    public bool debugFlg;　　　　　　//デバック用のキー操作の時にONにするフラグ
 
     void Start()
     {
@@ -32,13 +31,11 @@ public class Jyroball : MonoBehaviour
         {
             DebugMove();
         }
-
     }
 
     //ジャイロ操作統括
     public void GyroMove()
     {
-
         if (ballRun.DamageFlg == false)
         {
             //攻撃を受けたら動作する
@@ -47,35 +44,46 @@ public class Jyroball : MonoBehaviour
                 rotSpeed = 0.0f;
             }
 
-            dir = Vector3.zero;
+            Vector3 inDir = Vector3.zero;
 
             // 端末の縦横の表示に合わせてdir変数に格納する
-            dir.x = Input.acceleration.x;
-            dir.z = Input.acceleration.y;
+            inDir.x = Input.acceleration.x;
+            inDir.z = Input.acceleration.y;
 
+            float customDirX = inDir.x;
+            float customDirZ = inDir.z;
 
-
-            if (dir.sqrMagnitude > 1)
-                dir.Normalize();
-
-            dir *= Time.deltaTime;
+            //小数点第2以下を切り捨てるよう計算しなおす
+            customDirX = Mathf.Floor(customDirX * 200) / 2000;
+            customDirZ = Mathf.Floor(customDirZ * 200) / 2000;
 
             //実際に動かす
+            dir = new Vector3(customDirX, 0, customDirZ);
             transform.Translate(dir * rotSpeed);
 
-            directRot = new Vector3(dir.x, 0, dir.z);
-            float dirRotX = dir.x;
-            float dirRotZ = dir.z;
-            dirRotX = Mathf.Floor(dirRotX * 200);
-            dirRotZ = Mathf.Floor(dirRotZ * 200);
+            //指定した範囲内の数値では回転しないようにする
+            rot = new Vector3(customDirX, 0, customDirZ);
+            child.transform.localRotation = Quaternion.LookRotation(rot);
+
+            //if (dir.sqrMagnitude > 1)
+            //    dir.Normalize();
+
+            //dir *= Time.deltaTime;
 
 
 
-            if (dir.x != 0 || dir.z != 0)
-            {
-                rot = new Vector3(dirRotX, 0, dirRotZ);
-                child.transform.localRotation = Quaternion.LookRotation(rot);
-            }
+            //方向を計算して回転させる
+            //Vector3 directRot = new Vector3(dir.x, 0, dir.z);
+            //float dirRotX = dir.x;
+            //float dirRotZ = dir.z;
+            //dirRotX = Mathf.Floor(dirRotX * 200) / 2000;
+            //dirRotZ = Mathf.Floor(dirRotZ * 200) / 2000;
+
+            //if (dir.x != 0 || dir.z != 0)
+            //{
+            //    rot = new Vector3(dirRotX, 0, dirRotZ);
+            //    child.transform.localRotation = Quaternion.LookRotation(rot);
+            //}
         }
     }
 
@@ -92,6 +100,7 @@ public class Jyroball : MonoBehaviour
             {
                 rotSpeed = 0.0f;
             }
+            Vector3 dir = Vector3.zero;
 
             dir.x = Input.GetAxis("Horizontal");
             dir.z = Input.GetAxis("Vertical");
