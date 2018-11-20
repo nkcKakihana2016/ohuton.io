@@ -16,8 +16,8 @@ public class Jyroball : MonoBehaviour
 
     void Start()
     {
-        child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();//プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-        ballRun = child.GetComponent<BallRun>();//攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+        ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
     }
 
     void Update()
@@ -61,6 +61,7 @@ public class Jyroball : MonoBehaviour
             dir = new Vector3(customDirX, 0, customDirZ);
             transform.Translate(dir * rotSpeed);
 
+            
             //指定した範囲内の数値では回転しないようにする
             rot = new Vector3(customDirX, 0, customDirZ);
             child.transform.localRotation = Quaternion.LookRotation(rot);
@@ -90,8 +91,6 @@ public class Jyroball : MonoBehaviour
     //デバック用の移動メソッド
     public void DebugMove()
     {
-        rotSpeed = 0.5f;
-
         if (ballRun.DamageFlg == false)
         {
             //diff = Target.position - this.gameObject.transform.position;
