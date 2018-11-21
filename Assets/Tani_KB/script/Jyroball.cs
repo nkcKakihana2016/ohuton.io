@@ -7,12 +7,13 @@ public class Jyroball : MonoBehaviour
     public float rotSpeed = 10.0f;　 //移動スピードの値
     public Vector3 dir;　　　　　    //ジャイロに伴う傾けた方向に進む数値を格納する変数
     public Vector3 rot;              //ジャイロに伴う回転の数値を格納する変数
+    public float customDirX;
+    public float customDirZ;
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
-    public bool debugFlg;　　　　　　//デバック用のキー操作の時にONにするフラグ
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class Jyroball : MonoBehaviour
             GyroMove();
         }
 
-        if (debugFlg == true)
+        if (gyroFlg == false)
         {
             DebugMove();
         }
@@ -50,21 +51,35 @@ public class Jyroball : MonoBehaviour
             inDir.x = Input.acceleration.x;
             inDir.z = Input.acceleration.y;
 
-            float customDirX = inDir.x;
-            float customDirZ = inDir.z;
+            customDirX = inDir.x;
+            customDirZ = inDir.z;
 
             //小数点第2以下を切り捨てるよう計算しなおす
             customDirX = Mathf.Floor(customDirX * 200) / 2000;
             customDirZ = Mathf.Floor(customDirZ * 200) / 2000;
 
-            //実際に動かす
-            dir = new Vector3(customDirX, 0, customDirZ);
-            transform.Translate(dir * rotSpeed);
+            //customDirX = Mathf.Clamp(customDirX, 0.01f, -0.01f);
+            //customDirZ = Mathf.Clamp(customDirZ, 0.01f, -0.01f);
 
-            
-            //指定した範囲内の数値では回転しないようにする
-            rot = new Vector3(customDirX, 0, customDirZ);
-            child.transform.localRotation = Quaternion.LookRotation(rot);
+
+            if (customDirX < 0.01 || customDirX > -0.01)
+            {
+                if(customDirZ < 0.01 || customDirZ > -0.01)
+                {
+                    dir = new Vector3(customDirX, 0, customDirZ);
+                    rotSpeed = 0.0f;
+                    transform.Translate(dir * rotSpeed);
+                }
+            }else {
+                //実際に動かす
+                dir = new Vector3(customDirX, 0, customDirZ);
+                rotSpeed = 10.0f;
+                transform.Translate(dir * rotSpeed);
+
+                //指定した範囲内の数値では回転しないようにする
+                rot = new Vector3(customDirX, 0, customDirZ);
+                child.transform.localRotation = Quaternion.LookRotation(rot);
+            }
 
             //if (dir.sqrMagnitude > 1)
             //    dir.Normalize();
