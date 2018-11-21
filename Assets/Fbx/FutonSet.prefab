@@ -54,9 +54,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4438594873670334}
+  - component: {fileID: 65672801226958080}
   m_Layer: 0
   m_Name: FutonSet
-  m_TagString: Untagged
+  m_TagString: FutonSet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,9 +117,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4242143391371866}
+  - component: {fileID: 65343449195697530}
   m_Layer: 0
   m_Name: makura
-  m_TagString: Untagged
+  m_TagString: FutonSet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,9 +133,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4219179946353998}
+  - component: {fileID: 65957352804317492}
   m_Layer: 0
   m_Name: huton
-  m_TagString: Untagged
+  m_TagString: FutonSet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1671189215510072}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 98, y: 0, z: 73.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4530221003516672}
@@ -384,3 +387,39 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.61188835, y: 0.5666789, z: 0.09190815}
   m_Center: {x: 0.0033881962, y: -0.0014192018, z: -0.009509701}
+--- !u!65 &65343449195697530
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899848493379204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24, y: -0.07, z: 0.47}
+  m_Center: {x: 0, y: -0.05, z: 0}
+--- !u!65 &65672801226958080
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1671189215510072}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65957352804317492
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900422955073398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.71, y: 0.2, z: 1.06}
+  m_Center: {x: 0, y: 0, z: 0}

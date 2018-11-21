@@ -101,7 +101,7 @@ public class Fton_Create : MonoBehaviour {
 
             number += 1;
 
-            yield return null;
+            yield return new WaitForSeconds(3.0f);
         }
     }
 

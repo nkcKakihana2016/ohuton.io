@@ -18,6 +18,7 @@ public class BallRun : MonoBehaviour
     //ゲージ
     Slider slider;
     public GameObject jyroball;
+    public bool Des = false;
     // Use this for initialization
     void Start ()
     {
@@ -58,7 +59,6 @@ public class BallRun : MonoBehaviour
             MurataScript.GAGE();
         }
         futonpurge();
-
     }
     IEnumerator GetDamage()
     {
@@ -75,16 +75,32 @@ public class BallRun : MonoBehaviour
     {
         if (other.gameObject.tag == "point")
         {
+            
             Destroy(other.gameObject);
+            
            // MurataScript.GetComponent<Gg_Slider>()._Gg += 1;
             if (MurataScript.GetComponent<Gg_Slider>()._Gg > slider.maxValue)
             {
                 MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MAX_Gg;
             }
             speedup = true;
+            Des = true;
+        }
+     
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (Des == true)
+        {
+            if (other.gameObject.tag == "FutonSet")
+            {
+                Destroy(other.gameObject);
+                Des = false;
+            }
         }
     }
-    public void futonpurge()
+
+        public void futonpurge()
     {
         if (speedup)
         {
