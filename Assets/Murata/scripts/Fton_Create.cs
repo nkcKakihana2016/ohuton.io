@@ -54,32 +54,46 @@ public class Fton_Create : MonoBehaviour {
 
     //}
 
+    //布団
     public GameObject huton;
+    //ポジションリスト
     private List<Pos> posList = new List<Pos>();
-
+    //個数
     private int number = 0;
 
     [SerializeField]
+    //座標
        Vector3 POS;
+
     private void Start()
     {
+        //x座標方向に11
         for (int x = 0; x < 11; x++)
         {
+            //Z座標方向に24
             for (int z = 0; z < 24; z++)
             {
+                //座標
                 Pos pos = new Pos();
+                //間隔
                 pos.SetPos(2 * x, 1.5f * z);
+                //リスト追加
                 posList.Add(pos);
             }
         }
 
+        //50個布団を生成
         for (int i = 0; i < 50; i++)
         {
+            //ランダムで
             int r = Random.Range(0, posList.Count);
+            //布団を生成
             Instantiate(huton, new Vector3(posList[r].pos_X, 0, posList[r].pos_Z)+POS, transform.rotation);
+            //リストから削除
             posList.Remove(posList[r]);
-
+            //布団の数+1
             number += 1;
+            //何個出ているか
             Debug.Log(number);
         }
     }
@@ -92,39 +106,46 @@ public class Fton_Create : MonoBehaviour {
     {
         while (true)
         {
+            //50以上なら
             if (number >= 50)
-                break;
+                break;//やめる
 
             int r = Random.Range(0, posList.Count);
             Instantiate(huton, new Vector3(posList[r].pos_X, 0, posList[r].pos_Z), transform.rotation);
             posList.Remove(posList[r]);
 
+            //数+1
             number += 1;
 
             yield return new WaitForSeconds(3.0f);
         }
     }
-
+    //布団削除
     public void HutonRemove(float x, float z)
     {
+        //座標
         var pos = new Pos();
+        //間隔
         pos.SetPos(x, z);
+        //リスト追加
         posList.Add(pos);
-
+        //布団の数-1
         number -= 1;
 
+        //コルーチン
         StartCoroutine("hutonIns");
     }
-
+    //座標
     public class Pos : MonoBehaviour
     {
-        public float pos_X;
-        public float pos_Z;
+        public float pos_X;//x座標
+        public float pos_Z;//y座標
 
+        //座標
         public void SetPos(float x, float z)
         {
-            pos_X = x;
-            pos_Z = z;
+            pos_X = x;//x座標
+            pos_Z = z;//y座標
         }
     }
 }

@@ -3659,8 +3659,6 @@ MonoBehaviour:
   charaRot: {x: 0, y: 0, z: 0, w: 0}
   speedup: 1
   jyroball: {fileID: 787908412}
-  CountTim: 0
-  DestroyTim: 3
 --- !u!136 &1706701450
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3904,7 +3902,7 @@ GameObject:
   - component: {fileID: 1899236918}
   - component: {fileID: 1899236917}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Fton_Create
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

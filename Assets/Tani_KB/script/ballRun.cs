@@ -18,7 +18,6 @@ public class BallRun : MonoBehaviour
     //ゲージ
     Slider slider;
     public GameObject jyroball;
-    public bool Des = false;
     // Use this for initialization
     void Start ()
     {
@@ -84,20 +83,18 @@ public class BallRun : MonoBehaviour
                 MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MAX_Gg;
             }
             speedup = true;
-            Des = true;
         }
      
     }
+    //当たって離れたら
     public void OnTriggerExit(Collider other)
     {
-        if (Des == true)
-        {
+        //敷布団のタグを条件として
             if (other.gameObject.tag == "FutonSet")
             {
-                Destroy(other.gameObject);
-                Des = false;
+            //敷布団を1秒後に削除
+                Destroy(other.gameObject,1.0f);
             }
-        }
     }
 
         public void futonpurge()
