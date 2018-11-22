@@ -70,16 +70,23 @@ public class Jyroball : MonoBehaviour
                     rotSpeed = 0.0f;
                     transform.Translate(dir * rotSpeed);
                 }
-            }else {
-                //実際に動かす
-                dir = new Vector3(customDirX, 0, customDirZ);
-                rotSpeed = 10.0f;
-                transform.Translate(dir * rotSpeed);
-
-                //指定した範囲内の数値では回転しないようにする
-                rot = new Vector3(customDirX, 0, customDirZ);
-                child.transform.localRotation = Quaternion.LookRotation(rot);
             }
+
+            if (customDirX > 0.01 || customDirX < -0.01)
+            {
+                if (customDirZ > 0.01 || customDirZ < -0.01)
+                {
+                    //実際に動かす
+                    dir = new Vector3(customDirX, 0, customDirZ);
+                    rotSpeed = 10.0f;
+                    transform.Translate(dir * rotSpeed);
+
+                    //指定した範囲内の数値では回転しないようにする
+                    rot = new Vector3(customDirX, 0, customDirZ);
+                    child.transform.localRotation = Quaternion.LookRotation(rot);
+                }
+            }
+            
 
             //if (dir.sqrMagnitude > 1)
             //    dir.Normalize();
