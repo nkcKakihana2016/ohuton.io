@@ -14,11 +14,13 @@ public class Jyroball : MonoBehaviour
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
+    bool stopFlg;
 
     void Start()
     {
         child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        stopFlg = false;
     }
 
     void Update()
@@ -61,14 +63,13 @@ public class Jyroball : MonoBehaviour
             //customDirX = Mathf.Clamp(customDirX, 0.01f, -0.01f);
             //customDirZ = Mathf.Clamp(customDirZ, 0.01f, -0.01f);
 
+          
 
             if (customDirX < 0.01 || customDirX > -0.01)
             {
-                if(customDirZ < 0.01 || customDirZ > -0.01)
+                if (customDirZ < 0.01 || customDirZ > -0.01)
                 {
-                    dir = new Vector3(customDirX, 0, customDirZ);
-                    rotSpeed = 0.0f;
-                    transform.Translate(dir * rotSpeed);
+                    stopFlg = true;
                 }
             }
 
@@ -76,6 +77,8 @@ public class Jyroball : MonoBehaviour
             {
                 if (customDirZ > 0.01 || customDirZ < -0.01)
                 {
+                    stopFlg = false;
+
                     //実際に動かす
                     dir = new Vector3(customDirX, 0, customDirZ);
                     rotSpeed = 10.0f;
@@ -107,6 +110,16 @@ public class Jyroball : MonoBehaviour
             //    rot = new Vector3(dirRotX, 0, dirRotZ);
             //    child.transform.localRotation = Quaternion.LookRotation(rot);
             //}
+        }
+    }
+
+    public void MoveStop()
+    {
+        if(stopFlg == true)
+        {
+            dir = new Vector3(customDirX, 0, customDirZ);
+            rotSpeed = 0.0f;
+            transform.Translate(dir * rotSpeed);
         }
     }
 
