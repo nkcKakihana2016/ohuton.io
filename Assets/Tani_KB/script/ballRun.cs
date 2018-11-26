@@ -77,7 +77,7 @@ public class BallRun : MonoBehaviour
             
             Destroy(other.gameObject);
             
-           // MurataScript.GetComponent<Gg_Slider>()._Gg += 1;
+            MurataScript.GetComponent<Gg_Slider>()._Gg += 1;
             if (MurataScript.GetComponent<Gg_Slider>()._Gg > slider.maxValue)
             {
                 MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MAX_Gg;
