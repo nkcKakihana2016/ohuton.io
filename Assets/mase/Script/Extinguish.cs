@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class delete : MonoBehaviour
+public class Extinguish : MonoBehaviour
 {
     public float Big;//大きさ
     public Text count;//テキスト

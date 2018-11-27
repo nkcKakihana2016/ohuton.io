@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9f98f45609d4f4a4eb8956176ee01430
-timeCreated: 1539754711
+guid: 872c7eeb447d21d4ea22ec874a7268f0
+timeCreated: 1539667624
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -15,7 +15,7 @@ ModelImporter:
     400004: Cylinder001
     400006: PhysCamera001
     400008: PhysCamera001.Target
-    2100000: 'Material #53'
+    2100000: No Name
     2100002: 'Material #37'
     2100004: "\u65E2\u5B9A \u91D1\u5C5E"
     2100006: 'Material #36'
