@@ -353,8 +353,9 @@ MonoBehaviour:
   rotSpeed: 10
   dir: {x: 0, y: 0, z: 0}
   rot: {x: 0, y: 0, z: 0}
-  gyroFlg: 1
-  debugFlg: 0
+  customDirX: 0
+  customDirZ: 0
+  gyroFlg: 0
 --- !u!4 &272090068
 Transform:
   m_ObjectHideFlags: 0

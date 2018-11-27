@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
-    public float rotSpeed = 10.0f;　 //移動スピードの値
+    public float rotSpeed;　 //移動スピードの値
     public Vector3 dir;　　　　　    //ジャイロに伴う傾けた方向に進む数値を格納する変数
     public Vector3 rot;              //ジャイロに伴う回転の数値を格納する変数
     public float customDirX;
@@ -39,14 +39,10 @@ public class Jyroball : MonoBehaviour
     //ジャイロ操作統括
     public void GyroMove()
     {
+        rotSpeed = 10.0f;
+
         if (ballRun.DamageFlg == false)
         {
-            //攻撃を受けたら動作する
-            if (ballRun.DamageFlg == true)
-            {
-                rotSpeed = 0.0f;
-            }
-
             Vector3 inDir = Vector3.zero;
 
             // 端末の縦横の表示に合わせてdir変数に格納する
@@ -69,7 +65,9 @@ public class Jyroball : MonoBehaviour
             {
                 if (customDirZ < 0.01 || customDirZ > -0.01)
                 {
-                    stopFlg = true;
+                    dir = new Vector3(customDirX, 0, customDirZ);
+                    rotSpeed = 0.0f;
+                    transform.Translate(dir * rotSpeed);
                 }
             }
 
@@ -77,8 +75,6 @@ public class Jyroball : MonoBehaviour
             {
                 if (customDirZ > 0.01 || customDirZ < -0.01)
                 {
-                    stopFlg = false;
-
                     //実際に動かす
                     dir = new Vector3(customDirX, 0, customDirZ);
                     rotSpeed = 10.0f;
@@ -113,31 +109,33 @@ public class Jyroball : MonoBehaviour
         }
     }
 
-    public void MoveStop()
-    {
-        if(stopFlg == true)
-        {
-            dir = new Vector3(customDirX, 0, customDirZ);
-            rotSpeed = 0.0f;
-            transform.Translate(dir * rotSpeed);
-        }
-    }
+    //public void MoveStop()
+    //{
+    //    if(stopFlg == true)
+    //    {
+    //        dir = new Vector3(customDirX, 0, customDirZ);
+    //        rotSpeed = 0.0f;
+    //        transform.Translate(dir * rotSpeed);
+    //    }
+    //}
 
     //デバック用の移動メソッド
     public void DebugMove()
     {
+        rotSpeed = 0.1f;
+
         if (ballRun.DamageFlg == false)
         {
             //diff = Target.position - this.gameObject.transform.position;
-            //攻撃を受けたら動作する
-            if (ballRun.DamageFlg == true)
-            {
-                rotSpeed = 0.0f;
-            }
             Vector3 dir = Vector3.zero;
 
             dir.x = Input.GetAxis("Horizontal");
             dir.z = Input.GetAxis("Vertical");
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                rotSpeed = 0.5f;
+            }
 
             transform.Translate(dir.x * rotSpeed, 0, dir.z * rotSpeed);
 
