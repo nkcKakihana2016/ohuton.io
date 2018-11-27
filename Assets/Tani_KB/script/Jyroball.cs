@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Jyroball : MonoBehaviour
 {
-    public float rotSpeed;　 //移動スピードの値
+    public float rotSpeed;　         //移動スピードの値
+    public float accelSpeed;         //加速スピードの値
     public Vector3 dir;　　　　　    //ジャイロに伴う傾けた方向に進む数値を格納する変数
     public Vector3 rot;              //ジャイロに伴う回転の数値を格納する変数
     public float customDirX;
     public float customDirZ;
+
+    public int scaleNum;
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
@@ -21,6 +24,8 @@ public class Jyroball : MonoBehaviour
         child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         stopFlg = false;
+        scaleNum = 1;
+
     }
 
     void Update()
@@ -109,16 +114,6 @@ public class Jyroball : MonoBehaviour
         }
     }
 
-    //public void MoveStop()
-    //{
-    //    if(stopFlg == true)
-    //    {
-    //        dir = new Vector3(customDirX, 0, customDirZ);
-    //        rotSpeed = 0.0f;
-    //        transform.Translate(dir * rotSpeed);
-    //    }
-    //}
-
     //デバック用の移動メソッド
     public void DebugMove()
     {
@@ -146,6 +141,26 @@ public class Jyroball : MonoBehaviour
             }
         }
     }
+
+    //public void CustomPlayerScale()
+    //{
+    //    switch(scaleNum)
+    //    {
+    //        case 1:
+    //            child.transform.localScale;
+    //            break;
+    //    }
+    //}
+
+    //public void MoveStop()
+    //{
+    //    if(stopFlg == true)
+    //    {
+    //        dir = new Vector3(customDirX, 0, customDirZ);
+    //        rotSpeed = 0.0f;
+    //        transform.Translate(dir * rotSpeed);
+    //    }
+    //}
 }
 
 
