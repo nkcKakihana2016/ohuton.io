@@ -8,6 +8,9 @@ public class SampleAI : MonoBehaviour
 {
     private GameObject nearObj;         //最も近いオブジェクト
     private float searchTime = 0;    //経過時間
+    public bool Playerhit;
+    public GameObject target;
+    NavMeshAgent agent;
 
     // Use this for initialization
     void Start ()
@@ -16,29 +19,44 @@ public class SampleAI : MonoBehaviour
         //最も近かったオブジェクトを取得
         nearObj = serchTag(gameObject, "point");
 
+        Playerhit = false;
+
+        agent = GetComponent<NavMeshAgent>();
+
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
 
-        //経過時間を取得
-        searchTime += Time.deltaTime;
-
-        if (searchTime >= 1.0f)
+        if (Playerhit)
         {
-            //最も近かったオブジェクトを取得
-            nearObj = serchTag(gameObject, "point");
+            agent.destination = target.transform.position;
+        }
+        else
+        {
+            //経過時間を取得
+            searchTime += Time.deltaTime;
 
-            //経過時間を初期化
-            searchTime = 0;
+            if (searchTime >= 1.0f)
+            {
+                //最も近かったオブジェクトを取得
+                nearObj = serchTag(gameObject, "point");
+
+                //経過時間を初期化
+                searchTime = 0;
+            }
+
+            //対象の位置の方向を向く
+            transform.LookAt(nearObj.transform);
+
+            //自分自身の位置から相対的に移動する
+            transform.Translate(Vector3.forward * 0.1f);
+
+            Debug.Log("フラグがfalse");
         }
 
-        //対象の位置の方向を向く
-        transform.LookAt(nearObj.transform);
 
-        //自分自身の位置から相対的に移動する
-        transform.Translate(Vector3.forward * 0.1f);
 
     }
 
