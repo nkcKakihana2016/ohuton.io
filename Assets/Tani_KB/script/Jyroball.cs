@@ -24,7 +24,7 @@ public class Jyroball : MonoBehaviour
         child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         stopFlg = false;
-        scaleNum = 1;
+        scaleNum = 0;
 
     }
 
@@ -64,7 +64,7 @@ public class Jyroball : MonoBehaviour
             //customDirX = Mathf.Clamp(customDirX, 0.01f, -0.01f);
             //customDirZ = Mathf.Clamp(customDirZ, 0.01f, -0.01f);
 
-          
+
 
             if (customDirX < 0.01 || customDirX > -0.01)
             {
@@ -91,7 +91,6 @@ public class Jyroball : MonoBehaviour
                 }
             }
             
-
             //if (dir.sqrMagnitude > 1)
             //    dir.Normalize();
 
@@ -142,25 +141,46 @@ public class Jyroball : MonoBehaviour
         }
     }
 
-    //public void CustomPlayerScale()
-    //{
-    //    switch(scaleNum)
-    //    {
-    //        case 1:
-    //            child.transform.localScale;
-    //            break;
-    //    }
-    //}
+    //子オブジェクトのサイズ変更と初期スピードの変更を司るメソッド
+    public void CustomPlayerScale()
+    {
+        switch (scaleNum)
+        {
+            case 1://5枚分取得した時
 
-    //public void MoveStop()
-    //{
-    //    if(stopFlg == true)
-    //    {
-    //        dir = new Vector3(customDirX, 0, customDirZ);
-    //        rotSpeed = 0.0f;
-    //        transform.Translate(dir * rotSpeed);
-    //    }
-    //}
+                break;
+
+            case 2://10枚分取得した時
+
+                break;
+
+            case 3://15枚分取得した時
+
+                break;
+
+            case 4://20枚分取得した時
+
+                break;
+
+            case 5://25枚分取得した時
+
+                break;
+
+            default://初期状態
+
+                break;
+
+                //public void MoveStop()
+                //{
+                //    if(stopFlg == true)
+                //    {
+                //        dir = new Vector3(customDirX, 0, customDirZ);
+                //        rotSpeed = 0.0f;
+                //        transform.Translate(dir * rotSpeed);
+                //    }
+                //}
+        }
+    }
 }
 
 
