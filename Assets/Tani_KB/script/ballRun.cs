@@ -117,7 +117,7 @@ public class BallRun : MonoBehaviour
                 }
             }
            
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetMouseButton(0))
             {
                 
                 transform.position -= transform.right * jyroball.GetComponent<Jyroball>().rotSpeed * 2 * Time.deltaTime;
