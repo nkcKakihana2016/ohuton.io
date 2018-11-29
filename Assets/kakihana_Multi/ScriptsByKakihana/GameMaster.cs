@@ -19,12 +19,13 @@ public class GameMaster : Photon.MonoBehaviour {
     public int maxPlayers;          // 最大人数
     public int joinPlayers;         // 参加人数
     public int playerCount = 0;     // OnPhotonPlayerConnectedの呼び出し毎にカウントを足す
+    public int readyCount = 0;      // 準備完了状態の人数
     public int countDownTimer = 3;  // カウントダウンの秒数
 
     [SerializeField]
-    List<string> playerNameList;   // プレイヤー名リスト
-    [SerializeField]
-    PhotonPlayer[] playerList;
+    public List<string> playerNameList;   // プレイヤー名リスト
+    public List<int> idList;              // IDリスト（仮）
+    public List<PlayerData> playerDataList; // プレイヤーデータリスト
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +59,7 @@ public class GameMaster : Photon.MonoBehaviour {
                     // 参加人数を足す
                     playerCount++;
                 }
+                // 最大人数を取得
                 maxPlayers = PhotonNetwork.room.MaxPlayers;
                 break;
             case "battle":
@@ -67,7 +69,11 @@ public class GameMaster : Photon.MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        // 全員が準備完了ボタンを押したらゲームスタート
+        if (readyCount == PhotonNetwork.room.MaxPlayers)
+        {
+            CountDownStart();
+        }
 	}
 
     // プレイヤーがロビーシーンに参加したときに呼ばれる
@@ -92,15 +98,47 @@ public class GameMaster : Photon.MonoBehaviour {
         Debug.Log(player.NickName + " is disconnected");
         // プレイヤーリストから除外
         playerNameList.Remove(player.NickName);
-        playerList = PhotonNetwork.playerList;
-       // MasterClientCheck(player.NickName);
+        // IDリストから除外
+        idList.Remove(player.ID);
+        // プレイヤーデータリストから名前が一致した要素を除外
+        for (int i = 0; i < playerDataList.Count; i++)
+        {
+            if (player.NickName == playerDataList[i].playerName)
+            {
+                playerDataList.Remove(playerDataList[i]);
+            }
+        }
         // ルーム情報更新
-        photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
+        photonView.RPC("RoomInfoUpdate", PhotonTargets.All,readyCount);
+    }
+
+    public void ReadyCheck(int cnt)
+    {
+
+    }
+
+    // 準備完了をカウントするメソッド
+    public void ReadyCount()
+    {
+        // カウントを足す
+        readyCount++;
+        // 現在の準備完了状況を更新
+        photonView.RPC("ReadyCountUpdate", PhotonTargets.All, readyCount);
+    }
+
+    // 準備完了を取り消すメソッド
+    public void ReadyDiv()
+    {
+        // カウントを引く
+        readyCount--;
+        // 現在の準備完了状況を更新
+        photonView.RPC("ReadyCountUpdate", PhotonTargets.All, readyCount);
     }
 
     // カウントダウンをスタートさせる
     public void CountDownStart()
     {
+        // カウントダウンの同期
         photonView.RPC("CountDown", PhotonTargets.All);
     }
 
@@ -108,7 +146,7 @@ public class GameMaster : Photon.MonoBehaviour {
     [PunRPC]
     void Sample()
     {
-
+        // サンプル用
     }
 
     // 戦闘用シーンに移行するためのメソッド

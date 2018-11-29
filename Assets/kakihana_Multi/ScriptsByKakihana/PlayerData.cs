@@ -52,9 +52,18 @@ public class PlayerData : MonoBehaviour{
 	}
 
     // 準備完了ボタンが押されたら
-    public void ReadyOnClick()
+    public void ReadyOnClick(int cnt)
     {
-        // 準備完了ステート変更
-        isReady = PlayerReady.ReadyOn;
+        if (cnt % 2 == 1)
+        {
+            // 準備完了ステート変更
+            isReady = PlayerReady.ReadyOn;
+        }
+        else
+        {
+            // 準備完了ステート変更
+            isReady = PlayerReady.ReadyOff;
+        }
+
     }
 }

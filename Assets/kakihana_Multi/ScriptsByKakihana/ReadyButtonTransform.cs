@@ -46,7 +46,16 @@ public class ReadyButtonTransform : MonoBehaviour {
     // ボタンがクリックされたら
     public void ReadyClick()
     {
-        myData.ReadyOnClick();
-        gm.ReadyCount();
+        cnt++;
+        if (cnt % 2 == 1)
+        {
+            myData.ReadyOnClick(cnt);
+            gm.ReadyCount();
+        }
+        else
+        {
+            myData.ReadyOnClick(cnt);
+            gm.ReadyDiv();
+        }
     }
 }

@@ -72,13 +72,15 @@ public class IconManager : Photon.MonoBehaviour {
         // 参照しているキャラクターデータクラスとこのクラスに設定されているIDと一致しているか
         if (myData.viewID == ownerID)
         {
+            myIconState = IconState.yourPlayer;
             // 一致していたら識別アイコンに設定
-            iconImage.sprite = icon[(int)IconState.yourPlayer];
+            iconImage.sprite = icon[(int)myIconState];
         }
         else
         {
+            myIconState = IconState.notReady;
             // 一致していなければ準備未完了アイコンに設定
-            iconImage.sprite = icon[(int)IconState.notReady];
+            iconImage.sprite = icon[(int)myIconState];
         }
         // キャラクターUI同期（自分以外のプレイヤーに影響）
         photonView.RPC("ShowImage", PhotonTargets.Others);
@@ -87,10 +89,22 @@ public class IconManager : Photon.MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // 準備完了ボタンが押されたら
-        if(myData.isReady == PlayerData.PlayerReady.ReadyOn)
+        if (Time.frameCount % 30 == 0) // 30フレーム毎に実行
         {
-            // アイコンを変える
-            IconChange();
+            if (myData.isReady == PlayerData.PlayerReady.ReadyOn)
+            {
+                // アイコンを変える
+                IconChange();
+            }
+            else if (myData.isReady == PlayerData.PlayerReady.ReadyOff)
+            {
+                if (myData.viewID == ownerID)
+                {
+                    myIconState = IconState.yourPlayer;
+                    // 一致していたら識別アイコンに設定
+                    iconImage.sprite = icon[(int)myIconState];
+                }
+            }
         }
 	}
 
@@ -111,8 +125,9 @@ public class IconManager : Photon.MonoBehaviour {
     [PunRPC]
     public void IconChange()
     {
+        myIconState = IconState.readyOK;
         // 表示させるアイコンを設定
-        iconImage.sprite = icon[(int)IconState.readyOK];
+        iconImage.sprite = icon[(int)myIconState];
     }
 
     // アイコン表示初期設定メソッド

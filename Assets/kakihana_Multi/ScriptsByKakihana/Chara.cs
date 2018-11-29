@@ -11,6 +11,7 @@ public class Chara : Photon.MonoBehaviour {
     public PhotonTransformView myPhotonTransformView;
 
     public GameMaster gm;
+    public PlayerData myData;
 
     // 自分のPhotonViewID
     /* ViewIDについての補足 */
@@ -23,6 +24,7 @@ public class Chara : Photon.MonoBehaviour {
     */
     [SerializeField] int myViewId;
     [SerializeField] int viewid;
+    public int myID = 0;
 
     // 使用するキャラクターコントローラー
     public CharacterController myCC;
@@ -37,6 +39,11 @@ public class Chara : Photon.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        myData = this.gameObject.GetComponent<PlayerData>();
+        this.myPhotonView = PhotonView.Get(this);
+        gm.idList.Add(myPhotonView.viewID);
+        gm.playerDataList.Add(myData);
         // Photonに接続されていたら
         if (myPhotonView.isMine)
         {
@@ -46,10 +53,8 @@ public class Chara : Photon.MonoBehaviour {
             mainCam.GetComponent<CameraManager>().target = this.gameObject.transform;
             // PhotonviewよりviewIDを取得
             myViewId = photonView.viewID;
-            gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-            //myPhotonView.RPC("MultyPlayerEntry", PhotonTargets.All);
-            //gm.MultyPlayerEntry(this, PhotonNetwork.player.NickName, myPhotonView.viewID);
 
+            //myID = photonView.RPC("GetID", PhotonTargets.AllViaServer);
            // ViewIDの千の位によりプレイヤーの色を変える
             switch (myViewId /= 1000)
             {
@@ -99,11 +104,18 @@ public class Chara : Photon.MonoBehaviour {
         pos.z = Input.GetAxis("Vertical");
     }
 
+    public void SendToMasterReady()
+    {
+        gm.ReadyCount();
+    }
+
     // PunRPC以外の同期方法としてOnPhotonSerializeView（）関数下でも出来る
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.isWriting) { /* 書き込み処理 */ }
-        else { /* 読み込み処理 */ }
+        if (stream.isWriting) { /* 書き込み処理 */
+        }
+        else { /* 読み込み処理 */
+        }
     }
 
     
