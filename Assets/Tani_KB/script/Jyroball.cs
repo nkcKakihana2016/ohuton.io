@@ -12,6 +12,7 @@ public class Jyroball : MonoBehaviour
     public float customDirZ;
 
     public int scaleNum;
+    public int zabutonNum;
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
@@ -24,6 +25,7 @@ public class Jyroball : MonoBehaviour
         child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         stopFlg = false;
+        zabutonNum = 0;
         scaleNum = 0;
 
     }
@@ -38,6 +40,15 @@ public class Jyroball : MonoBehaviour
         if (gyroFlg == false)
         {
             DebugMove();
+
+            if(Input.GetKeyDown(KeyCode.N))
+            {
+                if(zabutonNum < 25)
+                {
+                    zabutonNum += 1;
+                }
+               
+            }
         }
     }
 
@@ -118,6 +129,8 @@ public class Jyroball : MonoBehaviour
     {
         rotSpeed = 0.1f;
 
+        CustomPlayerScale();
+
         if (ballRun.DamageFlg == false)
         {
             //diff = Target.position - this.gameObject.transform.position;
@@ -147,27 +160,27 @@ public class Jyroball : MonoBehaviour
         switch (scaleNum)
         {
             case 1://5枚分取得した時
-
+                Debug.Log("１段階目！！！");
                 break;
 
             case 2://10枚分取得した時
-
+                Debug.Log("２段階目！！！");
                 break;
 
             case 3://15枚分取得した時
-
+                Debug.Log("３段階目！！！");
                 break;
 
             case 4://20枚分取得した時
-
+                Debug.Log("４段階目！！！");
                 break;
 
             case 5://25枚分取得した時
-
+                Debug.Log("５段階目！！！");
                 break;
 
             default://初期状態
-
+                Debug.Log("初期状態！！！");
                 break;
 
                 //public void MoveStop()
