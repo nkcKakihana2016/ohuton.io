@@ -7,6 +7,12 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LobbyManager : Photon.MonoBehaviour {
 
+    public enum DialogMessage
+    {
+        ChangeMaster = 0,
+        RoomStatusUpdate
+    }
+
     [SerializeField] GameMaster gm; // ゲームマスターコンポーネント
 
     // ルーム作成者オブジェクト
@@ -15,18 +21,29 @@ public class LobbyManager : Photon.MonoBehaviour {
     public int playerNum;           // プレイヤー人数
     public int playerMaxNum;        // プレイヤー最大人数
     public string roomCreatorName;  // ルーム作成者
+    public int readyCountNum = 0;
+    int readyButtonCnt = 0;
 
     public Text playerNumText;      // 最大人数を表示させるテキスト
 
     public Text roomCreatorText;    // ルーム作成者を表示させるテキスト
     public Text roomPlayerNumText;  // スライダーで人数を表示させるためのテキスト
+    public Text readyPlayerNumText; // 準備完了カウントテキスト
+    public Text[] dialogMessageList;    // ダイアログに出力するメッセージ一覧
+    public Text dialogMessage;
 
     public Slider playerNumSlider;  // ルーム人数変更スライダー
 
-    public Button readyButton;      // 準備完了ボタン
+    //public GameObject readyButtonObj;   // 準備完了ボタン
+    //[SerializeField] Button readyButton;
     public GameObject roomCustomButton; // ルーム設定表示用UI
     public GameObject roomCustomPanel;  // ルーム設定画面UI
     public GameObject roomLeavePanel;   // 部屋退出ダイアログUI
+    public GameObject dialogPanel;      // ダイアログUI
+
+    public GameObject readyBtnTransObj; // 準備完了ボタンのオブジェクト
+
+    public GameObject[] playerStatusIcon = new GameObject[6]; // プレイヤー情報アイコン
 
     void Awake()
     {
@@ -34,44 +51,51 @@ public class LobbyManager : Photon.MonoBehaviour {
         PhotonNetwork.automaticallySyncScene = true;
     }
 
-	// Use this for initialization
-	void Start () {
-        Debug.Log("kenti"); // デバッグ用
+    // Use this for initialization
+    void Start() {
         gm = this.gameObject.GetComponent<GameMaster>(); // ゲームマスターコンポーネント取得
-        Debug.Log(PhotonNetwork.masterClient); // マスタークライアント表示（デバッグ用）
         roomCustomPanel.SetActive(false);      // ルーム設定画面一時非表示
-        readyButton.enabled = false;           // ボタン表示一時非表示
-        roomLeavePanel.SetActive(false);
+        roomLeavePanel.SetActive(false);       // ルーム退場画面一時非表示
+        dialogPanel.SetActive(false);
         // 自分がマスタークライアントだったら
         if (PhotonNetwork.playerName == PhotonNetwork.masterClient.NickName)
         {
+            // このスクリプトをマスタークライアントが処理する
+            gm.masterPhotonView.TransferOwnership(gm.masterPlayer);
             // ルーム設定ボタンを表示
             roomCustomButton.SetActive(true);
-            // 準備完了ボタンを表示
-            readyButton.enabled = true;
+            photonView.RPC("ShowLobbyInfo", PhotonTargets.All);
+            // 準備完了状況を表示
+            photonView.RPC("ReadyCountUpdate", PhotonTargets.All, readyCountNum);
         }
         else
         {
             // マスタークライアントでなければ表示しない
             roomCustomButton.SetActive(false);
-            readyButton.enabled = false;
         }
-        // ルーム作成者を取得、一時オブジェクトに格納
-        roomCreatorObj = PhotonNetwork.room.CustomProperties["RoomCreator"];
         // プレイヤー人数を取得
         playerNum = PhotonNetwork.room.PlayerCount;
         // ルームの最大人数を取得
         playerMaxNum = PhotonNetwork.room.MaxPlayers;
-        // ルーム作成者情報オブジェクトよりstring型にキャスト
-        roomCreatorName = (string)roomCreatorObj;
         // UIに現在のルーム人数／最大人数を設定
-        playerNumText.text = "ルーム人数：" + playerNum + " / " + playerMaxNum;
-        // ルーム作成者情報をUIに設定
-        roomCreatorText.text = "ルーム作成者：" + roomCreatorName;
+        playerNumText.text = playerNum + " / " + playerMaxNum;
+        if (this.photonView.isMine)
+        {
+
+        }
+        if (PhotonNetwork.player.ID - 1 == gm.playerNameList.IndexOf(this.photonView.owner.NickName))
+        {
+            Debug.Log("SuccessID");
+        }
+        else
+        {
+            Debug.Log("NotSuccessID");
+        }
+        Debug.Log(PhotonNetwork.masterClient); // マスタークライアント表示（デバッグ用）
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         // マスタークライアントだったら
         if (PhotonNetwork.player == PhotonNetwork.masterClient)
         {
@@ -82,7 +106,7 @@ public class LobbyManager : Photon.MonoBehaviour {
                 roomPlayerNumText.text = playerNumSlider.value.ToString();
             }
         }
-	}
+    }
 
     // ルーム設定画面を表示
     public void RoomCustomWindow()
@@ -102,6 +126,7 @@ public class LobbyManager : Photon.MonoBehaviour {
             // ルーム情報の同期
             photonView.RPC("RoomInfoUpdate", PhotonTargets.All);
             Debug.Log("kentinotchange");
+            //photonView.RPC("ShowDialog", PhotonTargets.All, DialogMessage.RoomStatusUpdate);
         }
         // ルーム設定画面を非表示
         roomCustomPanel.SetActive(false);
@@ -109,12 +134,11 @@ public class LobbyManager : Photon.MonoBehaviour {
     }
 
     // 準備完了ボタンが押されたら
-    public void ReadyOnClick()
+    public void ReadyOnClicked()
     {
         // カウントダウン準備
-        gm.CountDownStart();
+        //gm.CountDownStart();
         // ボタンが押せないようにする
-        readyButton.interactable = false;
     }
 
     // 部屋退出ボタンが押されたら
@@ -141,6 +165,12 @@ public class LobbyManager : Photon.MonoBehaviour {
         // ゲームに戻る
         roomLeavePanel.SetActive(false);
     }
+
+    public void OK_ButtonClick()
+    {
+        dialogPanel.SetActive(false);
+    }
+
     // カウントダウンコルーチン
     IEnumerator CountDownTimer()
     {
@@ -164,7 +194,7 @@ public class LobbyManager : Photon.MonoBehaviour {
         // プレイヤー人数を更新
         playerNum = PhotonNetwork.room.PlayerCount;
         // UIに現在のルーム人数／最大人数を設定
-        playerNumText.text = "ルーム人数：" + playerNum + " / " + PhotonNetwork.room.MaxPlayers;
+        playerNumText.text = playerNum + " / " + PhotonNetwork.room.MaxPlayers;
         Debug.Log(PhotonNetwork.masterClient.NickName);
     }
     // コルーチンが直接RPCに入れても動作しないためメソッドを経由してコルーチンを起動
@@ -174,4 +204,42 @@ public class LobbyManager : Photon.MonoBehaviour {
         StartCoroutine(CountDownTimer());
     }
 
+    [PunRPC]
+    public void ShowLobbyInfo()
+    {
+        for (int i = 0; i < gm.maxPlayers; i++)
+        {
+
+        }
+    }
+
+    // 準備完了状況を更新する
+    [PunRPC]
+    public void ReadyCountUpdate(int count)
+    {
+        readyPlayerNumText.text = count + "/" + PhotonNetwork.room.MaxPlayers;
+    }
+    // 各種エラーやダイアログなどはこのメソッドで管理する予定
+    //public void ShowDialog(DialogMessage message)
+    //{
+    //    Debug.Log(message);
+    //    switch (message)
+    //    {
+    //        case DialogMessage.ChangeMaster:
+    //            dialogMessage = this.GetComponent<Text>();
+    //            dialogMessageList[(int)message].GetComponent<Text>();
+    //            dialogMessage.text += dialogMessageList[(int)message].text;
+    //            dialogPanel.SetActive(true);
+    //            break;
+    //        case DialogMessage.RoomStatusUpdate:
+    //            dialogMessage = this.GetComponent<Text>();
+    //            dialogMessageList[(int)message].GetComponent<Text>();
+    //            dialogMessage.text += dialogMessageList[(int)message].text;
+    //            Debug.Log("kentiUpdate");
+    //            dialogPanel.SetActive(true);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 }
