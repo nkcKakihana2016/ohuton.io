@@ -92,9 +92,10 @@ public class BallRun : MonoBehaviour
         //敷布団のタグを条件として
             if (other.gameObject.tag == "FutonSet")
             {
+            FindObjectOfType<Fton_Create>().DuplicateFuton(transform.position.x, transform.position.z);
             //敷布団を1秒後に削除
-                Destroy(other.gameObject,1.0f);
-            }
+            Destroy(other.gameObject,1.0f);
+        }
     }
 
         public void futonpurge()

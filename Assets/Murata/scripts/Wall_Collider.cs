@@ -10,6 +10,7 @@ public class Wall_Collider : MonoBehaviour
 
     GameObject PlayerObject;
 
+
     [SerializeField]
     //座標
     Vector3 POS;
