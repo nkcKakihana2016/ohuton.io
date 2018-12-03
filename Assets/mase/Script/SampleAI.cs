@@ -32,6 +32,7 @@ public class SampleAI : MonoBehaviour
         if (Playerhit)
         {
             agent.destination = target.transform.position;
+            Debug.Log("きたー");
         }
         else
         {
@@ -89,14 +90,5 @@ public class SampleAI : MonoBehaviour
         return targetObj;
 
 
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "point")
-        {
-            Destroy(other.gameObject);
-            Debug.Log("お前消すんご");
-        }
     }
 }
