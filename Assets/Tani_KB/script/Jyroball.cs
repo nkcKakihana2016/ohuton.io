@@ -16,6 +16,7 @@ public class Jyroball : MonoBehaviour
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
+    ControlCamera cameraMove;
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
     bool stopFlg;
@@ -24,6 +25,7 @@ public class Jyroball : MonoBehaviour
     {
         child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        cameraMove = GameObject.Find("Main Camera").GetComponent<ControlCamera>();
         stopFlg = false;
         zabutonNum = 0;
         scaleNum = 0;
@@ -45,7 +47,7 @@ public class Jyroball : MonoBehaviour
             {
                 if(zabutonNum < 25)
                 {
-                    zabutonNum += 1;
+                   zabutonNum += 1;
                 }
                
             }
@@ -56,6 +58,7 @@ public class Jyroball : MonoBehaviour
     public void GyroMove()
     {
         rotSpeed = 10.0f;
+        CustomPlayerScale();
 
         if (ballRun.DamageFlg == false)
         {
@@ -128,7 +131,6 @@ public class Jyroball : MonoBehaviour
     public void DebugMove()
     {
         rotSpeed = 0.1f;
-
         CustomPlayerScale();
 
         if (ballRun.DamageFlg == false)
@@ -141,7 +143,7 @@ public class Jyroball : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space))
             {
-                rotSpeed = 0.5f;
+                rotSpeed *= 1.5f;
             }
 
             transform.Translate(dir.x * rotSpeed, 0, dir.z * rotSpeed);
@@ -157,42 +159,80 @@ public class Jyroball : MonoBehaviour
     //子オブジェクトのサイズ変更と初期スピードの変更を司るメソッド
     public void CustomPlayerScale()
     {
-        switch (scaleNum)
+        if(zabutonNum >= 0 && zabutonNum < 5)
         {
-            case 1://5枚分取得した時
-                Debug.Log("１段階目！！！");
-                break;
+            Debug.Log("初期状態！！！");
+            rotSpeed = 0.6f;
+            child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
 
-            case 2://10枚分取得した時
-                Debug.Log("２段階目！！！");
-                break;
-
-            case 3://15枚分取得した時
-                Debug.Log("３段階目！！！");
-                break;
-
-            case 4://20枚分取得した時
-                Debug.Log("４段階目！！！");
-                break;
-
-            case 5://25枚分取得した時
-                Debug.Log("５段階目！！！");
-                break;
-
-            default://初期状態
-                Debug.Log("初期状態！！！");
-                break;
-
-                //public void MoveStop()
-                //{
-                //    if(stopFlg == true)
-                //    {
-                //        dir = new Vector3(customDirX, 0, customDirZ);
-                //        rotSpeed = 0.0f;
-                //        transform.Translate(dir * rotSpeed);
-                //    }
-                //}
         }
+        else if (zabutonNum >= 5 && zabutonNum < 10)
+        {
+            Debug.Log("１段階目！！！");
+            rotSpeed = 0.5f;
+            child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+        }
+        else if (zabutonNum >= 10 && zabutonNum < 15)
+        {
+            Debug.Log("２段階目！！！");
+            rotSpeed = 0.45f;
+            child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+        }
+        else if (zabutonNum >= 15 && zabutonNum < 20)
+        {
+            Debug.Log("３段階目！！！");
+            rotSpeed = 0.4f;
+            child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+        }
+        else if (zabutonNum >= 20 && zabutonNum < 25)
+        {
+            Debug.Log("４段階目！！！");
+            rotSpeed = 0.35f;
+            child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+        }
+        else if (zabutonNum == 25)
+        {
+            Debug.Log("５段階目！！！");
+            rotSpeed = 0.25f;
+            child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
+            cameraMove.moveCameraY = 15.0f;
+        }
+        //switch (scaleNum)
+        //{
+        //    case 5://5枚分取得した時
+        //        Debug.Log("１段階目！！！");
+        //        break;
+
+        //    case 10://10枚分取得した時
+        //        Debug.Log("２段階目！！！");
+        //        break;
+
+        //    case 15://15枚分取得した時
+        //        Debug.Log("３段階目！！！");
+        //        break;
+
+        //    case 20://20枚分取得した時
+        //        Debug.Log("４段階目！！！");
+        //        break;
+
+        //    case 25://25枚分取得した時
+        //        Debug.Log("５段階目！！！");
+        //        break;
+
+        //    default://初期状態
+        //        Debug.Log("初期状態！！！");
+        //        break;
+
+        //        //public void MoveStop()
+        //        //{
+        //        //    if(stopFlg == true)
+        //        //    {
+        //        //        dir = new Vector3(customDirX, 0, customDirZ);
+        //        //        rotSpeed = 0.0f;
+        //        //        transform.Translate(dir * rotSpeed);
+        //        //    }
+        //        //}
+        //}
     }
 }
 

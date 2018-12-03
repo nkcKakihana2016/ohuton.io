@@ -6,15 +6,17 @@ public class ControlCamera : MonoBehaviour
 {
 
     public GameObject player;       //プレイヤーゲームオブジェクトへの参照を格納する Public 変数
+    public Vector3 plyPos;
 
     private Vector3 offset;         //プレイヤーとカメラ間のオフセット距離を格納する Public 変数
 
-    void Start()
-    {
-        //PlayerObjの真上に来るようにする
-        Vector3 plyPos = GameObject.Find("PlayerObj").transform.position;
-        transform.position = new Vector3(plyPos.x, 10.0f, plyPos.z);
+    public float moveCameraY;
 
+    void Start()
+    {   
+        //PlayerObjの真上に来るようにする
+        plyPos = GameObject.Find("PlayerObj").transform.position;
+        transform.position = new Vector3(plyPos.x, 10.0f, plyPos.z);
         //プレイヤーとカメラ間の距離を取得してそのオフセット値を計算し、格納します。
         offset = transform.position - player.transform.position;
     }
