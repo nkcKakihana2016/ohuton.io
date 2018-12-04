@@ -8,7 +8,7 @@ using UnityEngine;
 public class Wall_Collider : MonoBehaviour
 {
 
-    GameObject PlayerObject;
+   //  GameObject PlayerObject;
 
 
     [SerializeField]
@@ -16,19 +16,23 @@ public class Wall_Collider : MonoBehaviour
     Vector3 POS;
     void Start()
     {
-        PlayerObject = GameObject.Find("human");
+        //   PlayerObject = GameObject.Find("human");
     }
 
 
     void Update()
     {
-
+        
     }
-    public void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            PlayerObject.transform.position += POS;
+            Debug.Log("触れたよ");
+            other.transform.position += POS;
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            rigidbody.AddForce(POS);
+            
         }
     }
 }
