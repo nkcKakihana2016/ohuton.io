@@ -8,9 +8,10 @@ public class SampleAI : MonoBehaviour
 {
     private GameObject nearObj;         //最も近いオブジェクト
     private float searchTime = 0;    //経過時間
-    public bool Playerhit;
-    public GameObject target;
+    public bool Playerhit;//Player発見フラグ
+    public GameObject target;//追いかけるターゲット
     NavMeshAgent agent;
+    float speed = 120f;
 
     // Use this for initialization
     void Start ()
@@ -50,6 +51,9 @@ public class SampleAI : MonoBehaviour
 
             //対象の位置の方向を向く
             transform.LookAt(nearObj.transform);
+
+            //transform.rotation(nearObj.transform)
+
 
             //自分自身の位置から相対的に移動する
             transform.Translate(Vector3.forward * 0.1f);
