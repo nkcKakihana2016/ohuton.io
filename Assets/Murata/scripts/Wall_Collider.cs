@@ -24,14 +24,21 @@ public class Wall_Collider : MonoBehaviour
     {
         
     }
-    void OnCollisionEnter(Collider other)
+    public void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("触れたよ");
-            other.transform.position += POS;
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.AddForce(POS);
+            Rigidbody rd = this.GetComponent<Rigidbody>();
+            //Vector3 now = rd.position;
+            Vector3 now = POS;
+            //now += POS;
+            //rd.position = now;
+            rd.AddForce(now);
+        //rd.AddForce(POS,ForceMode.Force);
+            //other.transform.position += POS;
+           // Rigidbody rigidbody = GetComponent<Rigidbody>();
+           // rigidbody.AddForce(POS);
+            //Debug.Log("アドホース");
             
         }
     }
