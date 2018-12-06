@@ -40,21 +40,21 @@ public class Jyroball : MonoBehaviour
         if (gyroFlg == false)
         {
             DebugMove();
+        }
 
-            if(Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            if (zabutonNum < 25)
             {
-                if(zabutonNum < 25)
-                {
-                   zabutonNum += 1;
-                }
-               
+                zabutonNum += 1;
             }
-            if(Input.GetKeyDown(KeyCode.M))
+
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (zabutonNum > 0)
             {
-                if(zabutonNum > 0)
-                {
-                    zabutonNum -= 1;
-                }
+                zabutonNum -= 1;
             }
         }
     }

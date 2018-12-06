@@ -28,6 +28,7 @@ public class ControlCamera : MonoBehaviour
 
         if (moveCameraY != 0)
         {
+            //masCamera = Mathf.SmoothStep(this.gameObject.transform.position.y, moveCameraY, Time.time);
             masCamera = moveCameraY;
             transform.position = new Vector3(plyPos.x, masCamera, plyPos.z);
             offset = transform.position - player.transform.position;
