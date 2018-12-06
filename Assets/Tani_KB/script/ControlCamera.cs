@@ -11,19 +11,28 @@ public class ControlCamera : MonoBehaviour
     private Vector3 offset;         //プレイヤーとカメラ間のオフセット距離を格納する Public 変数
 
     public float moveCameraY;
+    public float masCamera;
 
     void Start()
-    {   
+    {
         //PlayerObjの真上に来るようにする
         plyPos = GameObject.Find("PlayerObj").transform.position;
         transform.position = new Vector3(plyPos.x, 10.0f, plyPos.z);
         //プレイヤーとカメラ間の距離を取得してそのオフセット値を計算し、格納します。
-        offset = transform.position - player.transform.position;
     }
 
     // 各フレームで、Update の後に LateUpdate が呼び出されます。
     void LateUpdate()
     {
+        masCamera = this.gameObject.transform.position.y;
+
+        if (moveCameraY != 0)
+        {
+            masCamera = moveCameraY;
+            transform.position = new Vector3(plyPos.x, masCamera, plyPos.z);
+            offset = transform.position - player.transform.position;
+        }
+
         //カメラの transform 位置をプレイヤーのものと等しく設定します。ただし、計算されたオフセット距離によるずれも加えます。
         transform.position = player.transform.position + offset;
     }

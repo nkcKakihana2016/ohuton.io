@@ -11,29 +11,27 @@ public class Jyroball : MonoBehaviour
     public float customDirX;
     public float customDirZ;
 
-    public int scaleNum;
-    public int zabutonNum;
+    public int zabutonNum;           //取得した布団の数を格納する変数
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
-    ControlCamera cameraMove;
+    ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
     bool stopFlg;
 
     void Start()
     {
-        child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();   //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-        ballRun = child.GetComponent<BallRun>();                                //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
-        cameraMove = GameObject.Find("Main Camera").GetComponent<ControlCamera>();
+        child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+        ballRun = child.GetComponent<BallRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         stopFlg = false;
         zabutonNum = 0;
-        scaleNum = 0;
-
     }
 
     void Update()
     {
+        //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
         if (gyroFlg == true)
         {
             GyroMove();
@@ -50,6 +48,13 @@ public class Jyroball : MonoBehaviour
                    zabutonNum += 1;
                 }
                
+            }
+            if(Input.GetKeyDown(KeyCode.M))
+            {
+                if(zabutonNum > 0)
+                {
+                    zabutonNum -= 1;
+                }
             }
         }
     }
@@ -164,6 +169,7 @@ public class Jyroball : MonoBehaviour
             Debug.Log("初期状態！！！");
             rotSpeed = 0.6f;
             child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
+            cameraManeger.moveCameraY = 10.0f;
 
         }
         else if (zabutonNum >= 5 && zabutonNum < 10)
@@ -171,68 +177,36 @@ public class Jyroball : MonoBehaviour
             Debug.Log("１段階目！！！");
             rotSpeed = 0.5f;
             child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+            cameraManeger.moveCameraY = 11.0f;
         }
         else if (zabutonNum >= 10 && zabutonNum < 15)
         {
             Debug.Log("２段階目！！！");
             rotSpeed = 0.45f;
             child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+            cameraManeger.moveCameraY = 12.0f;
         }
         else if (zabutonNum >= 15 && zabutonNum < 20)
         {
             Debug.Log("３段階目！！！");
             rotSpeed = 0.4f;
             child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+            cameraManeger.moveCameraY = 12.5f;
         }
         else if (zabutonNum >= 20 && zabutonNum < 25)
         {
             Debug.Log("４段階目！！！");
             rotSpeed = 0.35f;
             child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+            cameraManeger.moveCameraY = 13.0f;
         }
         else if (zabutonNum == 25)
         {
             Debug.Log("５段階目！！！");
             rotSpeed = 0.25f;
             child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
-            cameraMove.moveCameraY = 15.0f;
+            cameraManeger.moveCameraY = 13.5f;
         }
-        //switch (scaleNum)
-        //{
-        //    case 5://5枚分取得した時
-        //        Debug.Log("１段階目！！！");
-        //        break;
-
-        //    case 10://10枚分取得した時
-        //        Debug.Log("２段階目！！！");
-        //        break;
-
-        //    case 15://15枚分取得した時
-        //        Debug.Log("３段階目！！！");
-        //        break;
-
-        //    case 20://20枚分取得した時
-        //        Debug.Log("４段階目！！！");
-        //        break;
-
-        //    case 25://25枚分取得した時
-        //        Debug.Log("５段階目！！！");
-        //        break;
-
-        //    default://初期状態
-        //        Debug.Log("初期状態！！！");
-        //        break;
-
-        //        //public void MoveStop()
-        //        //{
-        //        //    if(stopFlg == true)
-        //        //    {
-        //        //        dir = new Vector3(customDirX, 0, customDirZ);
-        //        //        rotSpeed = 0.0f;
-        //        //        transform.Translate(dir * rotSpeed);
-        //        //    }
-        //        //}
-        //}
     }
 }
 

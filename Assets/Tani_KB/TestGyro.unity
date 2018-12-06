@@ -351,10 +351,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotSpeed: 10
+  accelSpeed: 0
   dir: {x: 0, y: 0, z: 0}
   rot: {x: 0, y: 0, z: 0}
   customDirX: 0
   customDirZ: 0
+  zabutonNum: 0
   gyroFlg: 0
 --- !u!4 &272090068
 Transform:
@@ -1067,6 +1069,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 272090066}
+  plyPos: {x: 0, y: 0, z: 0}
+  moveCameraY: 0
+  masCamera: 0
 --- !u!1001 &1258520830
 Prefab:
   m_ObjectHideFlags: 0
