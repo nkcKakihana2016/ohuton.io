@@ -157,7 +157,7 @@ public class Fton_Create : MonoBehaviour {
     //布団オブジェクト
     [SerializeField]
     private GameObject m_Futon;
-    //布団オブジェクトのサイズ
+    //布団オブジェクトの間隔サイズ
     [SerializeField]
     private float m_FutonSizeX, m_FutonSizeZ;
     //設置開始地点
@@ -167,7 +167,7 @@ public class Fton_Create : MonoBehaviour {
     [SerializeField]
     private int m_NumberInstalled;
     //設置する最大個数
-    private int m_MaximumNumber = 50;
+    private int m_MaximumNumber = 49;
     //現在設置してある個数
     private int count = 0;
 
@@ -192,7 +192,7 @@ public class Fton_Create : MonoBehaviour {
             m_CoordinateList.Add(coordinate);
         }
         //布団の設置開始
-        while (count < m_MaximumNumber)
+        while (count <= m_MaximumNumber)
         {
             //被っているものを除いてListに保存 
             List<Coordinate> list = new List<Coordinate>();
@@ -222,7 +222,7 @@ public class Fton_Create : MonoBehaviour {
                 Observable.Timer(System.TimeSpan.FromSeconds(0.1f))
                 .Subscribe(_ =>
                 {
-                    while (count < m_MaximumNumber)
+                    while (count <= m_MaximumNumber)
                     {
                         //被っているものを除いてListに保存 
                         List<Coordinate> list = new List<Coordinate>();
