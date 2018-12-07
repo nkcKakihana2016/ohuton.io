@@ -5,32 +5,33 @@ using UnityEngine;
 public class Jyroball : MonoBehaviour
 {
     public float rotSpeed;　         //移動スピードの値
-    public float accelSpeed;         //加速スピードの値
     public Vector3 dir;　　　　　    //ジャイロに伴う傾けた方向に進む数値を格納する変数
     public Vector3 rot;              //ジャイロに伴う回転の数値を格納する変数
-    public float customDirX;
-    public float customDirZ;
+    public float customDirX;         //dirとrotの小数点第２以下を切り捨てるための借り入れ変数(x座標版)
+    public float customDirZ;         //dirとrotの小数点第２以下を切り捨てるための借り入れ変数(z座標版)
 
-    public int zabutonNum;           //取得した布団の数を格納する変数
+    public int obutonNum;           //取得した布団の数を格納する変数
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
     ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
-    bool stopFlg;
+    public bool damegeFlg;
 
     void Start()
     {
         child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
-        stopFlg = false;
-        zabutonNum = 0;
+        damegeFlg = false;
+        obutonNum = 0;
     }
 
     void Update()
     {
+        OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
+
         //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
         if (gyroFlg == true)
         {
@@ -42,19 +43,25 @@ public class Jyroball : MonoBehaviour
             DebugMove();
         }
 
-        if (Input.GetKeyDown(KeyCode.N))
+        
+    }
+
+    //ふとん取得に関するメソッド
+    public void OhutonPointMaster()
+    {
+        if (Input.GetKeyDown(KeyCode.N)) //現状はＮキー操作でふえる仕組み
         {
-            if (zabutonNum < 25)
+            if (obutonNum < 25)
             {
-                zabutonNum += 1;
+                obutonNum += 1;
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M)) //現状はＭキー操作でふえる仕組み
         {
-            if (zabutonNum > 0)
+            if (obutonNum > 0)
             {
-                zabutonNum -= 1;
+                obutonNum -= 1;
             }
         }
     }
@@ -62,10 +69,11 @@ public class Jyroball : MonoBehaviour
     //ジャイロ操作統括
     public void GyroMove()
     {
+        //ジャイロ操作では10.0fに設定する。
         rotSpeed = 10.0f;
         CustomPlayerScale();
 
-        if (ballRun.DamageFlg == false)
+        if (damegeFlg == false)
         {
             Vector3 inDir = Vector3.zero;
 
@@ -135,10 +143,11 @@ public class Jyroball : MonoBehaviour
     //デバック用の移動メソッド
     public void DebugMove()
     {
+        //キー操作では0.1fに設定する。
         rotSpeed = 0.1f;
         CustomPlayerScale();
 
-        if (ballRun.DamageFlg == false)
+        if (damegeFlg == false)
         {
             //diff = Target.position - this.gameObject.transform.position;
             Vector3 dir = Vector3.zero;
@@ -164,7 +173,7 @@ public class Jyroball : MonoBehaviour
     //子オブジェクトのサイズ変更と初期スピードの変更を司るメソッド
     public void CustomPlayerScale()
     {
-        if(zabutonNum >= 0 && zabutonNum < 5)
+        if(obutonNum >= 0 && obutonNum < 5)
         {
             Debug.Log("初期状態！！！");
             rotSpeed = 0.6f;
@@ -172,35 +181,35 @@ public class Jyroball : MonoBehaviour
             cameraManeger.moveCameraY = 10.0f;
 
         }
-        else if (zabutonNum >= 5 && zabutonNum < 10)
+        else if (obutonNum >= 5 && obutonNum < 10)
         {
             Debug.Log("１段階目！！！");
             rotSpeed = 0.5f;
             child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
             cameraManeger.moveCameraY = 11.0f;
         }
-        else if (zabutonNum >= 10 && zabutonNum < 15)
+        else if (obutonNum >= 10 && obutonNum < 15)
         {
             Debug.Log("２段階目！！！");
             rotSpeed = 0.45f;
             child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
             cameraManeger.moveCameraY = 12.0f;
         }
-        else if (zabutonNum >= 15 && zabutonNum < 20)
+        else if (obutonNum >= 15 && obutonNum < 20)
         {
             Debug.Log("３段階目！！！");
             rotSpeed = 0.4f;
             child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
             cameraManeger.moveCameraY = 12.5f;
         }
-        else if (zabutonNum >= 20 && zabutonNum < 25)
+        else if (obutonNum >= 20 && obutonNum < 25)
         {
             Debug.Log("４段階目！！！");
             rotSpeed = 0.35f;
             child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
             cameraManeger.moveCameraY = 13.0f;
         }
-        else if (zabutonNum == 25)
+        else if (obutonNum == 25)
         {
             Debug.Log("５段階目！！！");
             rotSpeed = 0.25f;
