@@ -11,7 +11,7 @@ public class SampleAI : MonoBehaviour
     public bool Playerhit;//Player発見フラグ
     public GameObject target;//追いかけるターゲット
     NavMeshAgent agent;
-    float speed = 120f;
+    public float Accessspeed;
 
     // Use this for initialization
     void Start ()
@@ -56,7 +56,7 @@ public class SampleAI : MonoBehaviour
 
 
             //自分自身の位置から相対的に移動する
-            transform.Translate(Vector3.forward * 0.1f);
+            transform.Translate(Vector3.forward * Accessspeed);
 
             Debug.Log("フラグがfalse");
         }
