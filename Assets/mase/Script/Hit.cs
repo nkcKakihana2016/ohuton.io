@@ -31,4 +31,5 @@ public class Hit : MonoBehaviour
             Debug.Log("Playerにあったぞー！");
         }
     }
+
 }

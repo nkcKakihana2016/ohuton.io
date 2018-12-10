@@ -8,9 +8,10 @@ public class SampleAI : MonoBehaviour
 {
     private GameObject nearObj;         //最も近いオブジェクト
     private float searchTime = 0;    //経過時間
-    public bool Playerhit;
-    public GameObject target;
+    public bool Playerhit;//Player発見フラグ
+    public GameObject target;//追いかけるターゲット
     NavMeshAgent agent;
+    public float Accessspeed;
 
     // Use this for initialization
     void Start ()
@@ -32,6 +33,7 @@ public class SampleAI : MonoBehaviour
         if (Playerhit)
         {
             agent.destination = target.transform.position;
+            Debug.Log("きたー");
         }
         else
         {
@@ -50,8 +52,11 @@ public class SampleAI : MonoBehaviour
             //対象の位置の方向を向く
             transform.LookAt(nearObj.transform);
 
+            //transform.rotation(nearObj.transform)
+
+
             //自分自身の位置から相対的に移動する
-            transform.Translate(Vector3.forward * 0.1f);
+            transform.Translate(Vector3.forward * Accessspeed);
 
             Debug.Log("フラグがfalse");
         }
@@ -89,14 +94,5 @@ public class SampleAI : MonoBehaviour
         return targetObj;
 
 
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "point")
-        {
-            Destroy(other.gameObject);
-            Debug.Log("お前消すんご");
-        }
     }
 }
