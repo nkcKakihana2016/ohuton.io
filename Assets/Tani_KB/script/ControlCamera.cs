@@ -16,7 +16,11 @@ public class ControlCamera : MonoBehaviour
     void Start()
     {
         //PlayerObjの真上に来るようにする
+<<<<<<< HEAD
         plyPos = GameObject.Find("PlayerObj").transform.position;
+=======
+        Vector3 plyPos = GameObject.Find("human").transform.position;
+>>>>>>> Murata
         transform.position = new Vector3(plyPos.x, 10.0f, plyPos.z);
         //プレイヤーとカメラ間の距離を取得してそのオフセット値を計算し、格納します。
     }
