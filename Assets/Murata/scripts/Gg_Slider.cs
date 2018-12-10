@@ -13,7 +13,7 @@ public class Gg_Slider : MonoBehaviour
     //ゲージ値
     public int _Gg = 0;
     //ゲージMax指定
-    public int MAX_Gg=100;
+    public int MAX_Gg=0;
     //ゲージMIN指定
     public int MIN_Gg = 0;
     //カメラ
@@ -27,8 +27,8 @@ public class Gg_Slider : MonoBehaviour
     {
         //Gg_sliderを取得
         _Slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
-        _Gg = 100;
-        Playerobj = GameObject.Find("SamplePlayer");
+        _Gg = 0;
+        Playerobj = GameObject.Find("human");
         Masescript = Playerobj.GetComponent<SampleController>();
     }
    
@@ -47,7 +47,7 @@ public class Gg_Slider : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             //値を追加
-            _Gg += 10;
+            _Gg += 1;
             //ゲージの値がMax以上なら
             if (_Gg > _Slider.maxValue)
             {
@@ -57,7 +57,7 @@ public class Gg_Slider : MonoBehaviour
             }
         }
         //キー入力P
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             //値を減少
             _Gg -= 1;
@@ -73,27 +73,27 @@ public class Gg_Slider : MonoBehaviour
         }
 
         //5段階移動
-        //switch (_Gg)
-        //{
-        //    case 0:
-        //        Camera.transform.position = new Vector3(0f, One, 0f);
-        //        break;
-        //    case 1:
-        //        Camera.transform.position = new Vector3(0f, Two, 0f);
-        //        break;
-        //    case 2:
-        //        Camera.transform.position = new Vector3(0f, Three, 0f);
-        //        break;
-        //    case 3:
-        //        Camera.transform.position = new Vector3(0f, Fore, 0f);
-        //        break;
-        //    case 4:
-        //        Camera.transform.position = new Vector3(0f, Five, 0f);
-        //        break;
-        //    case 5:
-        //        Camera.transform.position = new Vector3(0f, Six, 0f);
-        //        break;
-        //}
+        switch (_Gg)
+        {
+            case 0:
+                Camera.transform.position = new Vector3(0f, One, 0f);
+                break;
+            case 1:
+                Camera.transform.position = new Vector3(0f, Two, 0f);
+                break;
+            case 2:
+                Camera.transform.position = new Vector3(0f, Three, 0f);
+                break;
+            case 3:
+                Camera.transform.position = new Vector3(0f, Fore, 0f);
+                break;
+            case 4:
+                Camera.transform.position = new Vector3(0f, Five, 0f);
+                break;
+            case 5:
+                Camera.transform.position = new Vector3(0f, Six, 0f);
+                break;
+        }
         //sliderのvalueをゲージと同じにする
         _Slider.value = _Gg;
     }
