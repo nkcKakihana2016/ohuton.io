@@ -26,6 +26,7 @@ public class ControlCamera : MonoBehaviour
     {
         masCamera = this.gameObject.transform.position.y;
 
+        //ふとんを取得してサイズが変わるときにカメラの距離を変える
         if (moveCameraY != 0)
         {
             //masCamera = Mathf.SmoothStep(this.gameObject.transform.position.y, moveCameraY, Time.time);
