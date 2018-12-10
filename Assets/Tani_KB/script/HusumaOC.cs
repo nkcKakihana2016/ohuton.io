@@ -81,6 +81,7 @@ public class HusumaOC : MonoBehaviour
     //    }
     //}
 
+    //シーン変更用
     public void StageSelect()
     {
         SceneManager.LoadScene(NextSceneName);
