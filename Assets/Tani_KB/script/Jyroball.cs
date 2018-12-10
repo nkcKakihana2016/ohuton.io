@@ -92,7 +92,7 @@ public class Jyroball : MonoBehaviour
             //customDirZ = Mathf.Clamp(customDirZ, 0.01f, -0.01f);
 
 
-
+            //スマホ操作で極力動かさないようにすると移動や回転が止まる。
             if (customDirX < 0.01 || customDirX > -0.01)
             {
                 if (customDirZ < 0.01 || customDirZ > -0.01)

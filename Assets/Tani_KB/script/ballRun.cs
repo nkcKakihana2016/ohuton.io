@@ -20,11 +20,7 @@ public class BallRun : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-<<<<<<< HEAD
         DamageFlg = false;       
-    }
-=======
-        DamageFlg = false;
 
         slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
         Acceleratorline = GameObject.Find("Gg_Slider");
@@ -33,7 +29,6 @@ public class BallRun : MonoBehaviour
         speedup = true;
         jyroball.GetComponent<Jyroball>();
     }    
->>>>>>> Murata
 	
 	// Update is called once per frame
 	void Update ()

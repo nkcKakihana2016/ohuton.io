@@ -34,25 +34,25 @@ public class Timer : MonoBehaviour
             TimeCounter();
         }
 
-        //ふすまのアニメーションを指定
-        // 次のシーンへ飛ぶときに使う
-        if (Input.GetKey(KeyCode.A))
-        {
-            animScript.husumaEfe = 1;
-            animScript.ChangeScene();
-        }
-        //ゲームシーンの最初に使う
-        if (Input.GetKey(KeyCode.S))
-        {
-            animScript.husumaEfe = 2;
-            animScript.ChangeScene();
-        }
-        //リザルトの最初に使う
-        if (Input.GetKey(KeyCode.D))
-        {
-            animScript.husumaEfe = 3;
-            animScript.ChangeScene();
-        }
+        ////ふすまのアニメーションを指定
+        //// 次のシーンへ飛ぶときに使う
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    animScript.husumaEfe = 1;
+        //    animScript.ChangeScene();
+        //}
+        ////ゲームシーンの最初に使う
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    animScript.husumaEfe = 2;
+        //    animScript.ChangeScene();
+        //}
+        ////リザルトの最初に使う
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //    animScript.husumaEfe = 3;
+        //    animScript.ChangeScene();
+        //}
     }
 
     //タイマー管理

@@ -14,8 +14,8 @@ public class HusumaOC : MonoBehaviour
     //次のシーンを指定
     public string NextSceneName;
 
-    //ふすまのアニメーションをint型で選ぶ
-    public int SceneEfe = 0;
+    ////ふすまのアニメーションをint型で選ぶ
+    //public int SceneEfe = 0;
 
     // Use this for initialization
     void Start ()
@@ -29,36 +29,57 @@ public class HusumaOC : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-       
+        //ふすまのアニメーションを指定
+        // 次のシーンへ飛ぶときに使う
+        if (Input.GetKey(KeyCode.A))
+        {
+            Husuma.SetBool("open", false);
+            Husuma.SetBool("close", true);
+            Husuma.SetBool("normal", false);
+            Invoke("StageSelect", 2.0f);
+        }
+        //ゲームシーンの最初に使う
+        if (Input.GetKey(KeyCode.S))
+        {
+            Husuma.SetBool("normal", true);
+            Husuma.SetBool("close", false);
+        }
+        //リザルトの最初に使う
+        if (Input.GetKey(KeyCode.D))
+        {
+            Husuma.SetBool("open", true);
+            Husuma.SetBool("close", false);
+            Invoke("StageSelect", 3.0f);
+        }
     }
 
     //他スクリプトからケースごとにアニメーションを選んでもらう
-    public void ChangeScene()
-    {
-       switch(SceneEfe)
-        {
-            //次のシーンへ飛ぶときに使う
-            case 0:
-                Husuma.SetBool("open", false);
-                Husuma.SetBool("close", true);
-                Husuma.SetBool("normal", false);
-                Invoke("StageSelect", 2.0f);
-                break;
+    //public void ChangeScene()
+    //{
+    //   switch(SceneEfe)
+    //    {
+    //        //次のシーンへ飛ぶときに使う
+    //        case 0:
+    //            Husuma.SetBool("open", false);
+    //            Husuma.SetBool("close", true);
+    //            Husuma.SetBool("normal", false);
+    //            Invoke("StageSelect", 2.0f);
+    //            break;
 
-            //ゲームシーンの最初に使う
-            case 1:
-                Husuma.SetBool("normal", true);
-                Husuma.SetBool("close", false);
-                break;
+    //        //ゲームシーンの最初に使う
+    //        case 1:
+    //            Husuma.SetBool("normal", true);
+    //            Husuma.SetBool("close", false);
+    //            break;
 
-            //リザルトの最初に使う
-            case 2:
-                Husuma.SetBool("open", true);
-                Husuma.SetBool("close", false);
-                Invoke("StageSelect", 3.0f);
-                break;
-        }
-    }
+    //        //リザルトの最初に使う
+    //        case 2:
+    //            Husuma.SetBool("open", true);
+    //            Husuma.SetBool("close", false);
+    //            Invoke("StageSelect", 3.0f);
+    //            break;
+    //    }
+    //}
 
     public void StageSelect()
     {
