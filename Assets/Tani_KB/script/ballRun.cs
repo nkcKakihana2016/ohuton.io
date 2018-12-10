@@ -9,7 +9,6 @@ public class BallRun : MonoBehaviour
 
     public bool DamageFlg;
 
-    public Quaternion charaRot;
 
     //スピードを上げるフラグ
     public bool speedup = false;
@@ -21,6 +20,10 @@ public class BallRun : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+<<<<<<< HEAD
+        DamageFlg = false;       
+    }
+=======
         DamageFlg = false;
 
         slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
@@ -30,11 +33,12 @@ public class BallRun : MonoBehaviour
         speedup = true;
         jyroball.GetComponent<Jyroball>();
     }    
+>>>>>>> Murata
 	
 	// Update is called once per frame
 	void Update ()
     {
-        charaRot = transform.localRotation;
+     
 
         //ダメージ受けたら（仮）
         //if (Input.GetKey(KeyCode.Space))
