@@ -30,6 +30,7 @@ public class Gg_Slider : MonoBehaviour
         _Gg = 0;
         Playerobj = GameObject.Find("human");
         Masescript = Playerobj.GetComponent<SampleController>();
+
     }
    
 	void Update ()
