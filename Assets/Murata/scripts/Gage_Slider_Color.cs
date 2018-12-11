@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//使用してない！削除OK
 //ゲージ色変更
 public class Gage_Slider_Color : MonoBehaviour {
 
@@ -17,16 +18,16 @@ public class Gage_Slider_Color : MonoBehaviour {
     //カメラ
     public GameObject Camera;
     //距離の制限5段階
-    public float One, Two, Three, Fore, Five, Six;
-    public Image Gage_Slider;
-    public Image Gage_bottom;
-    public float Red, Blue, Gree;
-    public Color colorOne = Color.white;
-    public Color colorTwo = Color.white;
-    public Color colorThree = Color.white;
-    public Color colorFore = Color.white;
-    public Color colorFive = Color.white;
-    public Color colorSix = Color.white;
+    public float One, Two, Three, Fore, Five, Six;//カメラY座標距離
+    public Image Gage_Slider;//ゲージのスライダー
+    public Image Gage_bottom;//ゲージの下
+    public float Red, Blue, Gree;//カラー赤、青、緑
+    public Color colorOne = Color.white;//カラー設定1段階目
+    public Color colorTwo = Color.white;//カラー設定2段階目
+    public Color colorThree = Color.white;//カラー設定3段階目
+    public Color colorFore = Color.white;//カラー設定4段階目
+    public Color colorFive = Color.white;//カラー設定5段階目
+    public Color colorSix = Color.white;//カラー設定6段階目
     public bool Change ;
 
 
@@ -76,6 +77,7 @@ public class Gage_Slider_Color : MonoBehaviour {
         switch (_Gg)
         {
             case 0:
+                //カメラ1段階目高さ
                 Camera.transform.position = new Vector3(0f, One, 0f);
                 //Gage_Slider.color = new Color(Red,Gree,Blue);
                 //Gage_bottom.color = new Color(Red,Gree,Blue);
@@ -86,6 +88,7 @@ public class Gage_Slider_Color : MonoBehaviour {
                 }
                 break;
             case 1:
+                //カメラ2段階目高さ
                 Camera.transform.position = new Vector3(0f, Two, 0f);
                 // Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
@@ -96,6 +99,7 @@ public class Gage_Slider_Color : MonoBehaviour {
                 }
                     break;
             case 2:
+                //カメラ３段階目高さ
                 Camera.transform.position = new Vector3(0f, Three, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
@@ -106,6 +110,7 @@ public class Gage_Slider_Color : MonoBehaviour {
                 }
                 break;
             case 3:
+                //カメラ４段階目高さ
                 Camera.transform.position = new Vector3(0f, Fore, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
@@ -116,6 +121,7 @@ public class Gage_Slider_Color : MonoBehaviour {
                 }
                 break;
             case 4:
+                //カメラ５段階目高さ
                 Camera.transform.position = new Vector3(0f, Five, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);
@@ -126,6 +132,7 @@ public class Gage_Slider_Color : MonoBehaviour {
                 }
                 break;
             case 5:
+                //カメラ６段階目高さ
                 Camera.transform.position = new Vector3(0f, Six, 0f);
                 //Gage_Slider.color = new Color(Red, Gree, Blue);
                 //Gage_bottom.color = new Color(Red, Gree, Blue);

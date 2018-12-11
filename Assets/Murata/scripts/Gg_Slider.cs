@@ -19,7 +19,8 @@ public class Gg_Slider : MonoBehaviour
     //カメラ
     public GameObject Camera;
     //距離の制限5段階
-    public float One, Two, Three, Fore, Five,Six;
+    public float One, Two
+        , Three, Fore, Five,Six;
     GameObject Playerobj;
     SampleController Masescript;
 

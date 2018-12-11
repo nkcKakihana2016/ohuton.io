@@ -2074,11 +2074,11 @@ MonoBehaviour:
   MIN_Gg: 0
   Camera: {fileID: 1552192928}
   One: 0
-  Two: 10
-  Three: 20
-  Fore: 30
-  Five: 40
-  Six: 50
+  Two: 1
+  Three: 2
+  Fore: 3
+  Five: 4
+  Six: 5
 --- !u!114 &1407048808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2689,7 +2689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b0d3596b98c5849a32b3a222856266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageFlg: 1
+  DamageFlg: 0
   speedup: 0
   jyroball: {fileID: 787908412}
 --- !u!136 &1706701450
