@@ -24,15 +24,20 @@ public class Wall_Collider : MonoBehaviour
     {
         
     }
+    //壁に衝突したら
     public void OnCollisionEnter(Collision other)
     {
+        //もしPlayerが当たったら
         if (other.gameObject.tag == "Player")
         {
+            //Playerの値をもらう
             Rigidbody rd = this.GetComponent<Rigidbody>();
             //Vector3 now = rd.position;
+            //ポジションを入れる
             Vector3 now = POS;
             //now += POS;
             //rd.position = now;
+            //アドホースさせる。
             rd.AddForce(now);
         //rd.AddForce(POS,ForceMode.Force);
             //other.transform.position += POS;
