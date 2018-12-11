@@ -28,7 +28,7 @@ public class Gg_Slider : MonoBehaviour
         //Gg_sliderを取得
         _Slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
         _Gg = 0;
-        Playerobj = GameObject.Find("human");
+        Playerobj = GameObject.Find("huton_muki_tset");
         Masescript = Playerobj.GetComponent<SampleController>();
 
     }
