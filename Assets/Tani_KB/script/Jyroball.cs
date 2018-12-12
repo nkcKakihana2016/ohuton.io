@@ -17,14 +17,12 @@ public class Jyroball : MonoBehaviour
     ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
-    public bool damegeFlg;
 
     void Start()
     {
-        child = GameObject.Find("huton_muki_tset").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+        child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
-        damegeFlg = false;
         obutonNum = 0;
     }
 
@@ -73,7 +71,7 @@ public class Jyroball : MonoBehaviour
         rotSpeed = 10.0f;
         CustomPlayerScale();
 
-        if (damegeFlg == false)
+        if (gyroFlg == true)
         {
             Vector3 inDir = Vector3.zero;
 
@@ -147,7 +145,7 @@ public class Jyroball : MonoBehaviour
         rotSpeed = 0.1f;
         CustomPlayerScale();
 
-        if (damegeFlg == false)
+        if (gyroFlg == false)
         {
             //diff = Target.position - this.gameObject.transform.position;
             Vector3 dir = Vector3.zero;
