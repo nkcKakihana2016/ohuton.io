@@ -18,9 +18,9 @@ public class BallRun : MonoBehaviour
     Slider slider;
     public GameObject jyroball;
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        DamageFlg = false;       
+        DamageFlg = false;
 
         slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
         Acceleratorline = GameObject.Find("Gg_Slider");
@@ -28,12 +28,12 @@ public class BallRun : MonoBehaviour
         //スタートしたら使える
         speedup = true;
         jyroball.GetComponent<Jyroball>();
-    }    
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-     
+
 
         //ダメージ受けたら（仮）
         //if (Input.GetKey(KeyCode.Space))
@@ -73,9 +73,9 @@ public class BallRun : MonoBehaviour
     {
         if (other.gameObject.tag == "point")
         {
-            
+
             Destroy(other.gameObject);
-            
+
             MurataScript.GetComponent<Gg_Slider>()._Gg += 1;
             if (MurataScript.GetComponent<Gg_Slider>()._Gg > slider.maxValue)
             {
@@ -83,30 +83,30 @@ public class BallRun : MonoBehaviour
             }
             speedup = true;
         }
-     
+
     }
     //当たって離れたら
     public void OnTriggerExit(Collider other)
     {
         //敷布団のタグを条件として
-            if (other.gameObject.tag == "FutonSet")
-            {
+        if (other.gameObject.tag == "FutonSet")
+        {
             FindObjectOfType<Fton_Create>().DuplicateFuton(transform.position.x, transform.position.z);
             //敷布団を1秒後に削除
-            Destroy(other.gameObject,1.0f);
+            Destroy(other.gameObject, 1.0f);
         }
     }
 
-        public void futonpurge()
+    public void futonpurge()
     {
         if (speedup)
         {
             //加速
-            if (Input.touchCount>0)
+            if (Input.touchCount > 0)
             {
                 transform.position += transform.forward * jyroball.GetComponent<Jyroball>().rotSpeed * 2 * Time.deltaTime;
                 //押している間ゲージを1ずつ減らしていく
-               MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
                 {
                     //ゲージが指定した最小値いかにならないよにする
@@ -115,13 +115,13 @@ public class BallRun : MonoBehaviour
 
                 }
             }
-           
+
             if (Input.GetMouseButton(0))
             {
-                
+
                 transform.position -= transform.right * jyroball.GetComponent<Jyroball>().rotSpeed * 2 * Time.deltaTime;
                 //押している間ゲージを1ずつ減らしていく
-               MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
+                MurataScript.GetComponent<Gg_Slider>()._Gg -= 1;
                 Debug.Log("加速押したよ");
                 if (MurataScript.GetComponent<Gg_Slider>()._Gg < slider.minValue)
                 {
