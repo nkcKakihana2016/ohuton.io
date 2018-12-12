@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class TitleManeger : MonoBehaviour
 {
     public Image tapText;
-    public string nextSceneName;
-    private float speed = 0.03f;
+    private float speed = 0.04f;
+
+    HusumaOC husumaAnim;
 
     // Use this for initialization
     void Start ()
     {
-
+        husumaAnim = GameObject.Find("Husuma_test").GetComponent<HusumaOC>();
 	}
 	
 	// Update is called once per frame
@@ -29,7 +29,9 @@ public class TitleManeger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(nextSceneName);
+            husumaAnim.AnimNum = 1;
+            husumaAnim.ChangeScene();
+
         }
 	}
 
