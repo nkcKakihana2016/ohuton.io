@@ -61,18 +61,19 @@ public class PlayerStatus : Photon.PunBehaviour,IPunObservable{
             // アイコンクラスとプレイヤー情報を関連付ける
             iconManager.IconDataInit(myData);
         }
-        if(readyButtonObj != null) // 準備完了ボタンプレファブが設定されていたら
+        if (readyButtonObj != null) // 準備完了ボタンプレファブが設定されていたら
         {
             // プレイヤー情報を関連付ける為のクラスを用意
-            ReadyButtonTransform readyBtn;
+            ReadyManager readyBtn;
             // ゲームオブジェクトとして準備完了ボタンを生成
             readyButtonObj = Instantiate(readyButtonObj) as GameObject;
+            readyButtonObj.name = "PhotonCanvasa" + myData.viewID;
             // 準備完了ボタンクラスのコンポーネント取得
-            readyBtn = readyButtonObj.GetComponent<ReadyButtonTransform>();
+            readyBtn = readyButtonObj.GetComponent<ReadyManager>();
             // 準備完了ボタンクラスとプレイヤー情報を関連付ける
             readyBtn.dataInit(myData);
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
