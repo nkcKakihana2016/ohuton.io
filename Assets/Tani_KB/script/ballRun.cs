@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+//Playerにアタッチ
 public class BallRun : MonoBehaviour
 {
     //public int rotSpeed = 150;
