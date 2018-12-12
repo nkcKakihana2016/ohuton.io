@@ -13,7 +13,7 @@ public class Jyroball : MonoBehaviour
     public int obutonNum;           //取得した布団の数を格納する変数
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
-    BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
+    ballRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
     ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
@@ -21,7 +21,7 @@ public class Jyroball : MonoBehaviour
     void Start()
     {
         child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-        ballRun = child.GetComponent<BallRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         obutonNum = 0;
     }

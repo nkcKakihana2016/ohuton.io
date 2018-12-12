@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+public class ballRun : MonoBehaviour 
 //Playerにアタッチ
-public class BallRun : MonoBehaviour
 {
     //public int rotSpeed = 150;
 
@@ -58,7 +59,9 @@ public class BallRun : MonoBehaviour
             MurataScript.GAGE();
         }
         futonpurge();
-        
+
+
+
     }
     IEnumerator GetDamage()
     {
