@@ -19,7 +19,8 @@ public class Gg_Slider : MonoBehaviour
     //カメラ
     public GameObject Camera;
     //距離の制限5段階
-    public float One, Two, Three, Fore, Five,Six;
+    public float One, Two
+        , Three, Fore, Five,Six;
     GameObject Playerobj;
     SampleController Masescript;
 
@@ -28,8 +29,9 @@ public class Gg_Slider : MonoBehaviour
         //Gg_sliderを取得
         _Slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
         _Gg = 0;
-        Playerobj = GameObject.Find("human");
+        Playerobj = GameObject.Find("huton_muki_tset");
         Masescript = Playerobj.GetComponent<SampleController>();
+
     }
    
 	void Update ()

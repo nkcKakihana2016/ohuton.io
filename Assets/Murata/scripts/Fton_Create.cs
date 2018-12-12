@@ -201,6 +201,7 @@ public class Fton_Create : MonoBehaviour {
                 if (!m_InstallationCoordinates.Any(c => c.x == cor.x && c.z == cor.z))
                     if (!list.Any(c => c.x == cor.x && c.z == cor.z))
                         list.Add(cor);
+
             }
 
             //どこに設置するかランダムで決める

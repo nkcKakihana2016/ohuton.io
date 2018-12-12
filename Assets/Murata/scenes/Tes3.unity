@@ -1176,9 +1176,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotSpeed: 10
   dir: {x: 0, y: 0, z: 0}
-  gyroRot: 0
+  rot: {x: 0, y: 0, z: 0}
+  customDirX: 0
+  customDirZ: 0
+  obutonNum: 0
   gyroFlg: 0
-  debugFlg: 1
+  damegeFlg: 1
 --- !u!4 &787908414
 Transform:
   m_ObjectHideFlags: 0
@@ -2325,7 +2328,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1adf2a328002e74459e6468024298717, type: 3}
       propertyPath: m_Name
-      value: human
+      value: huton_muki_tset
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1adf2a328002e74459e6468024298717, type: 3}
       propertyPath: m_TagString
@@ -2428,6 +2431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1706701447}
+  plyPos: {x: 0, y: 0, z: 0}
+  moveCameraY: 0
+  masCamera: 0
 --- !u!1 &1576416941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,8 +2690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageFlg: 0
-  charaRot: {x: 0, y: 0, z: 0, w: 0}
-  speedup: 1
+  speedup: 0
   jyroball: {fileID: 787908412}
 --- !u!136 &1706701450
 CapsuleCollider:

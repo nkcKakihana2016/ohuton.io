@@ -690,6 +690,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114201746997786448, guid: 2d075d49632b54b429b9283f427174e8,
+        type: 2}
+      propertyPath: Husuma
+      value: 
+      objectReference: {fileID: 1421548349}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d075d49632b54b429b9283f427174e8, type: 2}
   m_IsPrefabParent: 0
