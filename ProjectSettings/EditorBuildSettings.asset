@@ -5,13 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Title.unity
+    guid: 609361c19b85d10478dc1d2045b889d5
+  - enabled: 1
+    path: Assets/mase/plot.unity
+    guid: 8a56419dadb7c9345b62b9fdfeb682ae
+  - enabled: 1
+    path: Assets/Result.unity
+    guid: 8bea4203ed80ba349b8275eef2d59db7
+  - enabled: 1
     path: Assets/Tani_KB/testKB.unity
     guid: 2f8574779eb874b4c83e6a7603310254
-  - enabled: 0
+  - enabled: 1
     path: Assets/Tani_KB/TestGyro.unity
     guid: de95506d1a27457469746b1726d15032
-  - enabled: 0
+  - enabled: 1
     path: Assets/test2.unity
     guid: dc373632b9c49fb43911b1dc0b7be81d
   - enabled: 1
