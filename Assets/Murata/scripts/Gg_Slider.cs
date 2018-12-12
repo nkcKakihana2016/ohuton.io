@@ -22,15 +22,15 @@ public class Gg_Slider : MonoBehaviour
     public float One, Two
         , Three, Fore, Five,Six;
     GameObject Playerobj;
-    SampleController Masescript;
+    //SampleController Masescript;
 
     void Start ()
     {
         //Gg_sliderを取得
         _Slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
         _Gg = 0;
-        Playerobj = GameObject.Find("huton_muki_tset");
-        Masescript = Playerobj.GetComponent<SampleController>();
+        Playerobj = GameObject.Find("huton_0(5)_h");
+       // Masescript = Playerobj.GetComponent<SampleController>();
 
     }
    

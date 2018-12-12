@@ -18,6 +18,7 @@ public class BallRun : MonoBehaviour
     Slider slider;
     public GameObject jyroball;
     // Use this for initialization
+    public GameObject Camera;
     void Start()
     {
         DamageFlg = false;
@@ -57,6 +58,7 @@ public class BallRun : MonoBehaviour
             MurataScript.GAGE();
         }
         futonpurge();
+        
     }
     IEnumerator GetDamage()
     {
