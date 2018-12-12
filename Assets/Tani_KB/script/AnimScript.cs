@@ -79,14 +79,9 @@ public class AnimScript : MonoBehaviour
                 timerAnim.SetBool("90over", true);
                 break;
 
-            case 3://Timerスクリプトで105秒経過時に発動するアニメーション
-                timerAnim.SetBool("105over", true);
+            case 3://Timerスクリプトで120秒経過時に発動するアニメーション
+                timerAnim.SetBool("120over", true);
                 break;
-
-            case 4://Timerスクリプトで120秒経過時に発動するアニメーション
-                
-                break;
-
         }
     }
 

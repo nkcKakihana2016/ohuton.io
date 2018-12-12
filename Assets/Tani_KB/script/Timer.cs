@@ -75,13 +75,8 @@ public class Timer : MonoBehaviour
                 animScript.TimerSerif();
                 Debug.Log("90秒経過");
                 break;
-            case 106://制限時間が105秒になった時
-                animScript.timerEfe = 3;
-                animScript.TimerSerif();
-                Debug.Log("105秒経過");
-                break;
             case 121://制限時間が120秒（ゲーム終了）になった時
-                animScript.timerEfe = 4;
+                animScript.timerEfe = 3;
                 animScript.TimerSerif();
                 Debug.Log("ゲーム終了");
                 break;
