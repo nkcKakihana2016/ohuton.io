@@ -25,7 +25,6 @@ public class HusumaOC : MonoBehaviour
         Husuma.SetBool("open", false);
         Husuma.SetBool("close", false);
         Husuma.SetBool("normal", false);
-        AnimNum = 0;
     }
 	
 	// Update is called once per frame
@@ -62,9 +61,9 @@ public class HusumaOC : MonoBehaviour
             //次のシーンへ飛ぶときに使う
             case 1:
                 Husuma.SetBool("open", false);
-                Husuma.SetBool("close", true);
                 Husuma.SetBool("normal", false);
-                Invoke("StageSelect", 2.0f);
+                Husuma.SetBool("close", true);
+                Invoke("StageSelect", 4.0f);
                 break;
 
             //ゲームシーンの最初に使う
@@ -77,7 +76,6 @@ public class HusumaOC : MonoBehaviour
             case 3:
                 Husuma.SetBool("open", true);
                 Husuma.SetBool("close", false);
-                Invoke("StageSelect", 3.0f);
                 break;
         }
     }

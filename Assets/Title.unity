@@ -938,6 +938,11 @@ Prefab:
       propertyPath: Husuma
       value: 
       objectReference: {fileID: 1190692990}
+    - target: {fileID: 114201746997786448, guid: 2d075d49632b54b429b9283f427174e8,
+        type: 2}
+      propertyPath: NextSceneName
+      value: TestGyro
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d075d49632b54b429b9283f427174e8, type: 2}
   m_IsPrefabParent: 0

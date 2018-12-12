@@ -52,4 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Husuma: {fileID: 0}
-  NextSceneName: TestGyro
+  AnimNum: 0
+  NextSceneName: Result

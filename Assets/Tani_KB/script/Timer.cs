@@ -10,10 +10,12 @@ public class Timer : MonoBehaviour
     public GameObject Husuma;                   //ふすまの親オブジェクトをアタッチ
     public GameObject AnimMas;                  //アニメーション統括オブジェクトをアタッチ
     AnimScript animScript;　　　　　　　　　　　//アニメーションスクリプトを格納
+    HusumaOC husuma;
 
     public float cntTime;　　　　　　　　　　　 //実際の時間制限
-    public int checkTime;　　　　　　　　　　　 //時間制限（float）をswitch文で使えるようにする変数
+    public int checkTime;            //時間制限（float）をswitch文で使えるようにする変数
 
+    bool timeFlg;
 
 
     // Use this for initialization
@@ -23,15 +25,29 @@ public class Timer : MonoBehaviour
         checkTime = 0;
         teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
         animScript = AnimMas.GetComponent<AnimScript>();//アニメーションスクリプトを指定
+
+        husuma = GameObject.Find("Husuma_test").GetComponent<HusumaOC>();
+        timeFlg = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //タイマー発動
-        if (cntTime<=120.0f)
+        Invoke("LateStarting", 1.0f);
+
+        if(timeFlg==true)
         {
-            TimeCounter();
+            //タイマー発動
+            if (cntTime <= 120.0f)
+            {
+                TimeCounter();
+            }
+
+            if (checkTime == 121)
+            {
+                //husuma.AnimNum = 1;
+                husuma.ChangeScene();
+            }
         }
 
         ////ふすまのアニメーションを指定
@@ -53,6 +69,14 @@ public class Timer : MonoBehaviour
         //    animScript.husumaEfe = 3;
         //    animScript.ChangeScene();
         //}
+    }
+
+    public void LateStarting()
+    {
+        husuma.AnimNum = 2;
+        husuma.ChangeScene();
+        husuma.AnimNum = 1;
+        timeFlg = true;
     }
 
     //タイマー管理
