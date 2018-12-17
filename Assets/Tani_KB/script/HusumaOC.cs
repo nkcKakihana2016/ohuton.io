@@ -30,27 +30,7 @@ public class HusumaOC : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //// 次のシーンへ飛ぶときに使う
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    Husuma.SetBool("open", false);
-        //    Husuma.SetBool("close", true);
-        //    Husuma.SetBool("normal", false);
-        //    Invoke("StageSelect", 2.0f);
-        //}
-        ////ゲームシーンの最初に使う
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    Husuma.SetBool("normal", true);
-        //    Husuma.SetBool("close", false);
-        //}
-        ////リザルトの最初に使う
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    Husuma.SetBool("open", true);
-        //    Husuma.SetBool("close", false);
-        //    Invoke("StageSelect", 3.0f);
-        //}
+     
     }
 
     //他スクリプトからケースごとにアニメーションを選んでもらう
@@ -81,7 +61,7 @@ public class HusumaOC : MonoBehaviour
     }
 
     //シーン変更用
-    public void StageSelect()
+    void StageSelect()
     {
         SceneManager.LoadScene(NextSceneName);
     }

@@ -14,7 +14,6 @@ public class Jyroball : MonoBehaviour
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
-    ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
 
@@ -22,7 +21,6 @@ public class Jyroball : MonoBehaviour
     {
         child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<BallRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
-        cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         obutonNum = 0;
     }
 
@@ -39,9 +37,7 @@ public class Jyroball : MonoBehaviour
         if (gyroFlg == false)
         {
             DebugMove();
-        }
-
-        
+        }  
     }
 
     //ふとん取得に関するメソッド
@@ -75,7 +71,7 @@ public class Jyroball : MonoBehaviour
         {
             Vector3 inDir = Vector3.zero;
 
-            // 端末の縦横の表示に合わせてdir変数に格納する
+            // 端末の縦横の表示に合わせてindir変数に格納する
             inDir.x = Input.acceleration.x;
             inDir.z = Input.acceleration.y;
 
@@ -176,43 +172,36 @@ public class Jyroball : MonoBehaviour
             Debug.Log("初期状態！！！");
             rotSpeed = 0.6f;
             child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
-            cameraManeger.moveCameraY = 10.0f;
-
         }
         else if (obutonNum >= 5 && obutonNum < 10)
         {
             Debug.Log("１段階目！！！");
             rotSpeed = 0.5f;
             child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
-            cameraManeger.moveCameraY = 11.0f;
         }
         else if (obutonNum >= 10 && obutonNum < 15)
         {
             Debug.Log("２段階目！！！");
             rotSpeed = 0.45f;
-            child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
-            cameraManeger.moveCameraY = 12.0f;
+            child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);        
         }
         else if (obutonNum >= 15 && obutonNum < 20)
         {
             Debug.Log("３段階目！！！");
             rotSpeed = 0.4f;
-            child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
-            cameraManeger.moveCameraY = 12.5f;
+            child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);          
         }
         else if (obutonNum >= 20 && obutonNum < 25)
         {
             Debug.Log("４段階目！！！");
             rotSpeed = 0.35f;
-            child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
-            cameraManeger.moveCameraY = 13.0f;
+            child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);           
         }
         else if (obutonNum == 25)
         {
             Debug.Log("５段階目！！！");
             rotSpeed = 0.25f;
-            child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
-            cameraManeger.moveCameraY = 13.5f;
+            child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);            
         }
     }
 }

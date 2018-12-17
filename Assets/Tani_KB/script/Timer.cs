@@ -12,41 +12,43 @@ public class Timer : MonoBehaviour
     AnimScript animScript;　　　　　　　　　　　//アニメーションスクリプトを格納
     HusumaOC husuma;
 
-    public float cntTime;　　　　　　　　　　　 //実際の時間制限
-    public int checkTime;            //時間制限（float）をswitch文で使えるようにする変数
-
-    bool timeFlg;
+    [SerializeField]
+    private float cntTime;　　　　　　　　　　　 //実際の時間制限
+    [SerializeField]
+    private int checkTime;                       //時間制限（float）をswitch文で使えるようにする変数
+        
+    bool timeFlg;                               //時間制限のONOFFを指定するフラグ 
 
 
     // Use this for initialization
     void Start ()
     {
-        cntTime = 0.0f;　　　　　　　　　　　　 //時間に関する数値の変数を初期化
-        checkTime = 0;
-        teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
-        animScript = AnimMas.GetComponent<AnimScript>();//アニメーションスクリプトを指定
+        cntTime = 0.0f;　　　　　　　　　　　　         //実際の時間制限の変数を初期化
+        checkTime = 0;                                  //時間制限（float）をswitch文で使えるようにする変数を初期化
 
-        husuma = GameObject.Find("Husuma_test").GetComponent<HusumaOC>();
-        timeFlg = false;
+        animScript = AnimMas.GetComponent<AnimScript>();                 //アニメーションスクリプトを指定
+        husuma = GameObject.Find("Husuma_test").GetComponent<HusumaOC>();//ふすまアニメションとスクリプトを指定
+
+        teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
+        timeFlg = false;                        //ゲームシーン開始時に即時動作しないようにOFFにする。
     }
 
     // Update is called once per frame
     void Update()
     {
-        Invoke("LateStarting", 1.0f);
+        Invoke("LateStarting", 1.0f);//１秒遅らせてStartメソッドの後に発動させる
 
-        if(timeFlg==true)
+        if (timeFlg==true)
         {
             //タイマー発動
             if (cntTime <= 120.0f)
             {
                 TimeCounter();
             }
-
+            //タイマー終了時
             if (checkTime == 121)
             {
-                //husuma.AnimNum = 1;
-                husuma.ChangeScene();
+                Invoke("LateChangeScene", 2.0f);
             }
         }
 
@@ -71,7 +73,14 @@ public class Timer : MonoBehaviour
         //}
     }
 
-    public void LateStarting()
+    //リザルトシーンへ移行する際にアニメーションを遅らせるためのメソッド
+    void LateChangeScene()
+    {
+        husuma.ChangeScene(); 
+    }
+
+    //Startメソッドの後に発動させるメソッド
+    void LateStarting()
     {
         husuma.AnimNum = 2;
         husuma.ChangeScene();
@@ -80,7 +89,7 @@ public class Timer : MonoBehaviour
     }
 
     //タイマー管理
-    public void TimeCounter()
+    void TimeCounter()
     {
         teacherImg.SetBool("TimerStart", true); //タイマー（先生）を起動
         cntTime += Time.deltaTime;
