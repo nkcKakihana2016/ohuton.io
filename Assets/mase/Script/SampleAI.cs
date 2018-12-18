@@ -12,6 +12,8 @@ public class SampleAI : MonoBehaviour
     public GameObject target;//追いかけるターゲット
     NavMeshAgent agent;
     public float Accessspeed;
+    public bool AIdash;
+    private int futongetCount = 0;
 
     // Use this for initialization
     void Start ()
@@ -21,6 +23,8 @@ public class SampleAI : MonoBehaviour
         nearObj = serchTag(gameObject, "point");
 
         Playerhit = false;
+
+        AIdash = false;
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -35,8 +39,6 @@ public class SampleAI : MonoBehaviour
             agent.destination = target.transform.position;
             Debug.Log("きたー");
         }
-        else
-        {
             //経過時間を取得
             searchTime += Time.deltaTime;
 
@@ -59,7 +61,6 @@ public class SampleAI : MonoBehaviour
             transform.Translate(Vector3.forward * Accessspeed);
 
             Debug.Log("フラグがfalse");
-        }
 
 
 
