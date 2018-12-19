@@ -13,7 +13,8 @@ public class SampleAI : MonoBehaviour
     NavMeshAgent agent;
     public float Accessspeed;
     public bool AIdash;
-    private int futongetCount = 0;
+    public int futongetCount = 0;
+
 
     // Use this for initialization
     void Start ()
@@ -34,11 +35,13 @@ public class SampleAI : MonoBehaviour
 	void Update ()
     {
 
-        if (Playerhit)
+        if (AIdash == false)
         {
-            agent.destination = target.transform.position;
-            Debug.Log("きたー");
-        }
+            if (Playerhit)
+            {
+                agent.destination = target.transform.position;
+                Debug.Log("きたー");
+            }
             //経過時間を取得
             searchTime += Time.deltaTime;
 
@@ -61,9 +64,10 @@ public class SampleAI : MonoBehaviour
             transform.Translate(Vector3.forward * Accessspeed);
 
             Debug.Log("フラグがfalse");
+        }
 
-
-
+        AIfutoncount();
+        AIspeedup();
     }
 
     //指定されたタグの中で最も近いものを取得
@@ -95,5 +99,53 @@ public class SampleAI : MonoBehaviour
         return targetObj;
 
 
+        
+
+    }
+
+    public void AIfutoncount()
+    {
+        if (futongetCount>=3)
+        {
+            AIdash = true;
+            Debug.Log("3以上になったよ");
+        }
+    }
+
+    public void AIspeedup()
+    {
+        if (AIdash == true)
+        {
+            if (Playerhit)
+            {
+                agent.destination = target.transform.position;
+                Debug.Log("きたー");
+            }
+            else
+            {
+                            //経過時間を取得
+            searchTime += Time.deltaTime;
+
+            if (searchTime >= 1.0f)
+            {
+                //最も近かったオブジェクトを取得
+                nearObj = serchTag(gameObject, "point");
+
+                //経過時間を初期化
+                searchTime = 0;
+            }
+
+            //対象の位置の方向を向く
+            transform.LookAt(nearObj.transform);
+
+                //transform.rotation(nearObj.transform)
+
+
+                //自分自身の位置から相対的に移動する
+                transform.Translate(Vector3.forward * Accessspeed * 2);
+            }
+
+            Debug.Log("かそくするよ");
+        }
     }
 }

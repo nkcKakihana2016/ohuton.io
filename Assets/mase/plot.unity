@@ -1611,6 +1611,15 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1967180024}
+    - target: {fileID: 1166058732950158, guid: 8a8d066fa3e6b784a9b10a4b9347b476, type: 2}
+      propertyPath: m_Name
+      value: AIMOVE
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617340503757826, guid: 8a8d066fa3e6b784a9b10a4b9347b476,
+        type: 2}
+      propertyPath: Accessspeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a8d066fa3e6b784a9b10a4b9347b476, type: 2}
   m_IsPrefabParent: 0
