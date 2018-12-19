@@ -1618,7 +1618,7 @@ Prefab:
     - target: {fileID: 114617340503757826, guid: 8a8d066fa3e6b784a9b10a4b9347b476,
         type: 2}
       propertyPath: Accessspeed
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a8d066fa3e6b784a9b10a4b9347b476, type: 2}
@@ -2458,7 +2458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1967180025
 MeshRenderer:
   m_ObjectHideFlags: 0
