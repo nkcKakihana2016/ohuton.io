@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
         checkTime = 0;                                  //時間制限（float）をswitch文で使えるようにする変数を初期化
 
         animScript = AnimMas.GetComponent<AnimScript>();                 //アニメーションスクリプトを指定
-        husuma = GameObject.Find("Husuma_test").GetComponent<HusumaOC>();//ふすまアニメションとスクリプトを指定
+        husuma = GameObject.Find("huton_0(5)_h").GetComponent<HusumaOC>();//ふすまアニメションとスクリプトを指定
 
         teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
         timeFlg = false;                        //ゲームシーン開始時に即時動作しないようにOFFにする。
@@ -76,15 +76,15 @@ public class Timer : MonoBehaviour
     //リザルトシーンへ移行する際にアニメーションを遅らせるためのメソッド
     void LateChangeScene()
     {
-        husuma.ChangeScene(); 
+        //husuma.ChangeScene(); 
     }
 
     //Startメソッドの後に発動させるメソッド
     void LateStarting()
     {
-        husuma.AnimNum = 2;
-        husuma.ChangeScene();
-        husuma.AnimNum = 1;
+        //husuma.AnimNum = 2;
+        //husuma.ChangeScene();
+        //husuma.AnimNum = 1;
         timeFlg = true;
     }
 

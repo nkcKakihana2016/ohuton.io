@@ -13,14 +13,14 @@ public class Jyroball : MonoBehaviour
     public int obutonNum;           //取得した布団の数を格納する変数
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
-    BallRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
+    ballRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
 
     void Start()
     {
         child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-        ballRun = child.GetComponent<BallRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+        ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         obutonNum = 0;
     }
 
@@ -64,7 +64,7 @@ public class Jyroball : MonoBehaviour
     public void GyroMove()
     {
         //ジャイロ操作では10.0fに設定する。
-        rotSpeed = 10.0f;
+        rotSpeed = 5.0f;
         CustomPlayerScale();
 
         if (gyroFlg == true)
@@ -85,33 +85,46 @@ public class Jyroball : MonoBehaviour
             //customDirX = Mathf.Clamp(customDirX, 0.01f, -0.01f);
             //customDirZ = Mathf.Clamp(customDirZ, 0.01f, -0.01f);
 
+            //実際に動かす
+            dir = new Vector3(customDirX, 0, customDirZ);
+            rotSpeed = 5.0f;
+            transform.Translate(dir * rotSpeed);
+
+            //指定した範囲内の数値では回転しないようにする
+            rot = new Vector3(customDirX, 0, customDirZ);
+            child.transform.localRotation = Quaternion.LookRotation(rot);
+
+            //        //指定した範囲内の数値では回転しないようにする
+            //        rot = new Vector3(customDirX, 0, customDirZ);
+            //        child.transform.localRotation = Quaternion.LookRotation(rot);
+
 
             //スマホ操作で極力動かさないようにすると移動や回転が止まる。
-            if (customDirX < 0.01 || customDirX > -0.01)
-            {
-                if (customDirZ < 0.01 || customDirZ > -0.01)
-                {
-                    dir = new Vector3(customDirX, 0, customDirZ);
-                    rotSpeed = 0.0f;
-                    transform.Translate(dir * rotSpeed);
-                }
-            }
+            //if (customDirX < 0.01 || customDirX > -0.01)
+            //{
+            //    if (customDirZ < 0.01 || customDirZ > -0.01)
+            //    {
+            //        dir = new Vector3(customDirX, 0, customDirZ);
+            //        rotSpeed = 0.0f;
+            //        transform.Translate(dir * rotSpeed);
+            //    }
+            //}
 
-            if (customDirX > 0.01 || customDirX < -0.01)
-            {
-                if (customDirZ > 0.01 || customDirZ < -0.01)
-                {
-                    //実際に動かす
-                    dir = new Vector3(customDirX, 0, customDirZ);
-                    rotSpeed = 10.0f;
-                    transform.Translate(dir * rotSpeed);
+            //if (customDirX > 0.01 || customDirX < -0.01)
+            //{
+            //    if (customDirZ > 0.01 || customDirZ < -0.01)
+            //    {
+            //        //実際に動かす
+            //        dir = new Vector3(customDirX, 0, customDirZ);
+            //        rotSpeed = 5.0f;
+            //        transform.Translate(dir * rotSpeed);
 
-                    //指定した範囲内の数値では回転しないようにする
-                    rot = new Vector3(customDirX, 0, customDirZ);
-                    child.transform.localRotation = Quaternion.LookRotation(rot);
-                }
-            }
-            
+            //        //指定した範囲内の数値では回転しないようにする
+            //        rot = new Vector3(customDirX, 0, customDirZ);
+            //        child.transform.localRotation = Quaternion.LookRotation(rot);
+            //    }
+            //}
+
             //if (dir.sqrMagnitude > 1)
             //    dir.Normalize();
 
