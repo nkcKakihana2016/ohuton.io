@@ -16,6 +16,7 @@ public class Pointhit : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        //布団に当たった時の判定
         if (other.gameObject.tag == "point")
         {
             Destroy(other.gameObject);
@@ -23,6 +24,12 @@ public class Pointhit : MonoBehaviour
 
             AIController.futongetCount += 1;
             Debug.Log(AIController.futongetCount);
+        }
+
+        //Playerヒット時の判定
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("Playerヒット");
         }
     }
 

@@ -1620,6 +1620,21 @@ Prefab:
       propertyPath: Accessspeed
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 195686877114718272, guid: 8a8d066fa3e6b784a9b10a4b9347b476,
+        type: 2}
+      propertyPath: m_Speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 195686877114718272, guid: 8a8d066fa3e6b784a9b10a4b9347b476,
+        type: 2}
+      propertyPath: m_AngularSpeed
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617340503757826, guid: 8a8d066fa3e6b784a9b10a4b9347b476,
+        type: 2}
+      propertyPath: timeOut
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a8d066fa3e6b784a9b10a4b9347b476, type: 2}
   m_IsPrefabParent: 0

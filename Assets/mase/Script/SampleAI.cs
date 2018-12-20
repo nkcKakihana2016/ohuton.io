@@ -14,10 +14,11 @@ public class SampleAI : MonoBehaviour
     public float Accessspeed;
     public bool AIdash;
     public int futongetCount = 0;
+    public float timeOut;
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
 
         //最も近かったオブジェクトを取得
@@ -30,9 +31,9 @@ public class SampleAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
 
         if (AIdash == false)
@@ -40,6 +41,7 @@ public class SampleAI : MonoBehaviour
             if (Playerhit)
             {
                 agent.destination = target.transform.position;
+                agent.speed = 5.0f;
                 Debug.Log("きたー");
             }
             //経過時間を取得
@@ -67,7 +69,11 @@ public class SampleAI : MonoBehaviour
         }
 
         AIfutoncount();
-        AIspeedup();
+        if (AIdash == true)
+        {
+            StartCoroutine(FuncCoroutine());
+            futongetCount = 0;
+        }
     }
 
     //指定されたタグの中で最も近いものを取得
@@ -99,53 +105,52 @@ public class SampleAI : MonoBehaviour
         return targetObj;
 
 
-        
+
 
     }
 
     public void AIfutoncount()
     {
-        if (futongetCount>=3)
+        if (futongetCount >= 3)
         {
             AIdash = true;
             Debug.Log("3以上になったよ");
         }
     }
 
-    public void AIspeedup()
+    IEnumerator FuncCoroutine()
     {
-        if (AIdash == true)
+        if (Playerhit)
         {
-            if (Playerhit)
-            {
-                agent.destination = target.transform.position;
-                Debug.Log("きたー");
-            }
-            else
-            {
-                            //経過時間を取得
-            searchTime += Time.deltaTime;
-
-            if (searchTime >= 1.0f)
-            {
-                //最も近かったオブジェクトを取得
-                nearObj = serchTag(gameObject, "point");
-
-                //経過時間を初期化
-                searchTime = 0;
-            }
-
-            //対象の位置の方向を向く
-            transform.LookAt(nearObj.transform);
-
-                //transform.rotation(nearObj.transform)
-
-
-                //自分自身の位置から相対的に移動する
-                transform.Translate(Vector3.forward * Accessspeed * 2);
-            }
-
-            Debug.Log("かそくするよ");
+            agent.destination = target.transform.position;
+            agent.speed = 10.0f;
+            Debug.Log("加速きたー");
         }
+        //経過時間を取得
+        searchTime += Time.deltaTime;
+
+        if (searchTime >= 1.0f)
+        {
+            //最も近かったオブジェクトを取得
+            nearObj = serchTag(gameObject, "point");
+
+            //経過時間を初期化
+            searchTime = 0;
+        }
+
+        //対象の位置の方向を向く
+        transform.LookAt(nearObj.transform);
+
+        //transform.rotation(nearObj.transform)
+
+
+        //自分自身の位置から相対的に移動する
+        transform.Translate(Vector3.forward * Accessspeed * 2);
+
+        Debug.Log("フラグがfalse");
+
+        yield return new WaitForSeconds(timeOut);
+        AIdash = false;
+        Debug.Log("終わった");
     }
 }
