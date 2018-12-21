@@ -44,6 +44,7 @@ public class PlayerData : MonoBehaviour{
         // PhotonViewを格納
         dataView = myChara.myPhotonView;
         myPhotonPlayer = PhotonPlayer.Find(myChara.myID);
+        // 準備完了カウントの初期設定
         readyCount = 0;
         readyCountOld = readyCount;
     }
@@ -54,16 +55,20 @@ public class PlayerData : MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
+        // 準備完了ボタンが押されたら１回実行される
         if (readyCount != readyCountOld)
         {
             if (readyCount % 2 == 1)
             {
+                // 準備完了
                 isReady = PlayerReady.ReadyOn;
             }
             else
             {
+                // 準備完了キャンセル
                 isReady = PlayerReady.ReadyOff;
             }
+            // マスタークラスに準備完了状況を送信
             gm.ReadyCheck(viewID, (int)isReady);
             readyCountOld = readyCount;
         }

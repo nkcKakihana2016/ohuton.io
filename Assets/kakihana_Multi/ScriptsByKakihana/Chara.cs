@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chara : Photon.MonoBehaviour {
 
@@ -10,8 +11,8 @@ public class Chara : Photon.MonoBehaviour {
     public PhotonView myPhotonView;
     public PhotonTransformView myPhotonTransformView;
 
-    public GameMaster gm;
-    public PlayerData myData;
+    public GameMaster gm;       // ゲームマスター
+    public PlayerData myData;   // キャラクター情報
 
     // 自分のPhotonViewID
     /* ViewIDについての補足 */
@@ -30,7 +31,9 @@ public class Chara : Photon.MonoBehaviour {
     public CharacterController myCC;
 
     // カメラ情報
-    private Camera mainCam;
+    public Camera mainCam;
+    // 自分専用のUI
+    public GameObject myCanvas;
 
     // スピード
     public float speed;
@@ -39,11 +42,18 @@ public class Chara : Photon.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // ゲームマスターコンポーネント取得
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        // キャラクター情報コンポーネント取得
         myData = this.gameObject.GetComponent<PlayerData>();
+        // PhotonViewを取得
         this.myPhotonView = PhotonView.Get(this);
+        // マスタークラスにID情報を登録
         gm.idList.Add(myPhotonView.viewID);
+        // マスタークラスにキャラクター情報を登録
         gm.playerDataList.Add(myData);
+        // マスタークラスの準備完了リストに登録
+        gm.IsReadyInit(myPhotonView.viewID);
         // Photonに接続されていたら
         if (myPhotonView.isMine)
         {
@@ -51,10 +61,19 @@ public class Chara : Photon.MonoBehaviour {
             mainCam = Camera.main;
             // カメラスクリプト内にあるターゲット座標変数に自キャラの座標を格納
             mainCam.GetComponent<CameraManager>().target = this.gameObject.transform;
+
             // PhotonviewよりviewIDを取得
             myViewId = photonView.viewID;
 
-            //myID = photonView.RPC("GetID", PhotonTargets.AllViaServer);
+            // 自プレイヤー用Canvas表示
+            myCanvas.SetActive(true);
+            // プレイヤー専用のUIと自分のキャラクター情報を関連付ける
+            ReadyManager readyManager;
+            readyManager = myCanvas.GetComponentInChildren<ReadyManager>();
+            readyManager.dataInit(myData);
+            Debug.Log("UIkenti1");
+            // 他のプレイヤーに自プレイヤーCanvasが表示されないように情報を同期
+            photonView.RPC("LocalUI", PhotonTargets.OthersBuffered);
            // ViewIDの千の位によりプレイヤーの色を変える
             switch (myViewId /= 1000)
             {
@@ -87,7 +106,7 @@ public class Chara : Photon.MonoBehaviour {
         {
             return;
         }
-        Move(); // 移動ベクトル計算メソッド起動
+        Move();                          // 移動ベクトル計算メソッド起動
         myCC.Move(pos * Time.deltaTime); // キャラクター移動
 
         // 同期ズレを減らすためにPhotonTransformViewに送信する移動用ベクトルを
@@ -104,9 +123,12 @@ public class Chara : Photon.MonoBehaviour {
         pos.z = Input.GetAxis("Vertical");
     }
 
-    public void SendToMasterReady()
+    [PunRPC]
+    public void LocalUI()
     {
-        gm.ReadyCount();
+        Debug.Log("UIkenti2");
+        // 他者から見た場合、自プレイヤーのUIは非表示
+        GetComponentInChildren<Canvas>().enabled = false;
     }
 
     // PunRPC以外の同期方法としてOnPhotonSerializeView（）関数下でも出来る

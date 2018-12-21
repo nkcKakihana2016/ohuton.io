@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class PlayerMultiUI : NetworkBehaviour {
+public class PlayerMultiUI : Photon.MonoBehaviour {
+
+    // プレイヤー専用UIのスクリプト
+    // 自分以外のプレイヤーには専用UIは表示されないようにする
 
     [SerializeField]GameObject myCharaObj;
     [SerializeField] Chara myChara;
@@ -14,16 +17,17 @@ public class PlayerMultiUI : NetworkBehaviour {
 	void Start () {
         // このオブジェクトをキャンバスの子に設定
         this.GetComponent<Transform>().SetParent(GameObject.Find("Canvas").GetComponent<Transform>());
+        // キャラクターのコンポーネントを取得
         myChara = myCharaObj.GetComponent<Chara>();
-        if (isLocalPlayer)
+        // プレイヤーのPhotonViewが一致していたら動作
+        if (myChara.myPhotonView.isMine)
         {
+            Debug.Log("UIkenti1");
+            // UIを表示
             this.gameObject.SetActive(true);
-            //GetComponentInChildren<Canvas>().enabled = true;
+            // 他プレイヤーに自分のUIが見えないようにする
+            myChara.myPhotonView.RPC("LocalUI", PhotonTargets.OthersBuffered);
         }
-        //else
-        //{
-        //    this.gameObject.SetActive(false);
-        //}
 		
 	}
 	
@@ -32,8 +36,17 @@ public class PlayerMultiUI : NetworkBehaviour {
 		
 	}
 
+    // キャラクターオブジェクトの初期設定
     public void InitPlayer(GameObject chara)
     {
         myCharaObj = chara;
+    }
+
+    // 自分のプレイヤー専用UIが他のプレイヤーに見えないようにするメソッド
+    [PunRPC]
+    public void LocalUI()
+    {
+        Debug.Log("UIkenti2");
+        this.gameObject.SetActive(false);
     }
 }

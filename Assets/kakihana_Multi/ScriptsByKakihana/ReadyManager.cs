@@ -23,12 +23,6 @@ public class ReadyManager : MonoBehaviour {
         gm = GameObject.FindObjectOfType<GameMaster>().GetComponent<GameMaster>();
         // ロビークラスコンポーネント取得
         lobbyManager = GameObject.FindObjectOfType<GameMaster>().GetComponent<LobbyManager>();
-        // このオブジェクトをキャンバスの子に設定
-        this.GetComponent<Transform>().SetParent(GameObject.Find("Canvas").GetComponent<Transform>());
-        // ロビークラスに格納されている空ボタンオブジェクトより表示座標取得
-        btnPos = lobbyManager.readyBtnTransObj.GetComponent<Transform>();
-        // このオブジェクトの座標を設定する
-        this.transform.position = btnPos.position;
         // 準備完了ボタンコンポーネント取得
         btn = this.GetComponent<Button>();
     }
@@ -51,14 +45,5 @@ public class ReadyManager : MonoBehaviour {
     public void ReadyClick()
     {
         myData.GetReady();
-        //if (cnt % 2 == 1)
-        //{
-        //    myData.isReady = PlayerData.PlayerReady.ReadyOn;
-        //}
-        //else
-        //{
-        //    myData.isReady = PlayerData.PlayerReady.ReadyOff;
-        //}
-        
     }
 }

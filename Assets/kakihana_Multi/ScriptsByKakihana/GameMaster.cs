@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameMaster : Photon.MonoBehaviour {
@@ -25,6 +27,7 @@ public class GameMaster : Photon.MonoBehaviour {
     [SerializeField]
     public List<string> playerNameList;   // プレイヤー名リスト
     public List<int> idList;              // IDリスト（仮）
+    public List<bool> playerReady;        // 各プレイヤーの準備完了状況
     public List<PlayerData> playerDataList; // プレイヤーデータリスト
 
 	// Use this for initialization
@@ -58,6 +61,8 @@ public class GameMaster : Photon.MonoBehaviour {
                     playerNameList.Add(masterPlayer.NickName);
                     // 参加人数を足す
                     playerCount++;
+                    // 準備完了状況の初期化
+                    masterPhotonView.RPC("ReadyCountUpdate", PhotonTargets.AllBuffered, readyCount);
                 }
                 // 最大人数を取得
                 maxPlayers = PhotonNetwork.room.MaxPlayers;
@@ -112,27 +117,68 @@ public class GameMaster : Photon.MonoBehaviour {
         photonView.RPC("RoomInfoUpdate", PhotonTargets.All,readyCount);
     }
 
-    public void ReadyCheck(int cnt)
+    // 準備完了処理
+    public void ReadyCheck(int ID,int readyState)
     {
-
+        Debug.LogFormat("ID：{0} ,StateNo：{1}", ID, readyState);
+        // IDリストを並び替える
+        idList.Sort();
+        // IDリストより送られてきたIDで検索しインデックスを取得
+        int index = idList.IndexOf(ID);
+        Debug.LogFormat("Index:{0}", index);
+        // 送られてきたViewIDがゲームプレイヤーリストにあるか調べる
+        if (idList.Contains(ID))
+        {
+            // マスター側とクライアント側の準備完了状況をチェック
+            if (playerReady[index] == false && readyState == 1)
+            {
+                // 準備完了の場合の処理 ReadyCount();メソッドへ
+                photonView.RPC("ReadyCount",PhotonTargets.AllBuffered,index);
+                Debug.Log("ReadyCount【ADD】");
+            }
+            else if(playerReady[index] == true && readyState == 0)
+            {
+                // 準備完了がキャンセルされたときの処理 ReadyDiv();メソッドへ
+                photonView.RPC("ReadyDiv", PhotonTargets.AllBuffered, index);
+                Debug.Log("ReadyCount【DIV】");
+            }
+        }
     }
 
+    [PunRPC]
     // 準備完了をカウントするメソッド
-    public void ReadyCount()
+    public void ReadyCount(int index)
     {
+        Debug.Log(index);
         // カウントを足す
         readyCount++;
-        // 現在の準備完了状況を更新
-        photonView.RPC("ReadyCountUpdate", PhotonTargets.All, readyCount);
+        // マスター側の準備完了状況を更新
+        playerReady[index] = true;
+        // 準備完了UIを更新
+        photonView.RPC("ReadyCountUpdate", PhotonTargets.AllBuffered, readyCount);
     }
 
+
+    [PunRPC]
     // 準備完了を取り消すメソッド
-    public void ReadyDiv()
+    public void ReadyDiv(int index)
     {
         // カウントを引く
         readyCount--;
-        // 現在の準備完了状況を更新
-        photonView.RPC("ReadyCountUpdate", PhotonTargets.All, readyCount);
+        // マスター側の準備完了状況を更新
+        playerReady[index] = false;
+        // 準備完了UIを更新
+        photonView.RPC("ReadyCountUpdate", PhotonTargets.AllBuffered, readyCount);
+    }
+
+    // 準備完了状況の初期設定
+    public void IsReadyInit(int viewID)
+    {
+        // IDリストよりインデックスを取得
+        int idIndex = idList.IndexOf(viewID);
+        Debug.LogFormat("IndexOfID：{0}", idIndex);
+        // 準備完了状況リストに追加
+        playerReady.Insert(idIndex, false);
     }
 
     // カウントダウンをスタートさせる
