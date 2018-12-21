@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Tani_KB/testKB.unity
     guid: 2f8574779eb874b4c83e6a7603310254
-  - enabled: 1
+  - enabled: 0
     path: Assets/TestGyro.unity
     guid: de95506d1a27457469746b1726d15032
+  - enabled: 1
+    path: Assets/Murata/scenes/Tes3.unity
+    guid: 5df836d791512344a9536ba0524bdcce
   - enabled: 0
     path: Assets/Tani_KB/test2.unity
     guid: dc373632b9c49fb43911b1dc0b7be81d

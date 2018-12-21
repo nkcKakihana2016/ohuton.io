@@ -17,6 +17,8 @@ public class HusumaOC : MonoBehaviour
     //次のシーンを指定
     public string NextSceneName;
 
+    ResultManeger ResMane;
+
 
     // Use this for initialization
     void Start ()
@@ -25,6 +27,8 @@ public class HusumaOC : MonoBehaviour
         Husuma.SetBool("open", false);
         Husuma.SetBool("close", false);
         Husuma.SetBool("normal", false);
+
+        ResMane = GameObject.Find("Main Camera").GetComponent<ResultManeger>();
     }
 	
 	// Update is called once per frame
@@ -56,6 +60,7 @@ public class HusumaOC : MonoBehaviour
             case 3:
                 Husuma.SetBool("open", true);
                 Husuma.SetBool("close", false);
+                Invoke("LateResMove", 2.0f);
                 break;
         }
     }
@@ -64,5 +69,10 @@ public class HusumaOC : MonoBehaviour
     void StageSelect()
     {
         SceneManager.LoadScene(NextSceneName);
+    }
+
+    void LateResMove()
+    {
+        ResMane.moveFlg = true;
     }
 }
