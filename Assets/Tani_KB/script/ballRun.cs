@@ -20,6 +20,10 @@ public class ballRun : MonoBehaviour
     public GameObject jyroball;
     // Use this for initialization
     public GameObject Camera;
+
+    public float speed = 1.0f;
+
+   // public GameObject test;
     void Start()
     {
         DamageFlg = false;
@@ -99,8 +103,14 @@ public class ballRun : MonoBehaviour
             FindObjectOfType<Fton_Create>().DuplicateFuton(transform.position.x, transform.position.z);
             //敷布団を1秒後に削除
             Destroy(other.gameObject, 1.0f);
+           // eden();
         }
     }
+   /* public void eden()
+    {
+        test.SetActive(true);
+        test.transform.position += new Vector3( 0.0f,speed * Time.deltaTime, speed * Time.deltaTime);
+    }*/
 
     public void futonpurge()
     {
