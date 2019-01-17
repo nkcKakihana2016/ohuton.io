@@ -15,6 +15,7 @@ public class SampleAI : MonoBehaviour
     public bool AIdash;
     public int futongetCount = 0;
     public float timeOut;
+    public float stalkingOut;
 
 
     // Use this for initialization
@@ -43,29 +44,39 @@ public class SampleAI : MonoBehaviour
                 agent.destination = target.transform.position;
                 agent.speed = 5.0f;
                 Debug.Log("きたー");
-            }
-            //経過時間を取得
-            searchTime += Time.deltaTime;
+                stalkingOut -= Time.deltaTime;
 
-            if (searchTime >= 1.0f)
+                if (stalkingOut <= 0)
+                {
+                    Playerhit = false;
+                    Debug.Log("フラグ反転");
+                }
+            }
+            else
             {
-                //最も近かったオブジェクトを取得
-                nearObj = serchTag(gameObject, "point");
+                //経過時間を取得
+                searchTime += Time.deltaTime;
 
-                //経過時間を初期化
-                searchTime = 0;
+                if (searchTime >= 1.0f)
+                {
+                    //最も近かったオブジェクトを取得
+                    nearObj = serchTag(gameObject, "point");
+
+                    //経過時間を初期化
+                    searchTime = 0;
+                }
+
+                //対象の位置の方向を向く
+                transform.LookAt(nearObj.transform);
+
+                //transform.rotation(nearObj.transform)
+
+
+                //自分自身の位置から相対的に移動する
+                transform.Translate(Vector3.forward * Accessspeed);
+
+                Debug.Log("フラグがfalse");
             }
-
-            //対象の位置の方向を向く
-            transform.LookAt(nearObj.transform);
-
-            //transform.rotation(nearObj.transform)
-
-
-            //自分自身の位置から相対的に移動する
-            transform.Translate(Vector3.forward * Accessspeed);
-
-            Debug.Log("フラグがfalse");
         }
 
         AIfutoncount();
@@ -145,7 +156,7 @@ public class SampleAI : MonoBehaviour
 
 
         //自分自身の位置から相対的に移動する
-        transform.Translate(Vector3.forward * Accessspeed * 2);
+        transform.Translate(Vector3.forward * Accessspeed * 1.5f);
 
         Debug.Log("フラグがfalse");
 
