@@ -23,6 +23,8 @@ public class ballRun : MonoBehaviour
 
     public float speed = 1.0f;
 
+    public GameObject EffectObj;
+
    // public GameObject test;
     void Start()
     {
@@ -82,7 +84,6 @@ public class ballRun : MonoBehaviour
     {
         if (other.gameObject.tag == "point")
         {
-
             Destroy(other.gameObject);
 
             MurataScript.GetComponent<Gg_Slider>()._Gg += 1;
@@ -100,6 +101,7 @@ public class ballRun : MonoBehaviour
         //敷布団のタグを条件として
         if (other.gameObject.tag == "FutonSet")
         {
+            EffectObj.SetActive(true);
             FindObjectOfType<Fton_Create>().DuplicateFuton(transform.position.x, transform.position.z);
             //敷布団を1秒後に削除
             Destroy(other.gameObject, 1.0f);

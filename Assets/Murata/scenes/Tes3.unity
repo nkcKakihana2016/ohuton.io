@@ -313,6 +313,7 @@ MonoBehaviour:
   jyroball: {fileID: 787908412}
   Camera: {fileID: 1552192928}
   speed: 1
+  EffectObj: {fileID: 1190688577817952, guid: ce956552b8b06ce4c97465a1890f3bd4, type: 2}
 --- !u!136 &262227712
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2528,7 +2529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6774af1e887bf149aa64f6d91e04b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 787908412}
+  player: {fileID: 262227709}
   plyPos: {x: 0, y: 0, z: 0}
   moveCameraY: 0
   masCamera: 0
@@ -2999,7 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681c34c7eb292ce4598fbff76160b679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Futon: {fileID: 1671189215510072, guid: d5bf6170e35a16144a0e4ae79515978c, type: 2}
+  m_Futon: {fileID: 1721652302315902, guid: ce956552b8b06ce4c97465a1890f3bd4, type: 2}
   m_FutonSizeX: 2
   m_FutonSizeZ: 1.5
   m_InstallationPosition: {x: -10, y: 0, z: -17.5}
