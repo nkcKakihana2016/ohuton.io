@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hit : MonoBehaviour
 {
     GameObject hitobj;
-    SampleAI maseAIScript;
+    AIController maseAIScript;
 
 
 	// Use this for initialization
@@ -13,7 +13,7 @@ public class Hit : MonoBehaviour
     {
 
         hitobj = GameObject.Find("SampleAI");
-        maseAIScript = hitobj.GetComponent<SampleAI>();
+        maseAIScript = hitobj.GetComponent<AIController>();
 		
 	}
 	
@@ -27,7 +27,7 @@ public class Hit : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            maseAIScript.GetComponent<SampleAI>().Playerhit = true;
+            maseAIScript.Playerhit = true;
             Debug.Log("Playerにあったぞー！");
         }
     }

@@ -11,6 +11,10 @@ public class AIController : MonoBehaviour
     public GameObject target;//追いかけるターゲット
     NavMeshAgent agent;
     public float Accessspeed;
+    float stalkerCount;
+    public Transform StalkingTarget;//追いかける対象の位置取得
+    public float Stalkingspeed = 0.1f;//Stalkingスピード
+    private Vector3 vec;
 
     // Use this for initialization
     void Start ()
@@ -20,7 +24,9 @@ public class AIController : MonoBehaviour
 
         Playerhit = false;
 
-        agent = GetComponent<NavMeshAgent>();
+        stalkerCount = 2.0f;
+
+        //agent = GetComponent<NavMeshAgent>();
     }
 	
 	// Update is called once per frame
@@ -29,10 +35,29 @@ public class AIController : MonoBehaviour
 
         if (Playerhit)
         {
-            agent.destination = target.transform.position;
-            Debug.Log("きたー");
+            //targetの方に少しずつ向きが変わる
+            transform.rotation = Quaternion.Slerp
+                (transform.rotation,
+                Quaternion.LookRotation(StalkingTarget.position - transform.position)
+                , 0.3f);
+            //targetに向かって進む
+            transform.position += transform.forward * Stalkingspeed;
+            stalkerCount -= Time.deltaTime;
+            if (stalkerCount<= 0)
+            {
+                Playerhit = false;
+                Debug.Log("反転");
+            }
+            //agent.destination = target.transform.position;
+            //stalkerCount -= Time.deltaTime;
+            //if (stalkerCount<=0)
+            //{
+            //    Playerhit = false;
+
+            //}
+
         }
-        else
+        if(Playerhit == false)
         {
             //経過時間を取得
             searchTime += Time.deltaTime;
@@ -55,6 +80,7 @@ public class AIController : MonoBehaviour
             //自分自身の位置から相対的に移動する
             transform.Translate(Vector3.forward * Accessspeed);
 
+            stalkerCount = 3;
             Debug.Log("フラグがfalse");
         }
     }
