@@ -25,7 +25,9 @@ public class LobbyManager : MonoBehaviour {
 
     public GamePad.Index padID_A, padID_B, padID_C, padID_D; // ゲームパッド識別ID兼、プレイヤーID
 
-    public bool readyFlg_A, readyFlg_B, readyFlg_C, readyFlg_D;
+    public int npcCount = 0; // NPCの人数
+
+    public bool readyFlg_A, readyFlg_B, readyFlg_C, readyFlg_D; // 準備完了フラグ
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +45,45 @@ public class LobbyManager : MonoBehaviour {
         var pad_B = GamePad.GetState(GamePad.Index.Two, false);
         var pad_C = GamePad.GetState(GamePad.Index.Three, false);
         var pad_D = GamePad.GetState(GamePad.Index.Four, false);
+
+        // 1PのみNPCプレイヤーのつい削除が行える
+        // NPC追加処理
+        if (GamePad.GetButton(GamePad.Button.Y,padID_A) && npcCount < 4)
+        {
+            npcCount++;
+            switch (npcCount)
+            {
+                case 0:
+                    break;
+                case 1:
+                    Debug.Log("NPCtuika1");
+                    break;
+                case 2:
+                    Debug.Log("NPCtuika2");
+                    break;
+                case 3:
+                    Debug.Log("NPCtuika3");
+                    break;
+            }
+        }else if(GamePad.GetButton(GamePad.Button.A,padID_A) && npcCount != 0 && readyFlg_A == false)
+        {
+            // NPC削除処理
+            npcCount--;
+            switch (npcCount)
+            {
+                case 0:
+                    break;
+                case 1:
+                    Debug.Log("NPCsakujo1");
+                    break;
+                case 2:
+                    Debug.Log("NPCsakujo2");
+                    break;
+                case 3:
+                    Debug.Log("NPCsakujo3");
+                    break;
+            }
+        }
 
         if (GamePad.GetButtonDown(GamePad.Button.B,padID_A) && readyFlg_A == false)
         {
