@@ -15,6 +15,9 @@ public class AIController : MonoBehaviour
     public Transform StalkingTarget;//追いかける対象の位置取得
     public float Stalkingspeed = 0.1f;//Stalkingスピード
     private Vector3 vec;
+    public bool AIdash;
+    public int futongetCount = 0;
+    public float timeOut;
 
     // Use this for initialization
     void Start ()
@@ -26,64 +29,77 @@ public class AIController : MonoBehaviour
 
         stalkerCount = 2.0f;
 
+        AIdash = false;
+
         //agent = GetComponent<NavMeshAgent>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-        if (Playerhit)
+        if (AIdash == false)
         {
-            //targetの方に少しずつ向きが変わる
-            transform.rotation = Quaternion.Slerp
-                (transform.rotation,
-                Quaternion.LookRotation(StalkingTarget.position - transform.position)
-                , 0.3f);
-            //targetに向かって進む
-            transform.position += transform.forward * Stalkingspeed;
-            stalkerCount -= Time.deltaTime;
-            if (stalkerCount<= 0)
+            if (Playerhit)
             {
-                Playerhit = false;
-                Debug.Log("反転");
+                //targetの方に少しずつ向きが変わる
+                transform.rotation = Quaternion.Slerp
+                    (transform.rotation,
+                    Quaternion.LookRotation(StalkingTarget.position - transform.position)
+                    , 0.3f);
+                //targetに向かって進む
+                transform.position += transform.forward * Stalkingspeed;
+                stalkerCount -= Time.deltaTime;
+                if (stalkerCount <= 0)
+                {
+                    Playerhit = false;
+                    Debug.Log("反転");
+                }
+                //agent.destination = target.transform.position;
+                //stalkerCount -= Time.deltaTime;
+                //if (stalkerCount<=0)
+                //{
+                //    Playerhit = false;
+
+                //}
+
             }
-            //agent.destination = target.transform.position;
-            //stalkerCount -= Time.deltaTime;
-            //if (stalkerCount<=0)
-            //{
-            //    Playerhit = false;
+            if (Playerhit == false)
+            {
+                //経過時間を取得
+                searchTime += Time.deltaTime;
 
-            //}
+                if (searchTime >= 1.0f)
+                {
+                    //最も近かったオブジェクトを取得
+                    nearObj = serchTag(gameObject, "point");
 
+                    //経過時間を初期化
+                    searchTime = 0;
+                }
+
+                //対象の位置の方向を向く
+                transform.LookAt(nearObj.transform);
+
+                //transform.rotation(nearObj.transform)
+
+
+                //自分自身の位置から相対的に移動する
+                transform.Translate(Vector3.forward * Accessspeed);
+
+                stalkerCount = 3;
+                Debug.Log("フラグがfalse");
+            }
         }
-        if(Playerhit == false)
+
+        AIfutoncount();
+        if (AIdash == true)
         {
-            //経過時間を取得
-            searchTime += Time.deltaTime;
-
-            if (searchTime >= 1.0f)
-            {
-                //最も近かったオブジェクトを取得
-                nearObj = serchTag(gameObject, "point");
-
-                //経過時間を初期化
-                searchTime = 0;
-            }
-
-            //対象の位置の方向を向く
-            transform.LookAt(nearObj.transform);
-
-            //transform.rotation(nearObj.transform)
-
-
-            //自分自身の位置から相対的に移動する
-            transform.Translate(Vector3.forward * Accessspeed);
-
-            stalkerCount = 3;
-            Debug.Log("フラグがfalse");
+            StartCoroutine(FuncCoroutine());
+            futongetCount = 0;
         }
     }
+
+
 
     //指定されたタグの中で最も近いものを取得
     GameObject serchTag(GameObject nowObj, string tagName)
@@ -114,5 +130,63 @@ public class AIController : MonoBehaviour
         return targetObj;
 
 
+    }
+
+    public void AIfutoncount()
+    {
+        if (futongetCount >= 3)
+        {
+            AIdash = true;
+            Debug.Log("3以上になったよ");
+        }
+    }
+
+    IEnumerator FuncCoroutine()
+    {
+        if (Playerhit)
+        {
+            //agent.destination = target.transform.position;
+            //agent.speed = 10.0f;
+            //targetの方に少しずつ向きが変わる
+            transform.rotation = Quaternion.Slerp
+                (transform.rotation,
+                Quaternion.LookRotation(StalkingTarget.position - transform.position)
+                , 0.3f);
+            //targetに向かって進む
+            transform.position += transform.forward * Stalkingspeed * 2;
+            stalkerCount -= Time.deltaTime;
+            if (stalkerCount <= 0)
+            {
+                Playerhit = false;
+                Debug.Log("反転");
+            }
+            Debug.Log("加速きたー");
+        }
+        //経過時間を取得
+        searchTime += Time.deltaTime;
+
+        if (searchTime >= 1.0f)
+        {
+            //最も近かったオブジェクトを取得
+            nearObj = serchTag(gameObject, "point");
+
+            //経過時間を初期化
+            searchTime = 0;
+        }
+
+        //対象の位置の方向を向く
+        transform.LookAt(nearObj.transform);
+
+        //transform.rotation(nearObj.transform)
+
+
+        //自分自身の位置から相対的に移動する
+        transform.Translate(Vector3.forward * Accessspeed * 1.5f);
+
+        Debug.Log("フラグがfalse");
+
+        yield return new WaitForSeconds(timeOut);
+        AIdash = false;
+        Debug.Log("終わった");
     }
 }

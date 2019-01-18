@@ -28,6 +28,7 @@ public class Hit : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             maseAIScript.Playerhit = true;
+
             Debug.Log("Playerにあったぞー！");
         }
     }
