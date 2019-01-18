@@ -1960,6 +1960,8 @@ MonoBehaviour:
   Playerhit: 0
   target: {fileID: 1967180024}
   Accessspeed: 0.1
+  StalkingTarget: {fileID: 1967180028}
+  Stalkingspeed: 0.1
 --- !u!195 &1616919699
 NavMeshAgent:
   m_ObjectHideFlags: 0
