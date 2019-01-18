@@ -904,6 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69b6229d667df0499975d6b1c0e3858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AImove: {fileID: 1616919697}
 --- !u!4 &480569408
 Transform:
   m_ObjectHideFlags: 0
@@ -1962,6 +1963,9 @@ MonoBehaviour:
   Accessspeed: 0.1
   StalkingTarget: {fileID: 1967180028}
   Stalkingspeed: 0.1
+  AIdash: 0
+  futongetCount: 0
+  timeOut: 0
 --- !u!195 &1616919699
 NavMeshAgent:
   m_ObjectHideFlags: 0
