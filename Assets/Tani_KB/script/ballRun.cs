@@ -94,7 +94,7 @@ public class ballRun : MonoBehaviour
             speedup = true;
         }
 
-    }
+    }/*
     //当たって離れたら
     public void OnTriggerExit(Collider other)
     {
@@ -107,7 +107,7 @@ public class ballRun : MonoBehaviour
             Destroy(other.gameObject, 1.0f);
            // eden();
         }
-    }
+    }*/
    /* public void eden()
     {
         test.SetActive(true);

@@ -241,6 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4028494736541616}
   - component: {fileID: 65387977707586662}
+  - component: {fileID: 114620188960238164}
   m_Layer: 0
   m_Name: FutonSetEfec
   m_TagString: FutonSet
@@ -765,6 +766,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.61188835, y: 0.5666789, z: 0.09190815}
   m_Center: {x: 0.0033881962, y: -0.0014192018, z: -0.009509701}
+--- !u!114 &114620188960238164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721652302315902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ccfc8569caa7f48a2454b280be0ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectObj: {fileID: 1190688577817952}
 --- !u!114 &114771180012501340
 MonoBehaviour:
   m_ObjectHideFlags: 1
