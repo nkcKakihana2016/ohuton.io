@@ -48,7 +48,7 @@ public class LobbyManager : MonoBehaviour {
 
         // 1PのみNPCプレイヤーのつい削除が行える
         // NPC追加処理
-        if (GamePad.GetButton(GamePad.Button.Y,padID_A) && npcCount < 4)
+        if (GamePad.GetButtonDown(GamePad.Button.Y,padID_A) && npcCount < 4)
         {
             npcCount++;
             switch (npcCount)
@@ -65,7 +65,7 @@ public class LobbyManager : MonoBehaviour {
                     Debug.Log("NPCtuika3");
                     break;
             }
-        }else if(GamePad.GetButton(GamePad.Button.A,padID_A) && npcCount != 0 && readyFlg_A == false)
+        }else if(GamePad.GetButtonDown(GamePad.Button.A,padID_A) && npcCount != 0 && readyFlg_A == false)
         {
             // NPC削除処理
             npcCount--;
@@ -125,6 +125,11 @@ public class LobbyManager : MonoBehaviour {
         {
             readyFlg_D = false;
             Debug.Log("PadD_CANCEL");
+        }
+
+        if (readyFlg_A == true && readyFlg_B == true && readyFlg_C == true && readyFlg_D == true)
+        {
+            Debug.Log("START");
         }
     }
 }
