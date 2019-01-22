@@ -93,6 +93,10 @@ public class ballRun : MonoBehaviour
             }
             speedup = true;
         }
+        if (other.gameObject.tag == "FutonSet")
+        {
+            Destroy(other.gameObject,1.0f);
+        }
 
     }/*
     //当たって離れたら

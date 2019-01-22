@@ -3013,6 +3013,7 @@ MonoBehaviour:
   count: 0
   m_Reinstall:
     value: 0
+  kansi: 0
 --- !u!4 &1899236918
 Transform:
   m_ObjectHideFlags: 0

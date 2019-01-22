@@ -45,6 +45,7 @@ public class Fton_Create : MonoBehaviour {
     [SerializeField]
     private BoolReactiveProperty m_Reinstall = new BoolReactiveProperty(false);
 
+    public int kansi;
     private void Start()
     {
         //座標一Listの初期設定
@@ -82,8 +83,9 @@ public class Fton_Create : MonoBehaviour {
             //設置を行い、設置している場所のListに加え、設置数を増やす
             Instantiate(m_Futon, pos, Quaternion.identity);
             m_InstallationCoordinates.Add(coordinate);
-            Debug.Log(pos);
+           // Debug.Log(pos);
             count += 1;
+          //  Debug.Log("初期現在の数" + count);
         }
         //Debug.Log(count);
         //再設置処理
@@ -116,9 +118,10 @@ public class Fton_Create : MonoBehaviour {
                         //設置を行い、設置している場所のListに加え、設置数を増やす
                         Instantiate(m_Futon, pos, Quaternion.identity);
                         m_InstallationCoordinates.Add(coordinate);
-                        Debug.Log(pos);
+                       // Debug.Log(pos);
                         count += 1;
-                       // Debug.Log(count);
+                       // Debug.Log("蘇った現在の数" + count);
+                        // Debug.Log(count);
                         m_Reinstall.Value = count >= m_MaximumNumber ? false : true;
                     }
                 }).AddTo(this);
@@ -135,6 +138,7 @@ public class Fton_Create : MonoBehaviour {
         count -= 1;
         if (!m_Reinstall.Value)
             m_Reinstall.Value = true;
+        //Debug.Log("破壊された現在の数"+count);
     }
     /// 座標クラス
     public class Coordinate

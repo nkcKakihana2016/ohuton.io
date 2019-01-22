@@ -9,6 +9,10 @@ public class FtonDestroy : MonoBehaviour {
 
     //布団エフェクト
     public GameObject EffectObj;
+
+    public GameObject Fton_Bottom;
+
+    public GameObject makura;
 	
 	void Start ()
     {
@@ -33,6 +37,8 @@ public class FtonDestroy : MonoBehaviour {
             FindObjectOfType<Fton_Create>().DuplicateFuton(transform.position.x, transform.position.z);
             //このオブジェクトを削除する
             Destroy(gameObject, 1.0f);
+            Destroy(Fton_Bottom);
+            Destroy(makura);
         }
     }
 }
