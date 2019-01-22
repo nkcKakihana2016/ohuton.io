@@ -904,6 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69b6229d667df0499975d6b1c0e3858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AImove: {fileID: 1616919697}
 --- !u!4 &480569408
 Transform:
   m_ObjectHideFlags: 0
@@ -1954,11 +1955,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1616919697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c63aa4fccbef1c4281f181b2cc1c58d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1426bd8e21cd6b94eb3f026fb8cb778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Playerhit: 0
   target: {fileID: 1967180024}
+  Accessspeed: 0.1
+  StalkingTarget: {fileID: 1967180028}
+  Stalkingspeed: 0.1
+  AIdash: 0
+  futongetCount: 0
+  timeOut: 0
 --- !u!195 &1616919699
 NavMeshAgent:
   m_ObjectHideFlags: 0
