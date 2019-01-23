@@ -29,7 +29,7 @@ public class Hit : MonoBehaviour
         {
             maseAIScript.Playerhit = true;
 
-            Debug.Log("Playerにあったぞー！");
+            //Debug.Log("Playerにあったぞー！");
         }
     }
 

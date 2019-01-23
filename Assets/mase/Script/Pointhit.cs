@@ -20,10 +20,10 @@ public class Pointhit : MonoBehaviour
         if (other.gameObject.tag == "point")
         {
             Destroy(other.gameObject);
-            Debug.Log("お前消すんご");
+            //Debug.Log("お前消すんご");
 
             aIController.futongetCount += 1;
-            Debug.Log(aIController.futongetCount);
+            //Debug.Log(aIController.futongetCount);
         }
     }
 
