@@ -14,23 +14,21 @@ public class LobbyManager : MonoBehaviour {
      ゲームパッドの接続に応じてIDを割り当てる
      
     */
-
-    public enum Players
-    {
-        Player1 = 0,
-        Player2,
-        Player3,
-        Player4
-    }
-
     public GamePad.Index padID_A, padID_B, padID_C, padID_D; // ゲームパッド識別ID兼、プレイヤーID
 
+    public GameObject playerObj;
+    [SerializeField] GameObject playerObjCheck;
+
     public int npcCount = 0; // NPCの人数
+    public int playerCount = 1;
 
     public bool readyFlg_A, readyFlg_B, readyFlg_C, readyFlg_D; // 準備完了フラグ
 
 	// Use this for initialization
 	void Start () {
+        GameObject instantObj = Instantiate(playerObj, transform.position, transform.rotation) as GameObject;
+        PlayerManager pm = instantObj.GetComponent<PlayerManager>();
+        pm.Init(playerCount);
 	}
 	
 	// Update is called once per frame
@@ -131,6 +129,24 @@ public class LobbyManager : MonoBehaviour {
         {
             Debug.Log("START");
         }
+    }
+
+    public int Entry(int ID)
+    {
+        if (ID == 0)
+        {
+            playerCount++;
+            return playerCount;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public bool playerControll(int playerID)
+    {
+        return true;
     }
 }
 
