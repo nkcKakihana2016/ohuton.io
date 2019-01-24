@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4801761322230920}
   - component: {fileID: 114708835600843042}
-  - component: {fileID: 114628817725968308}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Untagged
@@ -223,20 +222,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114628817725968308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1400812402809392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1968af593d73ab940997a40bf30a01b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerID: 0
-  controllMode: 0
-  myPad: 0
 --- !u!114 &114708835600843042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -248,6 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1154e49ef3d6fbf4bb356607c2f88cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
+  controllMode: 0
+  myPad: 0
+  lm: {fileID: 0}
   rotSpeed: 10
   dir: {x: 0, y: 0, z: 0}
   rot: {x: 0, y: 0, z: 0}

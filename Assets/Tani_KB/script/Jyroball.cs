@@ -1,9 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamepadInput;
 
 public class Jyroball : MonoBehaviour
 {
+
+    // プレイヤー情報関連を移植（★が移植された物） by KAKIHANA
+
+    // ★プレイヤー操作モード
+    public enum Owner
+    {
+        nosSet = 0, // 初期状態
+        player = 1, // プレイヤーが操作している状態
+        npc = 2     // NPCモード（自動操縦状態）
+    }
+
+    public int playerID = 0;                    // ★自分のID
+    public Owner controllMode = Owner.nosSet;   // ★プレイヤーの操縦モード
+    [SerializeField] GamePad.Index myPad;       // ★パット識別情報
+
+    [SerializeField] LobbyManager lm;           // ★ロビークラス
+
     public float rotSpeed;　         //移動スピードの値
     public Vector3 dir;　　　　　    //ジャイロに伴う傾けた方向に進む数値を格納する変数
     public Vector3 rot;              //ジャイロに伴う回転の数値を格納する変数
@@ -20,15 +38,30 @@ public class Jyroball : MonoBehaviour
 
     void Start()
     {
-        child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+        // ★ロビークラスコンポーネント取得
+        lm = GameObject.FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
+        // ★子オブジェクトの取得をプレイヤー個別に行えるようにしました
+        child = this.transform.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
-        cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
+        // ★全体カメラにするため一旦非表示
+        //cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         obutonNum = 0;
     }
 
     void Update()
     {
         OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
+
+        // ★ロビー状態の場合、ロビークラスに準備完了情報を送る
+        if (GamePad.GetButtonDown(GamePad.Button.B, myPad) && lm.sceneMode == LobbyManager.SceneMode.Lobby)
+        {
+            lm.Entry(myPad);
+            // ★プレイヤーの操縦モードを登録する（1P以外）
+            if (controllMode == Owner.nosSet)
+            {
+                controllMode = Owner.player;
+            }
+        }
 
         //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
         if (gyroFlg == true)
@@ -150,8 +183,18 @@ public class Jyroball : MonoBehaviour
             //diff = Target.position - this.gameObject.transform.position;
             Vector3 dir = Vector3.zero;
 
-            dir.x = Input.GetAxis("Horizontal");
-            dir.z = Input.GetAxis("Vertical");
+            // ★ゲームパッド情報をもとにAxis値を代入
+            dir.x = GamePad.GetAxis(GamePad.Axis.LeftStick, myPad).y;
+            dir.z = GamePad.GetAxis(GamePad.Axis.LeftStick, myPad).x;
+            // ★x値だけ反転してしまうのでdir.xの符号を反転させています
+            dir.x = -dir.x;
+            //★dir.x = Input.GetAxis("Horizontal");
+            //★dir.z = Input.GetAxis("Vertical");
+
+            // ★スティックボタンでも加速できた！！
+            if(GamePad.GetButtonDown(GamePad.Button.LeftStick, myPad)){
+                Debug.Log("KASOKU");
+            }
 
             if (Input.GetKey(KeyCode.Space))
             {
@@ -176,7 +219,7 @@ public class Jyroball : MonoBehaviour
             Debug.Log("初期状態！！！");
             rotSpeed = 0.6f;
             child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
-            cameraManeger.moveCameraY = 10.0f;
+            //★cameraManeger.moveCameraY = 10.0f;
 
         }
         else if (obutonNum >= 5 && obutonNum < 10)
@@ -184,35 +227,57 @@ public class Jyroball : MonoBehaviour
             Debug.Log("１段階目！！！");
             rotSpeed = 0.5f;
             child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
-            cameraManeger.moveCameraY = 11.0f;
+            //★cameraManeger.moveCameraY = 11.0f;
         }
         else if (obutonNum >= 10 && obutonNum < 15)
         {
             Debug.Log("２段階目！！！");
             rotSpeed = 0.45f;
             child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
-            cameraManeger.moveCameraY = 12.0f;
+            //★cameraManeger.moveCameraY = 12.0f;
         }
         else if (obutonNum >= 15 && obutonNum < 20)
         {
             Debug.Log("３段階目！！！");
             rotSpeed = 0.4f;
             child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
-            cameraManeger.moveCameraY = 12.5f;
+            //★cameraManeger.moveCameraY = 12.5f;
         }
         else if (obutonNum >= 20 && obutonNum < 25)
         {
             Debug.Log("４段階目！！！");
             rotSpeed = 0.35f;
             child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
-            cameraManeger.moveCameraY = 13.0f;
+            //★cameraManeger.moveCameraY = 13.0f;
         }
         else if (obutonNum == 25)
         {
             Debug.Log("５段階目！！！");
             rotSpeed = 0.25f;
             child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
-            cameraManeger.moveCameraY = 13.5f;
+            //★cameraManeger.moveCameraY = 13.5f;
+        }
+    }
+
+    // ★プレイヤー情報取得
+    public void Init(int id)
+    {
+        playerID = id;  // プレイヤー生成数からIDを取得
+        switch (id)     // IDに応じて使用するコントローラーを割り振る
+        {
+            case 1:
+                myPad = GamePad.Index.One;
+                controllMode = Owner.player;
+                break;
+            case 2:
+                myPad = GamePad.Index.Two;
+                break;
+            case 3:
+                myPad = GamePad.Index.Three;
+                break;
+            case 4:
+                myPad = GamePad.Index.Four;
+                break;
         }
     }
 }

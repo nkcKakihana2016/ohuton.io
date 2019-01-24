@@ -6,6 +6,13 @@ using GamepadInput;
 
 public class LobbyManager : MonoBehaviour {
 
+    public enum SceneMode
+    {
+        Lobby = 0,
+        Battle
+    }
+
+
     // ロビークラス
 
     /*
@@ -15,6 +22,7 @@ public class LobbyManager : MonoBehaviour {
      
     */
     public GamePad.Index padID_A, padID_B, padID_C, padID_D; // ゲームパッド識別ID兼、プレイヤーID
+    public SceneMode sceneMode = SceneMode.Lobby;
 
     public GameObject playerObj;
     [SerializeField] GameObject playerObjCheck;
@@ -26,9 +34,7 @@ public class LobbyManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObject instantObj = Instantiate(playerObj, transform.position, transform.rotation) as GameObject;
-        PlayerManager pm = instantObj.GetComponent<PlayerManager>();
-        pm.Init(playerCount);
+        PlayerInit();
 	}
 	
 	// Update is called once per frame
@@ -127,26 +133,58 @@ public class LobbyManager : MonoBehaviour {
 
         if (readyFlg_A == true && readyFlg_B == true && readyFlg_C == true && readyFlg_D == true)
         {
-            Debug.Log("START");
+            StartCoroutine("CountDown");
         }
     }
 
-    public int Entry(int ID)
+    void PlayerInit()
     {
-        if (ID == 0)
+        for (int i = 0; i < 4; ++i)
         {
+            Vector3 randomPos = new Vector3(Random.Range(-8.0f, 8.0f), transform.position.y, Random.Range(-13.0f, 18.0f));
+            GameObject instantObj = Instantiate(playerObj, randomPos, transform.rotation) as GameObject;
+            instantObj.name = string.Format("Player{0}",playerCount);
+            Jyroball player = instantObj.GetComponent<Jyroball>();
+            player.Init(playerCount);
             playerCount++;
-            return playerCount;
         }
-        else
+    }
+
+    public void Entry(GamePad.Index index)
+    {
+        switch (index)
         {
-            return -1;
+            case GamePad.Index.One:
+                readyFlg_A = true;
+                break;
+            case GamePad.Index.Two:
+                readyFlg_B = true;
+                break;
+            case GamePad.Index.Three:
+                readyFlg_C = true;
+                break;
+            case GamePad.Index.Four:
+                readyFlg_D = true;
+                break;
         }
     }
 
     public bool playerControll(int playerID)
     {
         return true;
+    }
+
+    IEnumerator CountDown()
+    {
+        Debug.Log("3");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("2");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("1");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("GO!");
+        sceneMode = SceneMode.Battle;
+        yield return new WaitForSeconds(1.0f);
     }
 }
 

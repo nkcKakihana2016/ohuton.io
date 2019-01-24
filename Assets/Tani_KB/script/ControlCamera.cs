@@ -15,7 +15,8 @@ public class ControlCamera : MonoBehaviour
     void Start()
     {
         //PlayerObjの真上に来るようにする
-        plyPos = GameObject.Find("PlayerObj").transform.position;
+        //プレイヤースクリプトから情報を直接代入するようにしました byKAKIHANA
+        //plyPos = GameObject.Find("PlayerObj").transform.position;
         transform.position = new Vector3(plyPos.x, 10.0f, plyPos.z);
 
         //プレイヤーとカメラ間の距離を取得してそのオフセット値を計算し、格納します。

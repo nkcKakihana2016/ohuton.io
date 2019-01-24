@@ -5,6 +5,8 @@ using GamepadInput;
 
 public class PlayerManager : MonoBehaviour {
 
+    // x-10 ~ 10 z20 -15
+
     public enum Owner
     {
         nosSet = 0,
@@ -16,32 +18,23 @@ public class PlayerManager : MonoBehaviour {
     public Owner controllMode = Owner.nosSet;
     [SerializeField] GamePad.Index myPad;
 
-    LobbyManager lm;
-    Jyroball myPlayer;
+    [SerializeField] LobbyManager lm;
+    [SerializeField] Jyroball myPlayer;
+    [SerializeField] ControlCamera myCamera;
     // Use this for initialization
     void Start () {
         lm = GameObject.FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
-        //playerID = lm.Entry(playerID);
-        //switch (playerID)
-        //{
-        //    case 1:
-        //        myPad = GamePad.Index.One;
-        //        break;
-        //    case 2:
-        //        myPad = GamePad.Index.Two;
-        //        break;
-        //    case 3:
-        //        myPad = GamePad.Index.Three;
-        //        break;
-        //    case 4:
-        //        myPad = GamePad.Index.Four;
-        //        break;
-        //}
-	}
+        myCamera = GameObject.Find(string.Format("PlayerCam{0}",playerID)).GetComponent<ControlCamera>();
+        myCamera.player = this.gameObject;
+        myCamera.plyPos = this.transform.position;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (GamePad.GetButtonDown(GamePad.Button.B,myPad) && lm.sceneMode == LobbyManager.SceneMode.Lobby)
+        {
+            lm.Entry(myPad);
+        }
 	}
 
     public void Init(int id)

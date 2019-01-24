@@ -11,7 +11,7 @@ public class MultiCamera : MonoBehaviour {
         squere
     }
 
-    SpliteCameraMode mode;
+    public SpliteCameraMode mode;
 
     public Camera player1Cam;
     public Camera player2Cam;
