@@ -107,8 +107,9 @@ public class AIController : MonoBehaviour
             futongetCount = 0;
         }
 
-        if (enemy == true)
+        if (enemy)
         {
+            Debug.Log("a");
             StartCoroutine(enemyhit());
         }
 
@@ -215,5 +216,6 @@ public class AIController : MonoBehaviour
         Debug.Log("コルーチン発動");
         yield return new WaitForSeconds(2.0f);
         AImove = true;
+        enemy = false;
     }
 }

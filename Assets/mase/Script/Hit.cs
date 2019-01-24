@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hit : MonoBehaviour
 {
-    GameObject hitobj;
+    public GameObject hitobj;
     AIController maseAIScript;
 
 
@@ -25,7 +25,7 @@ public class Hit : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "player")
         {
             maseAIScript.Playerhit = true;
 

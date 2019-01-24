@@ -7,6 +7,7 @@ TagManager:
   - point
   - HitBox
   - FutonSet
+  - player
   layers:
   - Default
   - TransparentFX

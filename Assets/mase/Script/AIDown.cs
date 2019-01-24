@@ -12,7 +12,7 @@ public class AIDown : MonoBehaviour
 	void Start ()
     {
 
-        Aiobj = GameObject.Find("");
+        Aiobj = GameObject.Find("SampleAI");
         aIController = Aiobj.GetComponent<AIController>();
 
 	}
@@ -27,7 +27,9 @@ public class AIDown : MonoBehaviour
     {
         if (other.gameObject.tag=="player")
         {
+            Debug.Log("ヒット");
             aIController.enemy = true;
+
         }
         if (other.gameObject.tag == "ai")
         {
