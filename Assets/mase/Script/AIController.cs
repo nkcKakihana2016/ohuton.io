@@ -8,8 +8,8 @@ public class AIController : MonoBehaviour
     private GameObject nearObj;         //最も近いオブジェクト
     private float searchTime = 0;    //経過時間
     public bool Playerhit;//Player発見フラグ
-    public GameObject target;//追いかけるターゲット
-    NavMeshAgent agent;
+    //public GameObject target;//追いかけるターゲット
+    //NavMeshAgent agent;
     public float Accessspeed;
     float stalkerCount;
     public Transform StalkingTarget;//追いかける対象の位置取得
@@ -109,8 +109,13 @@ public class AIController : MonoBehaviour
 
         if (enemy == true)
         {
-            StartCoroutine(());
+            StartCoroutine(enemyhit());
         }
+
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    StartCoroutine(enemyhit());
+        //}
     }
 
 
@@ -206,6 +211,9 @@ public class AIController : MonoBehaviour
 
     IEnumerator enemyhit()
     {
-
+        AImove = false;
+        Debug.Log("コルーチン発動");
+        yield return new WaitForSeconds(2.0f);
+        AImove = true;
     }
 }
