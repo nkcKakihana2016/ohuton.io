@@ -326,6 +326,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1197091122615668, guid: 81741286a714c99439c5e6b707c29e50,
     type: 2}
   m_PrefabInternal: {fileID: 1981620951}
+--- !u!4 &272090068 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4052654667661096, guid: 81741286a714c99439c5e6b707c29e50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1981620951}
 --- !u!1 &361878828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,6 +1585,34 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1719716360}
+--- !u!1 &1730479986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1730479987}
+  m_Layer: 0
+  m_Name: CursorPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1730479987
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730479986}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 272090068}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1759774567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1775,7 @@ Prefab:
     - target: {fileID: 114673195930864254, guid: 81741286a714c99439c5e6b707c29e50,
         type: 2}
       propertyPath: gyroFlg
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81741286a714c99439c5e6b707c29e50, type: 2}
