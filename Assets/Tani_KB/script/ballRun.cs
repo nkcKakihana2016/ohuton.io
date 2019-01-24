@@ -21,9 +21,6 @@ public class ballRun : MonoBehaviour
     // Use this for initialization
     public GameObject Camera;
 
-    public float speed = 1.0f;
-
-    public GameObject EffectObj;
 
    // public GameObject test;
     void Start()
@@ -87,6 +84,7 @@ public class ballRun : MonoBehaviour
             Destroy(other.gameObject);
 
             MurataScript.GetComponent<Gg_Slider>()._Gg += 1;
+            
             if (MurataScript.GetComponent<Gg_Slider>()._Gg > slider.maxValue)
             {
                 MurataScript.GetComponent<Gg_Slider>()._Gg = MurataScript.GetComponent<Gg_Slider>().MAX_Gg;

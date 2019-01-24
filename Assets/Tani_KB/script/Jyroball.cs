@@ -18,8 +18,28 @@ public class Jyroball : MonoBehaviour
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
 
+    public GameObject Step_0;
+    public GameObject Step_1;
+    public GameObject Step_2;
+    public GameObject Step_3;
+    public GameObject Step_4;
+    public GameObject Step_5;
+
+    public bool s0;
+    public bool s1;
+    public bool s2;
+    public bool s3;
+    public bool s4;
+    public bool s5;
     void Start()
     {
+        Step_0.SetActive(true);
+        Step_1.SetActive(false);
+        Step_2.SetActive(false);
+        Step_3.SetActive(false);
+        Step_4.SetActive(false);
+        Step_5.SetActive(false);
+
         child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
@@ -28,6 +48,37 @@ public class Jyroball : MonoBehaviour
 
     void Update()
     {
+        if (s0 == true)
+        {
+            child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+            ballRun = child.GetComponent<ballRun>();
+        }
+        if (s1 == true)
+        {
+            child = GameObject.Find("huton_1(15)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+            ballRun = child.GetComponent<ballRun>();
+        }
+        if (s2 == true)
+        {
+            child = GameObject.Find("huton_2(20)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+            ballRun = child.GetComponent<ballRun>();
+        }
+        if (s3 == true)
+        {
+            child = GameObject.Find("huton_3(31)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+            ballRun = child.GetComponent<ballRun>();
+        }
+        if (s4 == true)
+        {
+            child = GameObject.Find("huton_4(46)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+            ballRun = child.GetComponent<ballRun>();
+        }
+        if (s5 == true)
+        {
+            child = GameObject.Find("huton_5(81)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+            ballRun = child.GetComponent<ballRun>();
+        }
+
         OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
 
         //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
@@ -175,44 +226,76 @@ public class Jyroball : MonoBehaviour
         {
             Debug.Log("初期状態！！！");
             rotSpeed = 0.6f;
-            child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
+            //child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
             cameraManeger.moveCameraY = 10.0f;
+            Step_0.SetActive(true);
+            Step_1.SetActive(false);
+            s0 = true;
+            s1 = false;
 
         }
         else if (obutonNum >= 5 && obutonNum < 10)
         {
             Debug.Log("１段階目！！！");
             rotSpeed = 0.5f;
-            child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+            //child.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
             cameraManeger.moveCameraY = 11.0f;
+            Step_0.SetActive(false);
+            Step_1.SetActive(true);
+            Step_2.SetActive(false);
+            s0 = false;
+            s1 = true;
+            s2 = false;
         }
         else if (obutonNum >= 10 && obutonNum < 15)
         {
             Debug.Log("２段階目！！！");
             rotSpeed = 0.45f;
-            child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+            //child.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
             cameraManeger.moveCameraY = 12.0f;
+            Step_1.SetActive(false);
+            Step_2.SetActive(true);
+            Step_3.SetActive(false);
+            s1 = false;
+            s2 = true;
+            s3 = false;
         }
         else if (obutonNum >= 15 && obutonNum < 20)
         {
             Debug.Log("３段階目！！！");
             rotSpeed = 0.4f;
-            child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+            //child.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
             cameraManeger.moveCameraY = 12.5f;
+            Step_2.SetActive(false);
+            Step_3.SetActive(true);
+            Step_4.SetActive(false);
+            s2 = false;
+            s3 = true;
+            s4 = false;
         }
         else if (obutonNum >= 20 && obutonNum < 25)
         {
             Debug.Log("４段階目！！！");
             rotSpeed = 0.35f;
-            child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+            //child.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
             cameraManeger.moveCameraY = 13.0f;
+            Step_3.SetActive(false);
+            Step_4.SetActive(true);
+            Step_5.SetActive(false);
+            s3 = false;
+            s4 = true;
+            s5 = false;
         }
         else if (obutonNum == 25)
         {
             Debug.Log("５段階目！！！");
             rotSpeed = 0.25f;
-            child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
+            //child.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
             cameraManeger.moveCameraY = 13.5f;
+            Step_4.SetActive(false);
+            Step_5.SetActive(true);
+            s4 = false;
+            s5 = true;
         }
     }
 }
