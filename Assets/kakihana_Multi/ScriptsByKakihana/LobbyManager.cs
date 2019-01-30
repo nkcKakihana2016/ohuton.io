@@ -9,6 +9,7 @@ public class LobbyManager : MonoBehaviour {
     public enum SceneMode
     {
         Lobby = 0,
+        Start,
         Battle
     }
 
@@ -133,6 +134,7 @@ public class LobbyManager : MonoBehaviour {
 
         if (readyFlg_A == true && readyFlg_B == true && readyFlg_C == true && readyFlg_D == true)
         {
+            sceneMode = SceneMode.Start;
             StartCoroutine("CountDown");
         }
     }

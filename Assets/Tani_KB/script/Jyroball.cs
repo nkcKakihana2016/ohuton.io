@@ -63,6 +63,11 @@ public class Jyroball : MonoBehaviour
             }
         }
 
+        if (lm.sceneMode == LobbyManager.SceneMode.Battle && controllMode == Owner.nosSet)
+        {
+            controllMode = Owner.npc;
+        }
+
         //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
         if (gyroFlg == true)
         {
