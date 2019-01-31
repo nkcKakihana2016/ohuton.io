@@ -23,7 +23,6 @@ public class AIController : MonoBehaviour
     bool AImove;
      GameObject point;
     Pointhit pointController;
-    public bool 
 
     // Use this for initialization
     void Start ()
