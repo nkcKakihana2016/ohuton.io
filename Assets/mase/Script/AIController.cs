@@ -21,8 +21,9 @@ public class AIController : MonoBehaviour
     public float timeOut;
     public bool enemy;
     bool AImove;
-    public GameObject point;
+     GameObject point;
     Pointhit pointController;
+    public bool 
 
     // Use this for initialization
     void Start ()
@@ -110,7 +111,6 @@ public class AIController : MonoBehaviour
         if (AIdash == true)
         {
             StartCoroutine(FuncCoroutine());
-            futongetCount = 0;
         }
 
         if (enemy)
@@ -190,7 +190,7 @@ public class AIController : MonoBehaviour
                 Quaternion.LookRotation(StalkingTarget.position - transform.position)
                 , 0.3f);
             //targetに向かって進む
-            transform.position += transform.forward * Stalkingspeed * 2;
+            transform.position += transform.forward * Stalkingspeed *2.0f;
             stalkerCount -= Time.deltaTime;
             if (stalkerCount <= 0)
             {
@@ -218,11 +218,12 @@ public class AIController : MonoBehaviour
 
 
         //自分自身の位置から相対的に移動する
-        transform.Translate(Vector3.forward * Accessspeed * 1.5f);
+        transform.Translate(Vector3.forward * Accessspeed *2.0f);
 
         //Debug.Log("フラグがfalse");
 
         yield return new WaitForSeconds(timeOut);
+        futongetCount = 0;
         AIdash = false;
         //Debug.Log("終わった");
     }

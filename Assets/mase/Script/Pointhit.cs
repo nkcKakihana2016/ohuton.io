@@ -14,7 +14,7 @@ public class Pointhit : MonoBehaviour
     public void Start()
     {
         countup = 0;
-        AImove = GameObject.Find("AIMOVE");
+        AImove = GameObject.Find("AImove");
         aIController = AImove.GetComponent<AIController>();
     }
 
@@ -28,8 +28,8 @@ public class Pointhit : MonoBehaviour
             Destroy(other.gameObject);
             //Debug.Log("お前消すんご");
 
-            //aIController.futongetCount += 1;
-            //Debug.Log(aIController.futongetCount);
+            aIController.futongetCount += 1;
+            Debug.Log(aIController.futongetCount);
 
         }
     }
