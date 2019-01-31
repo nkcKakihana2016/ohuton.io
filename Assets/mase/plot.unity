@@ -907,6 +907,7 @@ MonoBehaviour:
   AImove: {fileID: 1616919697}
   count: {fileID: 1828219362}
   countup: 0
+  futoncount: 0
 --- !u!4 &480569408
 Transform:
   m_ObjectHideFlags: 0
@@ -2022,6 +2023,7 @@ MonoBehaviour:
   futongetCount: 0
   timeOut: 3
   enemy: 0
+  point: {fileID: 0}
 --- !u!195 &1616919699
 NavMeshAgent:
   m_ObjectHideFlags: 0

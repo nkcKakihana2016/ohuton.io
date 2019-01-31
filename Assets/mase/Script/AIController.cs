@@ -21,6 +21,8 @@ public class AIController : MonoBehaviour
     public float timeOut;
     public bool enemy;
     bool AImove;
+    public GameObject point;
+    Pointhit pointController;
 
     // Use this for initialization
     void Start ()
@@ -39,6 +41,9 @@ public class AIController : MonoBehaviour
         AImove = true;
 
         //agent = GetComponent<NavMeshAgent>();
+
+        point = GameObject.Find("AI");
+        pointController = point.GetComponent<Pointhit>();
     }
 	
 	// Update is called once per frame
@@ -118,9 +123,18 @@ public class AIController : MonoBehaviour
         //{
         //    StartCoroutine(enemyhit());
         //}
+
+        PointCount();
     }
 
-
+    //自身の拡大
+    public void PointCount()
+    {
+        if (pointController.countup>=10)
+        {
+            Debug.Log("大きくなるよ");
+        }
+    }
 
     //指定されたタグの中で最も近いものを取得
     GameObject serchTag(GameObject nowObj, string tagName)
@@ -152,6 +166,8 @@ public class AIController : MonoBehaviour
 
 
     }
+
+
 
     public void AIfutoncount()
     {

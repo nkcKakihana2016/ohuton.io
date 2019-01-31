@@ -9,10 +9,11 @@ public class Pointhit : MonoBehaviour
     public GameObject AImove;
     AIController aIController;
     public Text count;//AIの布団取得時のテキスト
-    public int countup = 0;
+    public int countup = 0;//ポイントを格納
 
     public void Start()
     {
+        countup = 0;
         AImove = GameObject.Find("AIMOVE");
         aIController = AImove.GetComponent<AIController>();
     }
@@ -27,7 +28,7 @@ public class Pointhit : MonoBehaviour
             Destroy(other.gameObject);
             //Debug.Log("お前消すんご");
 
-            aIController.futongetCount += 1;
+            //aIController.futongetCount += 1;
             //Debug.Log(aIController.futongetCount);
 
         }
