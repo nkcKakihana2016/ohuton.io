@@ -9,16 +9,22 @@ public class RankCalc : MonoBehaviour {
     // スコアが多い順に並び替えされる
 
     [SerializeField] List<ScoreRank> score; // 各プレイヤーのスコア表示クラス
+    LobbyManager lm;
 
 	// Use this for initialization
 	void Start () {
-	}
+        lm = FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
+        score = score.OrderByDescending(a => a.playerInfo.obutonNum).ThenBy(a => a.playerInfo.playerID).ToList();
+    }
 	
 	// Update is called once per frame
 	void Update () {
         // 取得おふとん数を元に降順（おふとんが多い順）に並べ替え
         // おふとんの数が同じ要素が複数あった場合は、プレイヤーIDが若い順に並べ替え
-        score = score.OrderByDescending(a => a.playerInfo.obutonNum).ThenBy(a => a.playerInfo.playerID).ToList();
+        if (lm.sceneMode == LobbyManager.SceneMode.Battle)
+        {
+            score = score.OrderByDescending(a => a.playerInfo.obutonNum).ThenBy(a => a.playerInfo.playerID).ToList();
+        }
     }
 
     // 各プレイヤーの情報を格納するメソッド

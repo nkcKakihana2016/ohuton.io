@@ -21,10 +21,11 @@ public class ScoreRank : MonoBehaviour {
 
     public WatchPlayer watchPlayer;                 // インスペクター上でどのプレイヤーを参照するか設定する
     [SerializeField] Image myRankImage;             // 順位を表示させるためのUI
+    [SerializeField] Image readyImage;
     public int rank;                                // 現在の順位
     public int oldRank = 0;                         // UI連続切り替え防止用、一時保存順位
     public Sprite[] imageSouces = new Sprite[4];    // 各順位の画像を格納する変数
-
+    public Sprite readyOkImage;
     // Use this for initialization
     void Start () {
         // ロビークラスコンポーネント取得
@@ -65,4 +66,8 @@ public class ScoreRank : MonoBehaviour {
             oldRank = rank;
         }
 	}
+    public void Ready()
+    {
+        readyImage.sprite = readyOkImage;
+    }
 }

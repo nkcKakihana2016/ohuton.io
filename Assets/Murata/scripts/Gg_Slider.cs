@@ -24,12 +24,16 @@ public class Gg_Slider : MonoBehaviour
     GameObject Playerobj;
     //SampleController Masescript;
 
+    ScoreRank myRank; // ★順位表示UIスクリプト
+
     void Start ()
     {
-        //Gg_sliderを取得
-        _Slider = GameObject.Find("Gg_Slider").GetComponent<Slider>();
+        myRank = this.gameObject.GetComponent<ScoreRank>();
+        //Gg_sliderを取得 ★プレイヤーごとに参照するように変更しました
+        _Slider = GameObject.Find(string.Format("Gg_Slider{0}",myRank.playerInfo.playerID)).GetComponent<Slider>();
         _Gg = 0;
-        Playerobj = GameObject.Find("huton_0(5)_h");
+        // ★プレイヤーの情報を取得
+        Playerobj = myRank.watchPlayerObj;
        // Masescript = Playerobj.GetComponent<SampleController>();
 
     }

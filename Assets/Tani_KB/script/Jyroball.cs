@@ -33,6 +33,7 @@ public class Jyroball : MonoBehaviour
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
     ballRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
     ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
+    [SerializeField] ScoreRank myUI;
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
 
@@ -46,6 +47,7 @@ public class Jyroball : MonoBehaviour
         // ★全体カメラにするため一旦非表示
         //cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         obutonNum = 0;
+        myUI = GameObject.Find(string.Format("Player{0}UI", playerID)).GetComponent<ScoreRank>();
     }
 
     void Update()
@@ -56,6 +58,7 @@ public class Jyroball : MonoBehaviour
         if (GamePad.GetButtonDown(GamePad.Button.B, myPad) && lm.sceneMode == LobbyManager.SceneMode.Lobby)
         {
             lm.Entry(myPad);
+            myUI.Ready();
             // ★プレイヤーの操縦モードを登録する（1P以外）
             if (controllMode == Owner.nosSet)
             {

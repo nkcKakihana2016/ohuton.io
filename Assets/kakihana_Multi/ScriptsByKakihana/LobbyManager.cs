@@ -33,10 +33,22 @@ public class LobbyManager : MonoBehaviour {
 
     public bool readyFlg_A, readyFlg_B, readyFlg_C, readyFlg_D; // 準備完了フラグ
 
+    public Image countDownImage3;
+    public Image countDownImage2;
+    public Image countDownImage1;
+    public Image startImage;
+
+    public float countDownTime = 0.0f;
+
+    public Sprite[] countDownSource;
 	// Use this for initialization
 	void Start () {
         PlayerInit();
-	}
+        countDownImage3.enabled = false;
+        countDownImage2.enabled = false;
+        countDownImage1.enabled = false;
+        startImage.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -134,8 +146,35 @@ public class LobbyManager : MonoBehaviour {
 
         if (readyFlg_A == true && readyFlg_B == true && readyFlg_C == true && readyFlg_D == true)
         {
-            sceneMode = SceneMode.Start;
-            StartCoroutine("CountDown");
+            countDownTime += Time.deltaTime;
+            if (countDownTime >= 0.0f)
+            {
+                countDownImage3.enabled = true;
+            }
+
+            if(countDownTime >= 1.0f)
+            {
+                countDownImage3.enabled = false;
+                countDownImage2.enabled = true;
+            }
+            if (countDownTime >= 2.0f)
+            {
+                countDownImage2.enabled = false;
+                countDownImage1.enabled = true;
+            }
+            if (countDownTime >= 3.0f)
+            {
+                countDownImage1.enabled = false;
+                startImage.enabled = true;
+            }
+            if (countDownTime >= 4.0f)
+            {
+                startImage.enabled = false;
+                sceneMode = SceneMode.Battle;
+            }
+        }
+        if (sceneMode == SceneMode.Start)
+        {
         }
     }
 
@@ -176,18 +215,26 @@ public class LobbyManager : MonoBehaviour {
         return true;
     }
 
-    IEnumerator CountDown()
-    {
-        Debug.Log("3");
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("2");
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("1");
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("GO!");
-        sceneMode = SceneMode.Battle;
-        yield return new WaitForSeconds(1.0f);
-    }
+    //IEnumerator CountDown()
+    //{
+    //    Debug.Log("3");
+    //    countDownImage3.enabled = true;
+    //    yield return new WaitForSeconds(1.0f);
+    //    countDownImage3.enabled = false;
+    //    countDownImage2.enabled = true;
+    //    Debug.Log("2");
+    //    yield return new WaitForSeconds(1.0f);
+    //    countDownImage2.enabled = false;
+    //    countDownImage1.enabled = true;
+    //    Debug.Log("1");
+    //    yield return new WaitForSeconds(1.0f);
+    //    countDownImage1.enabled = false;
+    //    startImage.enabled = true;
+    //    Debug.Log("GO!");
+    //    yield return new WaitForSeconds(1.0f);
+    //    sceneMode = SceneMode.Battle;
+    //    startImage.enabled = false;
+    //}
 }
 
     // Update is called once per frame
