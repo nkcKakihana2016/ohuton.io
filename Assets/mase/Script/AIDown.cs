@@ -6,14 +6,19 @@ public class AIDown : MonoBehaviour
 {
     GameObject Aiobj;
     AIController aIController;
+    GameObject hitobj;
+    Pointhit pointhit;
 
 
 	// Use this for initialization
 	void Start ()
     {
 
-        Aiobj = GameObject.Find("SampleAI");
+        Aiobj = GameObject.Find("AImove");
         aIController = Aiobj.GetComponent<AIController>();
+        hitobj = GameObject.Find("AI");
+        pointhit = hitobj.GetComponent<Pointhit>();
+
 
 	}
 	

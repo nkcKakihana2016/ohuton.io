@@ -21,7 +21,7 @@ public class AIController : MonoBehaviour
     public float timeOut;
     public bool enemy;
     bool AImove;
-     GameObject point;
+    GameObject point;
     Pointhit pointController;
 
     // Use this for initialization
@@ -117,6 +117,17 @@ public class AIController : MonoBehaviour
         {
             Debug.Log("a");
             StartCoroutine(enemyhit());
+            if (pointController.countup >= 6)
+            {
+                pointController.countup -= 5;
+            }
+
+            if (pointController.countup <= 5)
+            {
+                int minusFN;
+                minusFN = pointController.countup - 1;
+                pointController.countup = pointController.countup - minusFN;
+            }
         }
 
         //if (Input.GetKey(KeyCode.Space))
