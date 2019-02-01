@@ -13,13 +13,13 @@ public class ScoreRank : MonoBehaviour {
         Player3,
         Player4
     }
-
+    public WatchPlayer watchPlayer;                 // インスペクター上でどのプレイヤーを参照するか設定する
     [SerializeField] LobbyManager lm;               // ロビークラス
     [SerializeField] RankCalc rankCalc;             // 順位表示完了クラス
     public GameObject watchPlayerObj;               // 参照するプレイヤーオブジェクト
     public Jyroball playerInfo;                     // 参照するプレイヤースクリプト
 
-    public WatchPlayer watchPlayer;                 // インスペクター上でどのプレイヤーを参照するか設定する
+
     [SerializeField] Image myRankImage;             // 順位を表示させるためのUI
     [SerializeField] Image readyImage;
     public int rank;                                // 現在の順位
@@ -30,20 +30,24 @@ public class ScoreRank : MonoBehaviour {
     void Start () {
         // ロビークラスコンポーネント取得
         lm = GameObject.FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
-        // 参照プレイヤーリストをもとにプレイヤーオブジェクトを取得
-        watchPlayerObj = GameObject.Find(string.Format("Player{0}", (int)watchPlayer));
-        // 参照プレイヤーオブジェクトよりプレイヤーコンポーネント取得
-        playerInfo = watchPlayerObj.GetComponent<Jyroball>();
-        // 順位計算クラスのコンポーネント取得
-        rankCalc = GameObject.FindObjectOfType<RankCalc>().GetComponent<RankCalc>();
-        // 順位計算クラスにスコア情報を登録
-        rankCalc.ScoreEntry(this);
-        // 順位UIの初期設定
-        myRankImage.sprite = imageSouces[rank];
+
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (watchPlayerObj == null)
+        {
+            // 参照プレイヤーリストをもとにプレイヤーオブジェクトを取得
+            watchPlayerObj = GameObject.Find(string.Format("Player{0}", (int)watchPlayer));
+            // 参照プレイヤーオブジェクトよりプレイヤーコンポーネント取得
+            playerInfo = watchPlayerObj.GetComponent<Jyroball>();
+            // 順位計算クラスのコンポーネント取得
+            rankCalc = GameObject.FindObjectOfType<RankCalc>().GetComponent<RankCalc>();
+            // 順位計算クラスにスコア情報を登録
+            rankCalc.ScoreEntry(this);
+            // 順位UIの初期設定
+            myRankImage.sprite = imageSouces[rank];
+        }
         if (lm.sceneMode == LobbyManager.SceneMode.Lobby)
         {
             // ロビーの場合は順位UIを表示しない
@@ -52,6 +56,7 @@ public class ScoreRank : MonoBehaviour {
         else
         {
             myRankImage.enabled = true;
+            readyImage.enabled = false;
         }
         if (Time.frameCount % 15 == 0 && lm.sceneMode == LobbyManager.SceneMode.Battle)
         {

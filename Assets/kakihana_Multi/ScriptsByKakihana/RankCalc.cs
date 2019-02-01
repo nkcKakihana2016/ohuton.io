@@ -9,11 +9,13 @@ public class RankCalc : MonoBehaviour {
     // スコアが多い順に並び替えされる
 
     [SerializeField] List<ScoreRank> score; // 各プレイヤーのスコア表示クラス
-    LobbyManager lm;
+    LobbyManager lm;                        // ロビークラス
 
 	// Use this for initialization
 	void Start () {
+        // ロビークラスコンポーネント取得
         lm = FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
+        // 順位の初期設定
         score = score.OrderByDescending(a => a.playerInfo.obutonNum).ThenBy(a => a.playerInfo.playerID).ToList();
     }
 	

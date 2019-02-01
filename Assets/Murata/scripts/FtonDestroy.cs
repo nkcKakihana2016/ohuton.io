@@ -29,7 +29,7 @@ public class FtonDestroy : MonoBehaviour {
     public void OnTriggerExit(Collider other)
     {
         //それはPlayerなら
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "player")
         {
             //エフェクトを表示
             EffectObj.SetActive(true);

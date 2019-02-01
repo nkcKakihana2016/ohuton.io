@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hit : MonoBehaviour
 {
-    GameObject hitobj;
+    public GameObject hitobj;
     AIController maseAIScript;
 
 
@@ -12,7 +12,7 @@ public class Hit : MonoBehaviour
 	void Start ()
     {
 
-        hitobj = GameObject.Find("SampleAI");
+        hitobj = GameObject.Find("AImove");
         maseAIScript = hitobj.GetComponent<AIController>();
 		
 	}
@@ -25,11 +25,11 @@ public class Hit : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "player")
         {
             maseAIScript.Playerhit = true;
 
-            Debug.Log("Playerにあったぞー！");
+            //Debug.Log("Playerにあったぞー！");
         }
     }
 

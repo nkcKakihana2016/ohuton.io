@@ -18,7 +18,7 @@ public class Jyroball : MonoBehaviour
 
     public int playerID = 0;                    // ★自分のID
     public Owner controllMode = Owner.nosSet;   // ★プレイヤーの操縦モード
-    [SerializeField] GamePad.Index myPad;       // ★パット識別情報
+    public GamePad.Index myPad;       // ★パット識別情報
 
     [SerializeField] LobbyManager lm;           // ★ロビークラス
 
@@ -31,11 +31,14 @@ public class Jyroball : MonoBehaviour
     public int obutonNum;           //取得した布団の数を格納する変数
 
     Transform child;　　　　　　 　  //プレイヤーオブジェクト
+    [SerializeField] Transform gg_Child;
     ballRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
     ControlCamera cameraManeger;     //メインカメラのスクリプトを参照する変数
+    [SerializeField] Gg_Slider myGG;
     [SerializeField] ScoreRank myUI;
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
+    public bool damegeFlg;
 
     void Start()
     {
@@ -48,11 +51,14 @@ public class Jyroball : MonoBehaviour
         //cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         obutonNum = 0;
         myUI = GameObject.Find(string.Format("Player{0}UI", playerID)).GetComponent<ScoreRank>();
-    }
+        gg_Child = myUI.transform.Find(string.Format("Gg_Slider{0}", playerID)).GetComponent<Transform>();
+        myGG = gg_Child.GetComponent<Gg_Slider>();
+        damegeFlg = false;
+}
 
     void Update()
     {
-        OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
+        //ふとん取得に関するメソッドを常に起動させる
 
         // ★ロビー状態の場合、ロビークラスに準備完了情報を送る
         if (GamePad.GetButtonDown(GamePad.Button.B, myPad) && lm.sceneMode == LobbyManager.SceneMode.Lobby)
@@ -64,8 +70,13 @@ public class Jyroball : MonoBehaviour
             {
                 controllMode = Owner.player;
             }
-        }
 
+        }
+        if (lm.sceneMode == LobbyManager.SceneMode.Lobby || lm.sceneMode == LobbyManager.SceneMode.Start)
+        {
+            obutonNum = 1;
+            myGG._Gg = 0;
+        }
         if (lm.sceneMode == LobbyManager.SceneMode.Battle && controllMode == Owner.nosSet)
         {
             controllMode = Owner.npc;
@@ -88,21 +99,7 @@ public class Jyroball : MonoBehaviour
     //ふとん取得に関するメソッド
     public void OhutonPointMaster()
     {
-        if (Input.GetKeyDown(KeyCode.N)) //現状はＮキー操作でふえる仕組み
-        {
-            if (obutonNum < 25)
-            {
-                obutonNum += 1;
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.M)) //現状はＭキー操作でふえる仕組み
-        {
-            if (obutonNum > 0)
-            {
-                obutonNum -= 1;
-            }
-        }
+        obutonNum += 1;
     }
 
     //ジャイロ操作統括
@@ -204,9 +201,12 @@ public class Jyroball : MonoBehaviour
                 Debug.Log("KASOKU");
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            if (GamePad.GetButton(GamePad.Button.LeftStick, myPad) && obutonNum > 1)
             {
+                myGG.GG_Count_Down();
+                obutonNum--;
                 rotSpeed *= 1.5f;
+                Debug.Log("KASOKUMK2");
             }
 
             transform.Translate(dir.x * rotSpeed, 0, dir.z * rotSpeed);
@@ -287,6 +287,29 @@ public class Jyroball : MonoBehaviour
                 myPad = GamePad.Index.Four;
                 break;
         }
+    }
+
+    public void TouchDamage()
+    {
+        Debug.Log("当たった２");
+        StartCoroutine("DamegeOn");
+        if (obutonNum >= 6)
+        {
+            obutonNum -= 5;
+        }
+
+        if (obutonNum <= 5)
+        {
+            int minusFN;
+            minusFN = obutonNum - 1;
+            obutonNum = obutonNum - minusFN;
+        }
+    }
+    public IEnumerator DamegeOn()
+    {
+        damegeFlg = true;
+        yield return new WaitForSeconds(2.0f);
+        damegeFlg = false;
     }
 }
 

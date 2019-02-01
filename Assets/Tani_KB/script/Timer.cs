@@ -17,26 +17,35 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private int checkTime;                       //時間制限（float）をswitch文で使えるようにする変数
         
-    bool timeFlg;                               //時間制限のONOFFを指定するフラグ 
+    [SerializeField] bool timeFlg;                               //時間制限のONOFFを指定するフラグ 
 
+    [SerializeField] LobbyManager lm;
 
     // Use this for initialization
     void Start ()
     {
+        lm = GameObject.FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
         cntTime = 0.0f;　　　　　　　　　　　　         //実際の時間制限の変数を初期化
         checkTime = 0;                                  //時間制限（float）をswitch文で使えるようにする変数を初期化
 
         animScript = AnimMas.GetComponent<AnimScript>();                 //アニメーションスクリプトを指定
         husuma = GameObject.Find("Husuma_test").GetComponent<HusumaOC>();//ふすまアニメションとスクリプトを指定
-
         teacherImg.SetBool("TimerStart", false);//タイマー（先生）を起動
         timeFlg = false;                        //ゲームシーン開始時に即時動作しないようにOFFにする。
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Invoke("LateStarting", 1.0f);//１秒遅らせてStartメソッドの後に発動させる
+        //Invoke("LateStarting", 1.0f);//１秒遅らせてStartメソッドの後に発動させる
+
+        if (lm.sceneMode == LobbyManager.SceneMode.Battle && timeFlg == false)
+        {
+            Debug.Log("kenti");
+            timeFlg = true;
+            //Invoke("LateStarting", 0.01f);
+        }
 
         if (timeFlg==true)
         {

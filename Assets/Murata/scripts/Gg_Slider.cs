@@ -8,8 +8,21 @@ using UnityEngine.UI;
 /// </summary>
 public class Gg_Slider : MonoBehaviour
 {
+    public enum player
+    {
+        player1 = 1,
+        player2,
+        player3,
+        player4
+    }
+
+    public player myPlayer;
+
     //ゲージslider
-    Slider _Slider;
+    [SerializeField] Slider _Slider;
+
+    public int ohuton_temp;
+
     //ゲージ値
     public int _Gg = 0;
     //ゲージMax指定
@@ -24,25 +37,34 @@ public class Gg_Slider : MonoBehaviour
     GameObject Playerobj;
     //SampleController Masescript;
 
-    ScoreRank myRank; // ★順位表示UIスクリプト
-
+    [SerializeField] ScoreRank myRank; // ★順位表示UIスクリプト
+    [SerializeField] GameObject parentObj;
+    [SerializeField] Jyroball jyroball;
+    [SerializeField] LobbyManager lm;
     void Start ()
     {
-        myRank = this.gameObject.GetComponent<ScoreRank>();
+        myRank = GameObject.Find(string.Format("Player{0}UI",(int)myPlayer)).GetComponent<ScoreRank>();
         //Gg_sliderを取得 ★プレイヤーごとに参照するように変更しました
         _Slider = GameObject.Find(string.Format("Gg_Slider{0}",myRank.playerInfo.playerID)).GetComponent<Slider>();
         _Gg = 0;
         // ★プレイヤーの情報を取得
         Playerobj = myRank.watchPlayerObj;
-       // Masescript = Playerobj.GetComponent<SampleController>();
-
+        ohuton_temp = myRank.playerInfo.obutonNum;
+        // Masescript = Playerobj.GetComponent<SampleController>();
+        jyroball = Playerobj.GetComponent<Jyroball>();
+        lm = GameObject.FindObjectOfType<LobbyManager>().GetComponent<LobbyManager>();
     }
    
 	void Update ()
     {
+        if (lm.sceneMode == LobbyManager.SceneMode.Lobby || lm.sceneMode == LobbyManager.SceneMode.Start)
+        {
+            _Slider.value = 0;
+        }
+        _Slider.value = _Gg;
         //ゲージ移動
         //GAGE();
-	}
+    }
 
     /// <summary>
     /// ゲージ移動
@@ -102,5 +124,14 @@ public class Gg_Slider : MonoBehaviour
         }
         //sliderのvalueをゲージと同じにする
         _Slider.value = _Gg;
+    }
+
+    public void GG_Count()
+    {
+        _Gg++;
+    }
+    public void GG_Count_Down()
+    {
+        _Gg--;
     }
 }

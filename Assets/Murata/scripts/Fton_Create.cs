@@ -39,13 +39,12 @@ public class Fton_Create : MonoBehaviour {
     private List<Coordinate> m_CoordinateList = new List<Coordinate>();
 
     //設置している座標
-    private List<Coordinate> m_InstallationCoordinates = new List<Coordinate>();
+    [SerializeField] private List<Coordinate> m_InstallationCoordinates = new List<Coordinate>();
 
     //再設置判定
     [SerializeField]
     private BoolReactiveProperty m_Reinstall = new BoolReactiveProperty(false);
 
-    public int kansi;
     private void Start()
     {
         //座標一Listの初期設定
@@ -60,7 +59,7 @@ public class Fton_Create : MonoBehaviour {
             m_CoordinateList.Add(coordinate);
         }
         //布団の設置開始
-        while (count <= m_MaximumNumber)
+        while (m_InstallationCoordinates.Count() <= m_MaximumNumber)
         {
             //被っているものを除いてListに保存 
             List<Coordinate> list = new List<Coordinate>();
@@ -72,10 +71,7 @@ public class Fton_Create : MonoBehaviour {
             }
 
             //どこに設置するかランダムで決める
-            // var number = Random.Range(0, list.Count);
-            var number = Random.Range(0, 264);
-            //Debug.Log("ナンバー" + number);
-            //Debug.Log("リスト"+list.Count);
+            var number = Random.Range(0, 264);//問題なし
             var coordinate = m_CoordinateList[number];
             //設置を行う座標を取得
             var pos = new Vector3(coordinate.x, 0, coordinate.z);
@@ -83,19 +79,17 @@ public class Fton_Create : MonoBehaviour {
             //設置を行い、設置している場所のListに加え、設置数を増やす
             Instantiate(m_Futon, pos, Quaternion.identity);
             m_InstallationCoordinates.Add(coordinate);
-           // Debug.Log(pos);
             count += 1;
-          //  Debug.Log("初期現在の数" + count);
+
         }
-        //Debug.Log(count);
         //再設置処理
         m_Reinstall.Where(c => c)
             .Subscribe(c =>
             {
-                Observable.Timer(System.TimeSpan.FromSeconds(0.1f))
+                Observable.Timer(System.TimeSpan.FromSeconds(1.0f))
                 .Subscribe(_ =>
                 {
-                    while (count <= m_MaximumNumber)
+                    while (m_InstallationCoordinates.Count() <= m_MaximumNumber)
                     {
                         //被っているものを除いてListに保存 
                         List<Coordinate> list = new List<Coordinate>();
@@ -107,10 +101,8 @@ public class Fton_Create : MonoBehaviour {
                         }
 
                         //どこに設置するかランダムで決める
-                        // var number = Random.Range(0, list.Count);
                         var number = Random.Range(0, MAX_count);
-                        //Debug.Log("ナンバー" + number);
-                        //Debug.Log("リスト" + list.Count);
+
                         var coordinate = m_CoordinateList[number];
                         //設置を行う座標を取得
                         var pos = new Vector3(coordinate.x, 0, coordinate.z);
@@ -118,11 +110,8 @@ public class Fton_Create : MonoBehaviour {
                         //設置を行い、設置している場所のListに加え、設置数を増やす
                         Instantiate(m_Futon, pos, Quaternion.identity);
                         m_InstallationCoordinates.Add(coordinate);
-                       // Debug.Log(pos);
                         count += 1;
-                       // Debug.Log("蘇った現在の数" + count);
-                        // Debug.Log(count);
-                        m_Reinstall.Value = count >= m_MaximumNumber ? false : true;
+                        m_Reinstall.Value = m_InstallationCoordinates.Count()/*count*/ >= m_MaximumNumber ? false : true;
                     }
                 }).AddTo(this);
             }).AddTo(this);
@@ -138,7 +127,6 @@ public class Fton_Create : MonoBehaviour {
         count -= 1;
         if (!m_Reinstall.Value)
             m_Reinstall.Value = true;
-        //Debug.Log("破壊された現在の数"+count);
     }
     /// 座標クラス
     public class Coordinate
