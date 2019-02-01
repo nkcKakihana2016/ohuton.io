@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Title.unity
     guid: 589e755cac1e20141a249ceaebacc6e6
   - enabled: 0
@@ -14,12 +14,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/TestGyro.unity
     guid: de95506d1a27457469746b1726d15032
-  - enabled: 1
+  - enabled: 0
     path: Assets/Murata/scenes/Tes3.unity
     guid: 5df836d791512344a9536ba0524bdcce
   - enabled: 0
     path: Assets/Tani_KB/test2.unity
     guid: dc373632b9c49fb43911b1dc0b7be81d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Result.unity
     guid: e7ec7f84f094ec1499a670f876e6eea0
+  - enabled: 1
+    path: Assets/kakihana_Multi/Battle.unity
+    guid: 70c0516cbbc07f14f8ca241b585f6537
