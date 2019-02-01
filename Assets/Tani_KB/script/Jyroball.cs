@@ -221,7 +221,7 @@ public class Jyroball : MonoBehaviour
     {
         if(obutonNum >= 0 && obutonNum < 5)
         {
-            Debug.Log("初期状態！！！");
+            //Debug.Log("初期状態！！！");
             rotSpeed = 0.6f;
             child.transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
             //★cameraManeger.moveCameraY = 10.0f;
