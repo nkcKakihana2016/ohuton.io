@@ -17,8 +17,6 @@ public class Jyroball : MonoBehaviour
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
     bool damegeFlg;
-    public bool inDamage;
-
     void Start()
     {
         child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
@@ -27,7 +25,6 @@ public class Jyroball : MonoBehaviour
 
         gyroFlg = false;
         damegeFlg = false;
-        inDamage = false;
     }
 
     void Update()

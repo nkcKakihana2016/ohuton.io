@@ -9,6 +9,7 @@ public class ResultManeger : MonoBehaviour
     public string nextSceneName;
     HusumaOC husuma;
 
+    public GameObject RoomLight;
 
     public float moveX = 0.5f;
 
@@ -20,6 +21,16 @@ public class ResultManeger : MonoBehaviour
     public bool moveFlg;
     bool turnFlg;
     bool lateStartFlg;
+
+    public Image Rank1;
+    public Image Rank2;
+    public Image Rank3;
+    public Image Rank4;
+
+    private Sprite rank1p;
+    private Sprite rank2p;
+    private Sprite rank3p;
+    private Sprite rank4p;
 
     float a = 0;
 
@@ -40,6 +51,19 @@ public class ResultManeger : MonoBehaviour
 
         turnFlg = false;
         lateStartFlg = true;
+        RoomLight.SetActive(false);
+
+        rank1p = Resources.Load<Sprite>(string.Format("{0}P",));
+        Rank1 = Rank1.GetComponent<Image>();
+
+        rank2p = Resources.Load<Sprite>(string.Format("{0}P",));
+        Rank2 = Rank2.GetComponent<Image>();
+
+        rank3p = Resources.Load<Sprite>(string.Format("{0}P",));
+        Rank3 = Rank3.GetComponent<Image>();
+
+        rank4p = Resources.Load<Sprite>(string.Format("{0}P",));
+        Rank4 = Rank4.GetComponent<Image>();
     }
 	
 	// Update is called once per frame
@@ -72,16 +96,32 @@ public class ResultManeger : MonoBehaviour
                 a += 0.01f;
                 Debug.Log("ふりかえる");
             }
+
+            if (checkTime >= 31)
+            {
+                RoomLight.SetActive(true);
+            }
+
         }
         Debug.Log(angle);
-
-       
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene(nextSceneName);
         }
-    }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Rank1.sprite = rank1p;
+            
+            Rank2.sprite = rank2p;
+            
+            Rank3.sprite = rank3p;
+
+            Rank4.sprite = rank4p;
+        }
+
+     }
 
    void LateStarting()
     {
