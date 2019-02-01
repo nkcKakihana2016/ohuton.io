@@ -16,18 +16,22 @@ public class Jyroball : MonoBehaviour
     ballRun ballRun;　　　　　　     //攻撃を受けたかどうかを制御するスクリプト
 
     public bool gyroFlg;             //ジャイロ操作の時にONにするフラグ
+    bool damegeFlg;
+    public bool inDamage;
 
     void Start()
     {
         child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
         ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         obutonNum = 0;
+
+        gyroFlg = false;
+        damegeFlg = false;
+        inDamage = false;
     }
 
     void Update()
     {
-        OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
-
         //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
         if (gyroFlg == true)
         {
@@ -37,27 +41,13 @@ public class Jyroball : MonoBehaviour
         if (gyroFlg == false)
         {
             DebugMove();
-        }  
+        }
     }
 
     //ふとん取得に関するメソッド
     public void OhutonPointMaster()
     {
-        if (Input.GetKeyDown(KeyCode.N)) //現状はＮキー操作でふえる仕組み
-        {
-            if (obutonNum < 25)
-            {
-                obutonNum += 1;
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.M)) //現状はＭキー操作でふえる仕組み
-        {
-            if (obutonNum > 0)
-            {
-                obutonNum -= 1;
-            }
-        }
+        obutonNum += 1;
     }
 
     //ジャイロ操作統括
@@ -153,28 +143,59 @@ public class Jyroball : MonoBehaviour
         //キー操作では0.1fに設定する。
         rotSpeed = 0.1f;
         CustomPlayerScale();
-
-        if (gyroFlg == false)
+        if(damegeFlg==false)
         {
-            //diff = Target.position - this.gameObject.transform.position;
-            Vector3 dir = Vector3.zero;
-
-            dir.x = Input.GetAxis("Horizontal");
-            dir.z = Input.GetAxis("Vertical");
-
-            if (Input.GetKey(KeyCode.Space))
+            if (gyroFlg == false)
             {
-                rotSpeed *= 1.5f;
-            }
+                //diff = Target.position - this.gameObject.transform.position;
+                Vector3 dir = Vector3.zero;
 
-            transform.Translate(dir.x * rotSpeed, 0, dir.z * rotSpeed);
+                dir.x = Input.GetAxis("Horizontal");
+                dir.z = Input.GetAxis("Vertical");
 
-            if (dir.x != 0 || dir.z != 0)
-            {
-                rot = new Vector3(dir.x, 0, dir.z);
-                child.transform.localRotation = Quaternion.LookRotation(rot);
+                customDirX = dir.x;
+                customDirZ = dir.z;
+
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    rotSpeed *= 1.5f;
+                }
+
+                transform.Translate(dir.x * rotSpeed, 0, dir.z * rotSpeed);
+
+                if (dir.x != 0 || dir.z != 0)
+                {
+                    rot = new Vector3(customDirX, 0, customDirZ);
+                    child.transform.localRotation = Quaternion.LookRotation(rot);
+                }
             }
         }
+    }
+
+    //頭に当たるとふとんを5枚手放す部分、５枚以下だと１枚残るようにする。
+    public void TouchDamage()
+    {
+        Debug.Log("当たった２");
+        StartCoroutine("DamegeOn");
+        if(obutonNum >= 6)
+        {
+            obutonNum -= 5;
+        }
+
+        if (obutonNum <= 5)
+        {
+            int minusFN;
+            minusFN = obutonNum - 1;
+            obutonNum = obutonNum - minusFN;
+        }
+    }
+
+    //頭のダメージ処理本体 
+    public IEnumerator DamegeOn()
+    {
+        damegeFlg = true;
+        yield return new WaitForSeconds(2.0f);
+        damegeFlg = false;
     }
 
     //子オブジェクトのサイズ変更と初期スピードの変更を司るメソッド
