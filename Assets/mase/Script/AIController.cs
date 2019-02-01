@@ -11,10 +11,10 @@ public class AIController : MonoBehaviour
     public bool Playerhit;//Player発見フラグ
     //public GameObject target;//追いかけるターゲット
     //NavMeshAgent agent;
-    public float Accessspeed;
+    //public float Accessspeed;
     float stalkerCount;
     public Transform StalkingTarget;//追いかける対象の位置取得
-    public float Stalkingspeed = 0.1f;//Stalkingスピード
+     float Stalkingspeed;//Stalkingスピード
     private Vector3 vec;
     public bool AIdash;
     public int futongetCount = 0;
@@ -32,7 +32,7 @@ public class AIController : MonoBehaviour
 
         Playerhit = false;
 
-        stalkerCount = 2.0f;
+        stalkerCount = 1.0f;
 
         AIdash = false;
 
@@ -49,6 +49,7 @@ public class AIController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        SpeedMaster();
         if (AImove)
         {
             if (AIdash == false)
@@ -98,9 +99,9 @@ public class AIController : MonoBehaviour
 
 
                     //自分自身の位置から相対的に移動する
-                    transform.Translate(Vector3.forward * Accessspeed);
+                    transform.Translate(Vector3.forward * Stalkingspeed);
 
-                    stalkerCount = 3;
+                    stalkerCount = 2;
                     // Debug.Log("フラグがfalse");
                 }
             }
@@ -122,18 +123,8 @@ public class AIController : MonoBehaviour
         //{
         //    StartCoroutine(enemyhit());
         //}
-
-        PointCount();
     }
 
-    //自身の拡大
-    public void PointCount()
-    {
-        if (pointController.countup>=10)
-        {
-            Debug.Log("大きくなるよ");
-        }
-    }
 
     //指定されたタグの中で最も近いものを取得
     GameObject serchTag(GameObject nowObj, string tagName)
@@ -179,6 +170,7 @@ public class AIController : MonoBehaviour
 
     IEnumerator FuncCoroutine()
     {
+        SpeedMaster();
         if (Playerhit)
         {
             //agent.destination = target.transform.position;
@@ -217,7 +209,7 @@ public class AIController : MonoBehaviour
 
 
         //自分自身の位置から相対的に移動する
-        transform.Translate(Vector3.forward * Accessspeed *2.0f);
+        transform.Translate(Vector3.forward * Stalkingspeed *2.0f);
 
         //Debug.Log("フラグがfalse");
 
@@ -234,5 +226,39 @@ public class AIController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         AImove = true;
         enemy = false;
+    }
+
+    public void SpeedMaster()
+    {
+        if (pointController.countup >= 0 && pointController.countup < 5)
+        {
+            Stalkingspeed = 0.1f;
+            transform.localScale = new Vector3(2.54f, 2.54f, 2.54f);
+        }
+       else if (pointController.countup >= 5 && pointController.countup < 10)
+        {
+            Stalkingspeed = 0.09f;
+            transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+        }
+       else if (pointController.countup >= 10 && pointController.countup < 15)
+        {
+            Stalkingspeed = 0.08f;
+            transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+        }
+       else if (pointController.countup >= 15 && pointController.countup < 20)
+        {
+            Stalkingspeed = 0.07f;
+            transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+        }
+       else if (pointController.countup >= 20 && pointController.countup < 25)
+        {
+            Stalkingspeed = 0.06f;
+            transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+        }
+       else if (pointController.countup >= 25 && pointController.countup < 30)
+        {
+            Stalkingspeed = 0.05f;
+            transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
+        }
     }
 }

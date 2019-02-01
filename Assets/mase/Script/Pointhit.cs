@@ -14,7 +14,7 @@ public class Pointhit : MonoBehaviour
     public void Start()
     {
         countup = 0;
-        AImove = GameObject.Find("SampleAI");
+        AImove = GameObject.Find("AImove");
         aIController = AImove.GetComponent<AIController>();
     }
 

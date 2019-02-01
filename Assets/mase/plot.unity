@@ -907,7 +907,6 @@ MonoBehaviour:
   AImove: {fileID: 1616919697}
   count: {fileID: 1828219362}
   countup: 0
-  futoncount: 0
 --- !u!4 &480569408
 Transform:
   m_ObjectHideFlags: 0
@@ -1494,6 +1493,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1115726941
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.347
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.26999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619720247394910, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114572981402709252, guid: 04fd0fcbdf57233428697dc998b50d2e,
+        type: 2}
+      propertyPath: AImove
+      value: 
+      objectReference: {fileID: 1330017224}
+    - target: {fileID: 114990075575729220, guid: 04fd0fcbdf57233428697dc998b50d2e,
+        type: 2}
+      propertyPath: hitobj
+      value: 
+      objectReference: {fileID: 1330017224}
+    - target: {fileID: 114572981402709252, guid: 04fd0fcbdf57233428697dc998b50d2e,
+        type: 2}
+      propertyPath: count
+      value: 
+      objectReference: {fileID: 1828219362}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 04fd0fcbdf57233428697dc998b50d2e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1140993737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,6 +1650,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1140993737}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1330017224 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1274424410549154, guid: 04fd0fcbdf57233428697dc998b50d2e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1115726941}
 --- !u!1 &1336754434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +2064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1616919698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2016,14 +2077,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Playerhit: 0
-  Accessspeed: 0.1
   StalkingTarget: {fileID: 1967180028}
-  Stalkingspeed: 0.1
   AIdash: 0
   futongetCount: 0
   timeOut: 3
   enemy: 0
-  point: {fileID: 0}
 --- !u!195 &1616919699
 NavMeshAgent:
   m_ObjectHideFlags: 0

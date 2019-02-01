@@ -12,7 +12,7 @@ public class Hit : MonoBehaviour
 	void Start ()
     {
 
-        hitobj = GameObject.Find("SampleAI");
+        hitobj = GameObject.Find("AImove");
         maseAIScript = hitobj.GetComponent<AIController>();
 		
 	}
