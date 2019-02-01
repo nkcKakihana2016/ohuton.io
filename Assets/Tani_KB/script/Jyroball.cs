@@ -40,44 +40,45 @@ public class Jyroball : MonoBehaviour
         Step_4.SetActive(false);
         Step_5.SetActive(false);
 
-        child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-        ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
         cameraManeger = GameObject.Find("Main Camera").GetComponent<ControlCamera>(); //メインカメラのスクリプトを参照する
         obutonNum = 0;
     }
 
     void Update()
     {
-        if (s0 == true)
-        {
-            child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-            ballRun = child.GetComponent<ballRun>();
-        }
-        if (s1 == true)
-        {
-            child = GameObject.Find("huton_1(15)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-            ballRun = child.GetComponent<ballRun>();
-        }
-        if (s2 == true)
-        {
-            child = GameObject.Find("huton_2(20)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-            ballRun = child.GetComponent<ballRun>();
-        }
-        if (s3 == true)
-        {
-            child = GameObject.Find("huton_3(31)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-            ballRun = child.GetComponent<ballRun>();
-        }
-        if (s4 == true)
-        {
-            child = GameObject.Find("huton_4(46)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-            ballRun = child.GetComponent<ballRun>();
-        }
-        if (s5 == true)
-        {
-            child = GameObject.Find("huton_5(81)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
-            ballRun = child.GetComponent<ballRun>();
-        }
+        child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+        ballRun = child.GetComponent<ballRun>();                                      //攻撃を受けたかどうかを制御するスクリプトを探し、DamageFlgを使用できるようにする
+
+        /* if (s0 == true)
+         {
+             child = GameObject.Find("huton_0(5)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+             ballRun = child.GetComponent<ballRun>();
+         }
+         if (s1 == true)
+         {
+             child = GameObject.Find("huton_1(15)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+             ballRun = child.GetComponent<ballRun>();
+         }
+         if (s2 == true)
+         {
+             child = GameObject.Find("huton_2(20)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+             ballRun = child.GetComponent<ballRun>();
+         }
+         if (s3 == true)
+         {
+             child = GameObject.Find("huton_3(31)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+             ballRun = child.GetComponent<ballRun>();
+         }
+         if (s4 == true)
+         {
+             child = GameObject.Find("huton_4(46)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+             ballRun = child.GetComponent<ballRun>();
+         }
+         if (s5 == true)
+         {
+             child = GameObject.Find("huton_5(81)_h").GetComponent<Transform>();         //プレイヤーオブジェクトを探し、transformコンポーネントを取得する
+             ballRun = child.GetComponent<ballRun>();
+         }*/
 
         OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
 
@@ -91,7 +92,7 @@ public class Jyroball : MonoBehaviour
         {
             DebugMove();
         }
-
+        
         
     }
 
