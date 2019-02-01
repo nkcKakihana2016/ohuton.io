@@ -54,7 +54,7 @@ public class ballRun : MonoBehaviour
         futonpurge();
     }
 
-    public void Move()
+        public void Move()
     {
         //transform.Rotate(new Vector3(0, rotSpeed, 0) * Time.deltaTime);
     }
@@ -63,7 +63,8 @@ public class ballRun : MonoBehaviour
     {
         if (other.gameObject.tag == "point")
         {
-            
+            jyroball.GetComponent<Jyroball>().OhutonPointMaster();
+
             Destroy(other.gameObject);
             
             MurataScript.GetComponent<Gg_Slider>()._Gg += 1;

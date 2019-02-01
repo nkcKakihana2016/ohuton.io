@@ -32,8 +32,6 @@ public class Jyroball : MonoBehaviour
 
     void Update()
     {
-        OhutonPointMaster(); //ふとん取得に関するメソッドを常に起動させる
-
         //gyroflgのON，OFFでスマホ操作かPC操作を切り替えられる
         if (gyroFlg == true)
         {
@@ -49,20 +47,7 @@ public class Jyroball : MonoBehaviour
     //ふとん取得に関するメソッド
     public void OhutonPointMaster()
     {
-        if (Input.GetKeyDown(KeyCode.N)) //現状はＮキー操作でふえる仕組み
-        {
-            if (obutonNum < 25)
-            {
-                obutonNum += 1;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.M)) //現状はＭキー操作でふえる仕組み
-        {
-            if (obutonNum > 0)
-            {
-                obutonNum -= 1;
-            }
-        }
+        obutonNum += 1;
     }
 
     //ジャイロ操作統括
@@ -186,10 +171,23 @@ public class Jyroball : MonoBehaviour
             }
         }
     }
+
+    //頭に当たるとふとんを5枚手放す部分、５枚以下だと１枚残るようにする。
     public void TouchDamage()
     {
         Debug.Log("当たった２");
         StartCoroutine("DamegeOn");
+        if(obutonNum >= 6)
+        {
+            obutonNum -= 5;
+        }
+
+        if (obutonNum <= 5)
+        {
+            int minusFN;
+            minusFN = obutonNum - 1;
+            obutonNum = obutonNum - minusFN;
+        }
     }
 
     //頭のダメージ処理本体 
